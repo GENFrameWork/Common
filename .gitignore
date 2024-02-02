@@ -36,4 +36,4 @@ syntax: glob
 /**/Platforms/ESP32
 /**/Platforms/STM32/EWARM/DataIOStream
 /**/Platforms/STM32/EWARM/TestDataIO
-/Output.txt
+Output.txt
