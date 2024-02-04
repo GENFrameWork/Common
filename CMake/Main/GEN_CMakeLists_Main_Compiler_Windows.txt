@@ -6,6 +6,14 @@
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
+
+if(DEBUG_FEATURE)
+
+  add_definitions(-D_DEBUG)
+
+endif()
+
+
 set(CompilerFlags CMAKE_C_FLAGS 
                   CMAKE_C_FLAGS_DEBUG 
                   CMAKE_C_FLAGS_RELEASE 

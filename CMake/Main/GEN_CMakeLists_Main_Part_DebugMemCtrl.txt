@@ -9,17 +9,17 @@
   
 if(DEBUG_FEATURE)
 
-  add_definitions(-D_DEBUG)
-
-  set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build." FORCE)
-  set(CMAKE_CONFIGURATION_TYPES Debug CACHE STRING "Choose the type of build." FORCE)    
+  add_definitions(-DGEN_DEBUG)
+  set(CMAKE_BUILD_TYPE Debug   CACHE STRING "Choose the type of build." FORCE)
 
 else()
 
+  add_definitions(-DGEN_NODEBUG)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
-  set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING "Choose the type of build." FORCE)      
 
 endif()
+
+set(CMAKE_CONFIGURATION_TYPES ${CMAKE_BUILD_TYPE} CACHE STRING "" FORCE)
   
 message(STATUS "[GEN Setting build type to ${CMAKE_BUILD_TYPE} specified]")
 
@@ -31,6 +31,8 @@ if(XMEMORY_CONTROL_FEATURE)
 
   add_definitions(-DXMEMORY_CONTROL_ACTIVE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
+
+  message(STATUS "[GEN Add Memory Control]")
 
 endif()
 
