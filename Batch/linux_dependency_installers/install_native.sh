@@ -24,6 +24,9 @@ apt-get install rsync -y
 echo "Zip compresion"
 apt-get install zip -y
 echo "-----------------------------------------------------------------------"
+echo "System"
+apt-get install cpuid -y
+echo "-----------------------------------------------------------------------"
 echo "Comunications"
 echo "Wifi library"
 apt-get install libiw-dev -y
