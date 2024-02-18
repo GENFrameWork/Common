@@ -3,7 +3,9 @@
 # Delete Cache de CMake
 # --------------------------------------------------------------------
 
-message(STATUS "[GEN Delete CMake cache]")
+message(STATUS "----------------------------------------------------------------------------------------------------------------")
+
+message(STATUS "[GEN Delete CMake cache from: ${CMAKE_BINARY_DIR}]")
 
 set(cmake_generated ${CMAKE_BINARY_DIR}/CMakeCache.txt
                     ${CMAKE_BINARY_DIR}/cmake_install.cmake
