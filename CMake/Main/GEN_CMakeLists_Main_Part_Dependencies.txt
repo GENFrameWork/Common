@@ -478,7 +478,7 @@ if(INP_FEATURE)
   if(COMPILE_FOR_LINUX)
 
     option(GRP_FEATURE "Graphics" true)
-    option(GRP_2D_FEATURE   "Activate Graphics 2D"    true)
+    option(GRP_2D_FEATURE                                     "Activate Graphics 2D"                                    true)
 
   endif()
 
@@ -497,17 +497,50 @@ if(GRP_FEATURE)
 
 endif()
 
+if(GRP_BITMAP_FILE_BMP_FEATURE)    
+    
+  add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
+  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+    
+endif()
+
+
+if(GRP_BITMAP_FILE_JPG_FEATURE)    
+    
+  add_definitions(-DGRP_BITMAP_FILE_JPG_ACTIVE)    
+  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+    
+endif()
+  
+
+if(GRP_BITMAP_FILE_PNG_FEATURE)    
+    
+  add_definitions(-DGRP_BITMAP_FILE_PNG_ACTIVE)    
+  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+    
+endif()
+
+
+if(GRP_BITMAP_FILE_TGA_FEATURE)    
+    
+  add_definitions(-DGRP_BITMAP_FILE_TGA_ACTIVE)    
+  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+    
+endif()
+
+   
+if(GRP_VIDEO_FILE_AVI_FEATURE)
+
+  add_definitions(-DGRP_VIDEO_FILE_AVI_ACTIVE)
+  option(GRP_VIDEO_FILE_FEATURE                             "Graphics Video File"                                     true )
+  option(XFILE_RIFF_FEATURE                                 "XFile RIFF format"                                       true )
+
+endif()
+
 
 if(GRP_VIDEO_FILE_FEATURE)
   
   add_definitions(-DGRP_VIDEO_FILE_ACTIVE)
-
-  if(GRP_VIDEO_FILE_AVI_FEATURE)
-
-    add_definitions(-DGRP_VIDEO_FILE_AVI_ACTIVE)
-    option(XFILE_RIFF_FEATURE "XFile RIFF format"  true)
-
-  endif()
 
 endif()
 
