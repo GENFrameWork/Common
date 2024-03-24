@@ -1048,6 +1048,16 @@ endif()
 
 
 # --------------------------------------------------------------------
+# Identification
+
+if(IDENTIFICATION_FEATURE)
+
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_IDENTIFICATION}/ID_IBAN.cpp")
+
+endif()
+
+
+# --------------------------------------------------------------------
 # Utils
 
 list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XBase.cpp")
