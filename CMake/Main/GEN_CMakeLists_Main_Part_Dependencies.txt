@@ -16,25 +16,24 @@ add_definitions(-DUNICODE)
 
 if(COMPILE_FOR_WINDOWS)
   
-  option(XFILE_FEATURE              "XFile"                       true)
-  option(XTRANSLATION_FEATURE       "Translation"                 true)        
+  option(XFILE_FEATURE                                          "XFile"                                                   true )
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             true )        
      
 endif()
 
 
 if(COMPILE_FOR_LINUX)
  
-  option(XFILE_FEATURE              "XFile"                       true)
-  option(XTRANSLATION_FEATURE       "Translation"                 true)  
-   
-  option(XPROCESSMANAGER_FEATURE    "Process Manager"             true)    # TO REVISATED 
+  option(XFILE_FEATURE                                          "XFile"                                                   true )
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             true )     
+  option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         true )    # TO REVISATED 
   
 endif()
 
  
 if(COMPILE_FOR_ANDROID)      
 
-  option(XTRANSLATION_FEATURE       "Translation"                 true)  
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             true )  
  
 endif()   
 
@@ -46,9 +45,9 @@ endif()
 
 if(COMPILE_FOR_ESP32)
 
-  option(XSLEEP_FEATURE             "Sleep functions"             true)
-  option(XSYSTEM_FEATURE            "System functions"            true)
-  option(XTRANSLATION_FEATURE       "Translation"                 true) 
+  option(XSLEEP_FEATURE                                         "Sleep functions"                                         true )
+  option(XSYSTEM_FEATURE                                        "System functions"                                        true )
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             true ) 
 
 endif()
 
@@ -66,8 +65,9 @@ endif()
 if(APPMODE_LIBRARY_DINAMIC_FEATURE)
   
   add_definitions(-DAPPMODE_LIBRARY_DINAMIC)
-  option(APPMODE_API_LIB_FEATURE "Activates the export/import of classes in a library" true)
-  option(APPMODE_API_LIB_EXPORT_FEATURE "Activates the export of classes in a library" true)  
+
+  option(APPMODE_API_LIB_FEATURE                                "Activates the export/import of classes in a library"     true )
+  option(APPMODE_API_LIB_EXPORT_FEATURE                         "Activates the export of classes in a library"            true )  
 
 endif()
 
@@ -91,14 +91,15 @@ endif()
 if(APP_FEATURE)
 
   add_definitions(-DAPP_ACTIVE)
-  option(XPUBLISHER_FEATURE   "XPublisher"        true)
-  option(XSYSTEM_FEATURE      "System functions"  true)
+  
+  option(XPUBLISHER_FEATURE                                     "XPublisher"                                              true )
+  option(XSYSTEM_FEATURE                                        "System functions"                                        true )
 
 
   if(APP_CONSOLE_FEATURE)
     
     add_definitions(-DAPP_CONSOLE_ACTIVE)
-    option(XCONSOLE_FEATURE   "Console functions" true)
+    option(XCONSOLE_FEATURE                                     "Console functions"                                       true )
   
   endif()
         
@@ -106,9 +107,10 @@ if(APP_FEATURE)
   if(APP_GRAPHICS_FEATURE) 
 
     add_definitions(-DAPP_GRAPHICS_ACTIVE)
-    option(XFSMACHINE_FEATURE "XFSMachine"        true)
-    option(GRP_FEATURE        "Graphics"          true)
-    option(GRP_2D_FEATURE     "Graphics 2D"       true)
+
+    option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              true )
+    option(GRP_FEATURE                                          "Graphics"                                                true )
+    option(GRP_2D_FEATURE                                       "Graphics 2D"                                             true )
   
   endif()
 
@@ -116,7 +118,8 @@ if(APP_FEATURE)
   if(APP_CHECKRESOURCESHARDWARE_FEATURE)
 
     add_definitions(-DAPP_CHECKRESOURCESHARDWARE_ACTIVE)
-    option(XSCHEDULER_FEATURE "XScheduler" true)
+
+    option(XSCHEDULER_FEATURE                                   "XScheduler"                                              true )
 
   endif()
 
@@ -124,8 +127,8 @@ if(APP_FEATURE)
   if(APP_INTERNETSERVICES_FEATURE)
 
     add_definitions(-DAPP_INTERNETSERVICES_ACTIVE)
-    option(DIO_CHECKCONNECTIONS_FEATURE   "Check Connections"   true)
-    option(XSCHEDULER_FEATURE             "XScheduler"          true)
+    option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       true )
+    option(XSCHEDULER_FEATURE                                   "XScheduler"                                              true )
 
   endif()
 
@@ -147,7 +150,8 @@ if(APP_FEATURE)
   if(APP_UPDATE_FEATURE)
 
     add_definitions(-DAPP_UPDATE_ACTIVE)
-    option(DIO_APPLICATIONUPDATE_FEATURE "Application Update" true)
+
+    option(DIO_APPLICATIONUPDATE_FEATURE                        "Application Update"                                      true )
 
   endif()
 
@@ -179,7 +183,8 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
  
 
   add_definitions(-DAPP_CFG_ACTIVE)
-  option(APP_CFG_FEATURE "Application CFG" true) 
+
+  option(APP_CFG_FEATURE                                        "Application CFG"                                         true ) 
 
 
   if(APP_CFG_SCRIPTS_FEATURE)
@@ -192,7 +197,8 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_LOG_FEATURE)
 
     add_definitions(-DAPP_CFG_LOG_ACTIVE)
-    option(XLOG_FEATURE "LOG File" true)
+
+    option(XLOG_FEATURE                                         "LOG File"                                                true )
 
   endif()
 
@@ -200,8 +206,9 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_REMOTEFILE_FEATURE)
 
     add_definitions(-DAPP_CFG_REMOTEFILE_ACTIVE)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
-    option(DIO_WEBCLIENT_FEATURE "Web Client" true)
+
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
 
   endif()
 
@@ -209,7 +216,8 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_GENERAL_FEATURE)
 
     add_definitions(-DAPP_CFG_GENERAL_ACTIVE)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -217,9 +225,10 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_LOG_FEATURE)
 
     add_definitions(-DAPP_CFG_LOG_ACTIVE)  
-    option(APP_LOG_FEATURE "Application Log" true)
-    option(XLOG_FEATURE "LOG File" true)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(APP_LOG_FEATURE                                      "Application Log"                                         true )
+    option(XLOG_FEATURE                                         "LOG File"                                                true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -227,11 +236,12 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_INTERNETSERVICES_FEATURE)
 
     add_definitions(-DAPP_CFG_INTERNETSERVICES_ACTIVE)
-    option(HASH_FEATURE "HASH" true)
-    option(APP_INTERNETSERVICES_FEATURE "Application Internet Services" true)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
-    option(DIO_CHECKCONNECTIONS_FEATURE "Check Connections" true)
-    option(DIO_NETWORKTINEPROTOCOL_FEATURE "Network Time Protocol" true)
+
+    option(HASH_FEATURE                                         "HASH"                                                    true )
+    option(APP_INTERNETSERVICES_FEATURE                         "Application Internet Services"                           true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
+    option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       true )
+    option(DIO_NETWORKTINEPROTOCOL_FEATURE                      "Network Time Protocol"                                   true )
 
   endif()
 
@@ -246,7 +256,8 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_WEBSERVER_FEATURE)
 
     add_definitions(-DAPP_CFG_WEBSERVER_ACTIVE)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -254,8 +265,9 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_CHECKRESOURCESHARDWARE_FEATURE)
 
     add_definitions(-DAPP_CFG_CHECKRESOURCESHARDWARE_ACTIVE)
-    option(APP_CHECKRESOURCESHARDWARE_FEATURE "Application Check Resources Hardware" true)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(APP_CHECKRESOURCESHARDWARE_FEATURE                   "Application Check Resources Hardware"                    true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -263,7 +275,9 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_DIOLOCATION_FEATURE)
 
     add_definitions(-DAPP_CFG_DIOLOCATION_ACTIVE)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(DIO_LOCATION_FEATURE                                 "Location API"                                            true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -271,7 +285,8 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_DNSRESOLVER_FEATURE)
 
     add_definitions(-DAPP_CFG_DNSRESOLVER_ACTIVE)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -279,8 +294,9 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_ALERTS_FEATURE)
 
     add_definitions(-DAPP_CFG_ALERTS_ACTIVE)
-    option(APP_ALERTS_FEATURE "Application Alerts" true)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(APP_ALERTS_FEATURE                                   "Application Alerts"                                      true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
 
@@ -288,8 +304,9 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   if(APP_CFG_APPUPDATE_FEATURE)
 
     add_definitions(-DAPP_CFG_APPUPDATE_ACTIVE)
-    option(APP_UPDATE_FEATURE "Application Update" true)
-    option(XFILE_CFG_FEATURE "XFile Config format" true)
+
+    option(APP_UPDATE_FEATURE                                   "Application Update"                                      true )
+    option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
 
   endif()
   
@@ -309,10 +326,10 @@ if(USERINTERFACE_FEATURE)
   
   endif()
 
-  option(XPUBLISHER_FEATURE   "XPublisher"          true)
-  option(XFSMACHINE_FEATURE   "XFSMachine"          true)
-  option(XFILE_XML_FEATURE    "XFile XML format"    true)
-  option(XFILE_ZIP_FEATURE    "XFile Zip format"    true)  
+  option(XPUBLISHER_FEATURE                                     "XPublisher"                                              true )
+  option(XFSMACHINE_FEATURE                                     "XFSMachine"                                              true )
+  option(XFILE_XML_FEATURE                                      "XFile XML format"                                        true )
+  option(XFILE_ZIP_FEATURE                                      "XFile Zip format"                                        true )  
  
 endif()
 
@@ -324,10 +341,10 @@ if(SCRIPT_FEATURE)
   
   add_definitions("-DSCRIPT_ACTIVE")
 
-  option(XPUBLISHER_FEATURE       "XPublisher"          true)
-  option(XFSMACHINE_FEATURE       "XFSMachine"          true)
-  option(XCONSOLE_FEATURE         "Console functions"   true) 
-  option(XPROCESSMANAGER_FEATURE  "Process Manager"     true)
+  option(XPUBLISHER_FEATURE                                     "XPublisher"                                              true )
+  option(XFSMACHINE_FEATURE                                     "XFSMachine"                                              true )
+  option(XCONSOLE_FEATURE                                       "Console functions"                                       true ) 
+  option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         true )
 
 
   if(SCRIPT_LIB_SYSTEM_FEATURE)
@@ -361,9 +378,10 @@ if(SCRIPT_FEATURE)
   if(SCRIPT_LIB_WINDOW_FEATURE)
 
     add_definitions("-DSCRIPT_LIB_WINDOW_ACTIVE")
-    option(GRP_FEATURE              "Graphics"                    true)
-    option(GRP_2D_FEATURE           "Activate Graphics 2D"        true)
-    option(GRP_BITMAP_FILE_FEATURE  "Graphics Files Bitmap Type"  true)
+
+    option(GRP_FEATURE                                          "Graphics"                                                true )
+    option(GRP_2D_FEATURE                                       "Activate Graphics 2D"                                    true )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Files Bitmap Type"                              true )
     
   endif()
 
@@ -378,8 +396,9 @@ if(SCRIPT_FEATURE)
   if(SCRIPT_LIB_INPUTSIMULATE_FEATURE)
 
     add_definitions("-DSCRIPT_LIB_INPUTSIMULATE_ACTIVE")
-    option(INP_FEATURE            "Inputs"            true)
-    option(INP_SIMULATE_FEATURE   "Inputs Simulate"   true) 
+
+    option(INP_FEATURE                                          "Inputs"                                                  true )
+    option(INP_SIMULATE_FEATURE                                 "Inputs Simulate"                                         true ) 
     
   endif()
   
@@ -421,13 +440,15 @@ endif()
 if(DATABASES_SQL_FEATURE)  
 
   add_definitions(-DDB_SQL_ACTIVE)
-  option(XPUBLISHER_FEATURE "XPublisher" true)
-  option(XFSMACHINE_FEATURE "XFSMachine" true)
+
+  option(XPUBLISHER_FEATURE                                     "XPublisher"                                              true )
+  option(XFSMACHINE_FEATURE                                     "XFSMachine"                                              true )
 
   if(DATABASES_SQL_SQLITE_FEATURE)
 
     add_definitions(-DDB_SQLITE_ACTIVE)
-    option(DATABASES_SQL "DataBases SQL" true)
+
+    option(DATABASES_SQL                                        "DataBases SQL"                                           true )
 
   endif()
 
@@ -435,7 +456,8 @@ if(DATABASES_SQL_FEATURE)
   if(DATABASES_SQL_MYSQL_FEATURE)
 
     add_definitions(-DDB_MYSQL_ACTIVE)
-    option(DATABASES_SQL "DataBases SQL" true)
+
+    option(DATABASES_SQL                                        "DataBases SQL"                                           true )
 
   endif()
 
@@ -443,7 +465,8 @@ if(DATABASES_SQL_FEATURE)
   if(DATABASES_SQL_POSTGRESQL_FEATURE)
 
     add_definitions(-DDB_POSTGRESQL_ACTIVE)
-    option(DATABASES_SQL "DataBases SQL" true)
+
+    option(DATABASES_SQL                                        "DataBases SQL"                                           true )
 
   endif()
 
@@ -458,7 +481,8 @@ endif()
 if(INP_SIMULATE_FEATURE)
 
   add_definitions(-DINP_SIMULATE_ACTIVE)
-  option(INP_FEATURE "Inputs" true)
+
+  option(INP_FEATURE                                            "Inputs"                                                  true )
 
 endif()
 
@@ -466,7 +490,7 @@ endif()
 if(INP_CAPTURE_FEATURE)
 
   add_definitions(-DINP_CAPTURE_ACTIVE)
-  option(INP_FEATURE "Inputs" true)
+  option(INP_FEATURE                                            "Inputs"                                                  true )
   
 endif()
 
@@ -478,7 +502,7 @@ if(INP_FEATURE)
   if(COMPILE_FOR_LINUX)
 
     option(GRP_FEATURE "Graphics" true)
-    option(GRP_2D_FEATURE                                     "Activate Graphics 2D"                                    true)
+    option(GRP_2D_FEATURE                                       "Activate Graphics 2D"                                    true)
 
   endif()
 
@@ -491,6 +515,7 @@ endif()
 if(GRP_FEATURE)
 
   add_definitions(-DGRP_ACTIVE)
+
   add_definitions(-DFT_DEBUG_LEVEL_ERROR)
   add_definitions(-DFT_DEBUG_LEVEL_TRACE)
   add_definitions(-DFT2_BUILD_LIBRARY)
@@ -500,7 +525,8 @@ endif()
 if(GRP_BITMAP_FILE_BMP_FEATURE)    
     
   add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
-  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+
+  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   true )
     
 endif()
 
@@ -508,7 +534,8 @@ endif()
 if(GRP_BITMAP_FILE_JPG_FEATURE)    
     
   add_definitions(-DGRP_BITMAP_FILE_JPG_ACTIVE)    
-  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+
+  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   true )
     
 endif()
   
@@ -516,7 +543,8 @@ endif()
 if(GRP_BITMAP_FILE_PNG_FEATURE)    
     
   add_definitions(-DGRP_BITMAP_FILE_PNG_ACTIVE)    
-  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+
+  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   true )
     
 endif()
 
@@ -524,7 +552,8 @@ endif()
 if(GRP_BITMAP_FILE_TGA_FEATURE)    
     
   add_definitions(-DGRP_BITMAP_FILE_TGA_ACTIVE)    
-  option(GRP_BITMAP_FILE_FEATURE                            "Graphics Bitmap Files"                                   true )
+
+  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   true )
     
 endif()
 
@@ -532,8 +561,9 @@ endif()
 if(GRP_VIDEO_FILE_AVI_FEATURE)
 
   add_definitions(-DGRP_VIDEO_FILE_AVI_ACTIVE)
-  option(GRP_VIDEO_FILE_FEATURE                             "Graphics Video File"                                     true )
-  option(XFILE_RIFF_FEATURE                                 "XFile RIFF format"                                       true )
+
+  option(GRP_VIDEO_FILE_FEATURE                                 "Graphics Video File"                                     true )
+  option(XFILE_RIFF_FEATURE                                     "XFile RIFF format"                                       true )
 
 endif()
 
@@ -591,11 +621,10 @@ if(XTRACE_FEATURE)
  
   if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
   
-    option(DIO_FEATURE              "Data Input/Output" true)
-    option(DIO_DNSRESOLVER_FEATURE  "DNS Resolver"      true)
-    option(DIO_WEBCLIENT_FEATURE    "Web Client"        true)
-    option(DIO_SCRAPERWEB_FEATURE   "Scraper Web"       true)
-	
+    option(DIO_FEATURE                                          "Data Input/Output"                                       true )
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+    
   endif()
 
 endif()  
@@ -608,16 +637,17 @@ if(DIO_FEATURE)
 
   add_definitions(-DDIO_ACTIVE)
 
-  option(DIO_DNSRESOLVER_FEATURE            "DNS Resolver"            true)
-  option(DIO_WEBCLIENT_FEATURE              "Web Client"              true)
-  option(DIO_SCRAPERWEB_FEATURE             "Scraper Web"             true)
-  option(DIO_NOTIFICATIONS_MANAGER_FEATURE  "Notifications Manager"   true)
+  option(DIO_DNSRESOLVER_FEATURE                                "DNS Resolver"                                            true )
+  option(DIO_WEBCLIENT_FEATURE                                  "Web Client"                                              true )
+  option(DIO_SCRAPERWEB_FEATURE                                 "Scraper Web"                                             true )
+  option(DIO_NOTIFICATIONS_MANAGER_FEATURE                      "Notifications Manager"                                   true )
   
 
   if(DIO_WAKEONLAN_FEATURE)
 
     add_definitions(-DDIO_WAKEONLAN_ACTIVE)
-    option(DIO_STREAMUDP_FEATURE "Stream UDP" true)
+
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )
 
   endif()
 
@@ -632,7 +662,8 @@ if(DIO_FEATURE)
   if(DIO_MPSSE_FEATURE)
 
     add_definitions(-DDIO_MPSSE_ACTIVE)
-    option(DIO_STREAMUSB_FEATURE "Stream USB" true)
+
+    option(DIO_STREAMUSB_FEATURE                                "Stream USB"                                              true )
 
   endif()
 
@@ -640,7 +671,8 @@ if(DIO_FEATURE)
   if(DIO_DNSRESOLVER_FEATURE)
 
     add_definitions(-DDIO_DNSRESOLVER_ACTIVE)
-    option(DIO_STREAMUDP_FEATURE "Stream UDP" true)
+
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )
 
   endif()
 
@@ -648,9 +680,10 @@ if(DIO_FEATURE)
   if(DIO_SCRAPERWEB_FEATURE)
 
     add_definitions(-DDIO_SCRAPERWEB_ACTIVE)
-    option(XFILE_XML_FEATURE      "XFile XML format"    true)
-    option(XFILE_JSON_FEATURE     "XFile JSON format"   true)
-    option(DIO_WEBCLIENT_FEATURE  "Web Client"          true)
+
+    option(XFILE_XML_FEATURE                                    "XFile XML format"                                        true )
+    option(XFILE_JSON_FEATURE                                   "XFile JSON format"                                       true )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
 
   endif()
 
@@ -666,7 +699,8 @@ if(DIO_FEATURE)
   if(DIO_NETWORKTINEPROTOCOL_FEATURE)
 
     add_definitions(-DDIO_NETWORKTINEPROTOCOL_ACTIVE)
-    option(DIO_STREAMUDP_FEATURE "UDP" true)
+
+    option(DIO_STREAMUDP_FEATURE                                "UDP"                                                     true )
 
   endif()
 
@@ -674,7 +708,8 @@ if(DIO_FEATURE)
   if(DIO_DYNDNS_FEATURE)
 
     add_definitions(-DDIO_DYNDNS_ACTIVE)
-    option(DIO_WEBCLIENT_FEATURE "Web Client" true)
+
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
 
   endif()
 
@@ -682,7 +717,8 @@ if(DIO_FEATURE)
   if(DIO_WIFIMANAGERMODE_FEATURE)
 
     add_definitions(-DDIO_WIFIMANAGERMODE_ACTIVE)
-    option(DIO_STREAMTCPIP_FEATURE "Stream TCPIP" true)
+
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            true )
     
   endif()
 
@@ -697,7 +733,8 @@ if(DIO_FEATURE)
   if(DIO_PING_FEATURE)
 
     add_definitions(-DDIO_PING_ACTIVE)
-    option(DIO_STREAMICMP_FEATURE "ICMP" true) 
+
+    option(DIO_STREAMICMP_FEATURE                               "ICMP"                                                    true ) 
 
   endif()
 
@@ -705,10 +742,10 @@ if(DIO_FEATURE)
   if(DIO_PROTOCOL_FEATURE)
 
     add_definitions(-DDIO_PROTOCOL_ACTIVE)
-    option(DIO_STREAMCIPHER_FEATURE       "Stream Cipher"         true)
-    option(DIO_STREAMUDP_FEATURE          "Stream UDP"            true)
-    option(DIO_STREAMTCPIP_FEATURE        "Stream TCPIP"          true)
-    option(CIPHER_SYMMETRIC_AES_FEATURE   "Cipher Symetric AES"   true)
+    option(DIO_STREAMCIPHER_FEATURE                             "Stream Cipher"                                           true )
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            true )
+    option(CIPHER_SYMMETRIC_AES_FEATURE                         "Cipher Symetric AES"                                     true )
 
    endif()
 
@@ -716,7 +753,7 @@ if(DIO_FEATURE)
   if(DIO_PROTOCOL_CLI_BUS_FEATURE)
 
     add_definitions(-DDIO_PROTOCOL_CLI_BUS_ACTIVE)
-    option(DIO_PROTOCOL_CLI_FEATURE "Protocol in CLI" true)
+    option(DIO_PROTOCOL_CLI_FEATURE                             "Protocol in CLI"                                         true )
 
   endif()
 
@@ -724,11 +761,12 @@ if(DIO_FEATURE)
   if(DIO_PROTOCOL_CLI_FEATURE)
 
     add_definitions(-DDIO_PROTOCOL_CLI_ACTIVE)
-    option(DIO_STREAMCIPHER_FEATURE       "Stream Cipher"         true)   
-    option(DIO_STREAMUART_FEATURE         "Stream UART"           true)
-    option(DIO_STREAMUSB_FEATURE          "Stream USB"            true)
-    option(DIO_STREAMTCPIP_FEATURE        "Stream TCPIP"          true)
-    option(CIPHER_SYMMETRIC_AES_FEATURE   "Cipher Symetric AES"   true)
+
+    option(DIO_STREAMCIPHER_FEATURE                             "Stream Cipher"                                           true )   
+    option(DIO_STREAMUART_FEATURE                               "Stream UART"                                             true )
+    option(DIO_STREAMUSB_FEATURE                                "Stream USB"                                              true )
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            true )
+    option(CIPHER_SYMMETRIC_AES_FEATURE                         "Cipher Symetric AES"                                     true )
 
   endif()
 
@@ -736,8 +774,9 @@ if(DIO_FEATURE)
   if(DIO_STREAMCIPHER_FEATURE)
 
     add_definitions(-DDIO_STREAMCIPHER_ACTIVE)
-    option(HASH_FEATURE "Hash" true)
-    option(CIPHER_SYMMETRIC_FEATURE "Cipher Symetric" true)
+
+    option(HASH_FEATURE                                         "Hash"                                                    true )
+    option(CIPHER_SYMMETRIC_FEATURE                             "Cipher Symetric"                                         true )
 
   endif()
 
@@ -745,10 +784,11 @@ if(DIO_FEATURE)
   if(DIO_ALERTS_FEATURE)
 
     add_definitions(-DDIO_ALERTS_ACTIVE)
-    option(DIO_ATCMD_FEATURE "AT Commands" true)
-    option(DIO_SMTP_FEATURE "SMTP (email)" true) 
-    option(DIO_WEBCLIENT_FEATURE "Web Client" true)
-    option(DIO_STREAMUDP_FEATURE "Stream UDP" true)
+
+    option(DIO_ATCMD_FEATURE                                    "AT Commands"                                             true )
+    option(DIO_SMTP_FEATURE                                     "SMTP (email)"                                            true ) 
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )
 
   endif()
 
@@ -756,7 +796,8 @@ if(DIO_FEATURE)
   if(DIO_SMTP_FEATURE)
 
     add_definitions(-DDIO_SMTP_ACTIVE)
-    option(DIO_STREAMTCPIP_FEATURE "Stream TCPIP" true)
+
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            true )
 
   endif()
 
@@ -771,7 +812,8 @@ if(DIO_FEATURE)
   if(DIO_ATCMD_FEATURE)
 
     add_definitions(-DDIO_ATCMD_ACTIVE)
-    option(DIO_STREAMUART_FEATURE "Stream UART" true)
+
+    option(DIO_STREAMUART_FEATURE                               "Stream UART"                                             true )
 
   endif()
 
@@ -779,7 +821,8 @@ if(DIO_FEATURE)
   if(DIO_NODEMANAGER_FEATURE)    
 
     add_definitions(-DDIO_NODEMANAGER_ACTIVE)
-    option(DIO_NODES_FEATURE "Nodes modules" true)    
+
+    option(DIO_NODES_FEATURE                                    "Nodes modules"                                           true )    
 
   endif()
 
@@ -787,10 +830,11 @@ if(DIO_FEATURE)
   if(DIO_NODEITEMHANDLER_SENSORAM2315_FEATURE)    
 
     add_definitions(-DDIO_NODEITEMHANDLER_SENSORAM2315_ACTIVE)
-    option(DIO_STREAM_FEATURE                   "Stream"                                  true)
-    option(DIO_STREAMI2C_FEATURE                "Stream I2C"                              true) 
-    option(DIO_STREAMI2C_TEMHUMSENSOR_AM2315_FEATURE  "I2C Temperature Humidity Sensor AM2315"  true) 
-    option(DIO_NODES_FEATURE                    "Nodes modules"                           true)
+
+    option(DIO_STREAM_FEATURE                                   "Stream"                                                  true )
+    option(DIO_STREAMI2C_FEATURE                                "Stream I2C"                                              true ) 
+    option(DIO_STREAMI2C_TEMHUMSENSOR_AM2315_FEATURE            "I2C Temperature Humidity Sensor AM2315"                  true ) 
+    option(DIO_NODES_FEATURE                                    "Nodes modules"                                           true )
 
   endif()
 
@@ -798,7 +842,8 @@ if(DIO_FEATURE)
   if(DIO_NODEITEMHANDLER_GPIODIGITAL_FEATURE)
 
     add_definitions(-DDIO_NODEITEMHANDLER_GPIODIGITAL_ACTIVE)
-    option(DIO_NODES_FEATURE "Nodes modules" true)   
+
+    option(DIO_NODES_FEATURE                                    "Nodes modules"                                           true )   
 
   endif()
  
@@ -806,7 +851,8 @@ if(DIO_FEATURE)
   if(DIO_NODES_FEATURE)    
 
     add_definitions(-DDIO_NODES_ACTIVE)
-    option(XUUID_FEATURE "UUID functions" true)     
+
+    option(XUUID_FEATURE                                        "UUID functions"                                          true)     
 
   endif()
 
@@ -828,8 +874,9 @@ if(DIO_FEATURE)
   if(DIO_IEC60870_5_FEATURE)
 
     add_definitions(-DDIO_IEC60870_5_ACTIVE) 
-    option(DIO_STREAMUART_FEATURE     "Stream UART"       true)
-    option(DIO_STREAMTCPIP_FEATURE    "Stream TCPIP"      true)
+
+    option(DIO_STREAMUART_FEATURE                               "Stream UART"                                             true )
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            true )
   
   endif()
 
@@ -837,7 +884,8 @@ if(DIO_FEATURE)
   if(DIO_OBEXPUSH_FEATURE)
 
     add_definitions(-DDIO_OBEXPUSH_ACTIVE)
-    option(DIO_STREAMUART_FEATURE     "Stream UART"       true)
+
+    option(DIO_STREAMUART_FEATURE                               "Stream UART"                                             true )
       
   endif()
 
@@ -865,8 +913,9 @@ if(DIO_FEATURE)
   if(DIO_WEBCLIENT_FEATURE) 
 
     add_definitions(-DDIO_WEBCLIENT_ACTIVE)
-    option(DIO_STREAMTCPIP_FEATURE  "TCPIP"      true)
-    option(HASH_MD5_FEATURE         "Hash MD5"   true)
+
+    option(DIO_STREAMTCPIP_FEATURE                              "TCPIP"                                                   true )
+    option(HASH_MD5_FEATURE                                     "Hash MD5"                                                true )
 
   endif()
 
@@ -874,10 +923,11 @@ if(DIO_FEATURE)
   if(DIO_WEBSERVER_FEATURE)  
 
     add_definitions(-DDIO_WEBSERVER_ACTIVE)
-    option(DIO_STREAMTCPIP_FEATURE    "TCPIP"             true)
-    option(HASH_FEATURE               "HASH"              true)
-    option(HASH_SHA1_FEATURE          "Hash SHA1"         true)
-    option(XPROCESSMANAGER_FEATURE    "Process Manager"   true)
+
+    option(DIO_STREAMTCPIP_FEATURE                              "TCPIP"                                                   true )
+    option(HASH_FEATURE                                         "HASH"                                                    true )
+    option(HASH_SHA1_FEATURE                                    "Hash SHA1"                                               true )
+    option(XPROCESSMANAGER_FEATURE                              "Process Manager"                                         true )
 
   endif()
  
@@ -885,10 +935,11 @@ if(DIO_FEATURE)
   if(DIO_STREAMTLS_FEATURE)
 
     add_definitions(-DDIO_TLS_ACTIVE)
-    option(DIO_STREAMTCPIP_FEATURE    "TCPIP"             true)
-    option(HASH_FEATURE               "Hash"              true)
-    option(CIPHER_SYMMETRIC_FEATURE   "Cipher Symetric"   true)
-    option(CIPHER_ASYMMETRIC_FEATURE  "Cipher Asymetric"  true)
+
+    option(DIO_STREAMTCPIP_FEATURE                              "TCPIP"                                                   true )
+    option(HASH_FEATURE                                         "Hash"                                                    true )
+    option(CIPHER_SYMMETRIC_FEATURE                             "Cipher Symetric"                                         true )
+    option(CIPHER_ASYMMETRIC_FEATURE                            "Cipher Asymetric"                                        true )
 
   endif()
 
@@ -904,10 +955,10 @@ if(DIO_FEATURE)
      DIO_STREAMI2C_FEATURE)
 
 
-    option(DIO_STREAM_FEATURE   "Stream"            true)
-    option(XSLEEP_FEATURE       "Sleep functions"   true)
-    option(XPUBLISHER_FEATURE   "XPublisher"        true)
-    option(XFSMACHINE_FEATURE   "XFSMachine"        true)
+    option(DIO_STREAM_FEATURE                                   "Stream"                                                  true )
+    option(XSLEEP_FEATURE                                       "Sleep functions"                                         true )
+    option(XPUBLISHER_FEATURE                                   "XPublisher"                                              true )
+    option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              true )
 
 
     if(DIO_STREAMUART_FEATURE)
@@ -927,7 +978,8 @@ if(DIO_FEATURE)
     if(DIO_STREAMBLUETOOTH_FEATURE)
 
       add_definitions(-DDIO_STREAMBLUETOOTH_ACTIVE)  
-      option(XUUID_FEATURE "UUID functions" true)
+
+      option(XUUID_FEATURE                                      "UUID functions"                                          true )
 
     endif()
 
@@ -1010,7 +1062,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMI2C_OLEDDISPLAY_SSD1306_FEATURE)
 
         add_definitions(-DDIO_STREAMI2C_OLEDDISPLAY_SSD1306_ACTIVE)    
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                      "Display Device"                                            true )
 
       endif()
 
@@ -1074,7 +1127,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMSPI_LCDDISPLAY_PCF8833_FEATURE)
 
         add_definitions(-DDIO_STREAMSPI_LCDDISPLAY_PCF8833_ACTIVE)    
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                        "Display Device"                                          true )
 
       endif()
 
@@ -1082,7 +1136,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMSPI_OLEDDISPLAY_SSD1306_FEATURE)
 
         add_definitions(-DDIO_STREAMSPI_OLEDDISPLAY_SSD1306_ACTIVE)    
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                        "Display Device"                                          true )
       
       endif()
 
@@ -1090,7 +1145,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMSPI_OLEDDISPLAY_SSD1331_FEATURE)
 
         add_definitions(-DDIO_STREAMSPI_OLEDDISPLAY_SSD1331_ACTIVE)    
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                        "Display Device"                                          true )
 
       endif()
 
@@ -1098,7 +1154,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMSPI_TFTDISPLAY_ILI9341_FEATURE)
 
         add_definitions(-DDIO_STREAMSPI_TFTDISPLAY_ILI9341_ACTIVE) 
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                        "Display Device"                                          true )
 
       endif()
 
@@ -1106,7 +1163,8 @@ if(DIO_FEATURE)
       if(DIO_STREAMSPI_TFTDISPLAY_ST7789_FEATURE)
 
         add_definitions(-DDIO_STREAMSPI_TFTDISPLAY_ST7789_ACTIVE) 
-        option(DIO_DISPLAYDEVICE_FEATURE "Display Device" true)
+
+        option(DIO_DISPLAYDEVICE_FEATURE                        "Display Device"                                          true )
 
       endif()
 
@@ -1130,8 +1188,9 @@ if(DIO_FEATURE)
     if(DIO_STREAMUDP_FEATURE)
 
       add_definitions(-DDIO_STREAMUDP_ACTIVE)
-      option(HASH_FEATURE         "HASH"          true)
-      option(HASH_CRC32_FEATURE   "Hash CRC32"    true)
+
+      option(HASH_FEATURE                                       "HASH"                                                    true )
+      option(HASH_CRC32_FEATURE                                 "Hash CRC32"                                              true )
 
     endif()
 
@@ -1168,14 +1227,14 @@ if(DIO_FEATURE)
   
   if(DIO_CAMERA_FEATURE)
 
-   option(XSCHEDULER_FEATURE  "XScheduler"   true )  
+   option(XSCHEDULER_FEATURE                                    "XScheduler"                                              true )  
   
   endif()
 
 
   if(DIO_APPLICATIONUPDATE_FEATURE)
    
-    option(XPROCESSMANAGER_FEATURE "Process Manager" true)
+    option(XPROCESSMANAGER_FEATURE                              "Process Manager"                                         true )
 
   endif()
 
@@ -1209,7 +1268,8 @@ endif()
 if(XCONSOLE_FEATURE)
 
   add_definitions(-DXCONSOLE_ACTIVE) 
-  option(XSLEEP_FEATURE "Sleep functions" true)
+
+  option(XSLEEP_FEATURE                                         "Sleep functions"                                         true )
 
 endif()
 
@@ -1245,8 +1305,9 @@ endif()
 if(XUUID_FEATURE)
 
   add_definitions(-DXUUID__ACTIVE)
-  option(HASH_FEATURE "Hash" true)
-  option(HASH_CRC32_FEATURE "Hash CRC32" true)
+
+  option(HASH_FEATURE                                           "Hash"                                                    true )
+  option(HASH_CRC32_FEATURE                                     "Hash CRC32"                                              true )
 
 endif()
 
@@ -1254,8 +1315,9 @@ endif()
 if(XLOG_FEATURE) 
 
   add_definitions(-DXLOG_ACTIVE)
-  option(XFILE_FEATURE "XFile" true)
-  option(XFILE_ZIP_FEATURE "XFile Zip format" true)
+
+  option(XFILE_FEATURE                                          "XFile"                                                   true )
+  option(XFILE_ZIP_FEATURE                                      "XFile Zip format"                                        true )
   
 endif()
 
@@ -1263,8 +1325,9 @@ endif()
 if(XTRANSLATION_FEATURE)
 
   add_definitions(-DXTRANSLATION_ACTIVE)
-  option(XFILE_JSON_FEATURE "XFile JSON format" true)
-  option(XTRANSLATION_GEN_FEATURE "Translation GEN" true)
+
+  option(XFILE_JSON_FEATURE                                     "XFile JSON format"                                       true )
+  option(XTRANSLATION_GEN_FEATURE                               "Translation GEN"                                         true )
 
 endif()
 
@@ -1314,7 +1377,8 @@ endif()
 if(XFILE_CFG_FEATURE) 
 
   add_definitions(-DXFILE_CFG_ACTIVE)
-  option(XFILE_INI_FEATURE "XFile INI format" true)
+
+  option(XFILE_INI_FEATURE                                      "XFile INI format"                                        true )
 
 endif()
 
@@ -1322,7 +1386,8 @@ endif()
 if(XFILE_INI_FEATURE) 
 
   add_definitions(-DXFILE_INI_ACTIVE)
-  option(XFILE_TXT_FEATURE "XFile Text format" true)
+
+  option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       true )
 
 endif()
 
@@ -1330,7 +1395,8 @@ endif()
 if(XFILE_ZIP_FEATURE) 
 
   add_definitions(-DXFILE_ZIP_ACTIVE)
-  option(XFILE_FEATURE "XFile" true)   
+
+  option(XFILE_FEATURE                                          "XFile"                                                   true )   
 
 endif()  
  
@@ -1338,7 +1404,8 @@ endif()
 if(XFILE_XML_FEATURE) 
 
   add_definitions(-DXFILE_XML_ACTIVE)
-  option(XFILE_TXT_FEATURE "XFile Text format" true)
+
+  option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       true )
 
 endif()  
  
@@ -1346,7 +1413,8 @@ endif()
 if(XFILE_JSON_FEATURE)  
 
   add_definitions(-DXFILE_JSON_ACTIVE) 
-  option(XFILE_TXT_FEATURE "XFile Text format" true)
+
+  option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       true )
 
 endif()
 
@@ -1354,7 +1422,8 @@ endif()
 if(XFILE_RIFF_FEATURE) 
 
   add_definitions(-DXFILE_RIFF_ACTIVE)
-  option(XFILE_FEATURE "XFile" true)     
+
+  option(XFILE_FEATURE                                          "XFile"                                                   true )     
 
 endif()
   
@@ -1362,7 +1431,8 @@ endif()
 if(XFILE_HEX_FEATURE)  
 
   add_definitions(-DXFILE_HEX_ACTIVE)
-  option(XFILE_TXT_FEATURE "XFile Text format" true)
+
+  option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       true )
 
 endif()
  
@@ -1370,7 +1440,8 @@ endif()
 if(XFILE_DFU_FEATURE)  
 
   add_definitions(-DXFILE_DFU_ACTIVE)
-  option(XFILE_FEATURE "XFile" true)     
+
+  option(XFILE_FEATURE                                          "XFile"                                                   true )     
 
 endif()  
 
@@ -1378,7 +1449,8 @@ endif()
 if(XFILE_TXT_FEATURE)
 
   add_definitions(-DXFILE_TXT_ACTIVE)
-  option(XFILE_FEATURE "XFile" true)     
+
+  option(XFILE_FEATURE                                          "XFile"                                                   true )     
 
 endif()  
 
@@ -1386,9 +1458,10 @@ endif()
 if(XFILE_FEATURE)
 
   add_definitions(-DXFILE_ACTIVE)
-  option(CIPHER_SYMMETRIC_FEATURE "Cipher" true)
-  option(CIPHER_SYMMETRIC_FEATURE "Cipher Symetric" true)
-  option(CIPHER_ASYMMETRIC_FEATURE "Cipher Asymetric" true)
+
+  option(CIPHER_SYMMETRIC_FEATURE                               "Cipher"                                                  true )
+  option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         true )
+  option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        true )
 
 endif()  
 
@@ -1403,10 +1476,11 @@ endif()
 if(XLICENSE_FEATURE)
                    
   add_definitions(-DXLICENSE_ACTIVE)
-  option(CIPHER_SYMMETRIC_FEATURE "Cipher Symetric" true)
-  option(CIPHER_SYMMETRIC_AES_FEATURE "Cipher Symetric AES" true)
-  option(HASH_SHA1_FEATURE "Hash SHA1" true)    
-  option(HASH_SHA2_FEATURE "Hash SHA2" true)
+
+  option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         true )
+  option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     true )
+  option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               true )    
+  option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               true )
 
 endif()
 
@@ -1420,7 +1494,7 @@ if(CIPHER_ASYMMETRIC_FEATURE)
   if(CIPHER_ASYMMETRIC_FILEKEY_PEM)
 
     add_definitions(-DCIPHERKEYSFILEPEM_ACTIVE)
-    option(XASN1_FEATURE "ANS.1 functions" true)
+    option(XASN1_FEATURE                                        "ANS.1 functions"                                         true )
   
   endif()
 
@@ -1534,7 +1608,8 @@ if(CIPHER_ASYMMETRIC_FEATURE)
     if(CIPHER_ASYMMETRIC_FILEKEY_PEM)
   
       add_definitions(-DCIPHER_ASYMMETRIC_FILEKEY_PEM_ACTIVE)
-      option(XASN1_FEATURE "ANS.1 functions" true)
+
+      option(XASN1_FEATURE                                      "ANS.1 functions"                                         true )
 	
     endif()
 
@@ -1555,7 +1630,8 @@ endif()
 if(COMPRESS_GZ_FEATURE)
 
   add_definitions(-DCOMPRESS_GZ_ACTIVE)
-  option(COMPRESS_FEATURE "Compress" true)
+
+  option(COMPRESS_FEATURE                                       "Compress"                                                true )
 
 endif()
 
@@ -1563,7 +1639,8 @@ endif()
 if(COMPRESS_LZRW1KH_FEATURE)                                                              
 
   add_definitions(-DCOMPRESS_LZRW1KH_ACTIVE)
-  option(COMPRESS_FEATURE "Compress" true)
+
+  option(COMPRESS_FEATURE                                       "Compress"                                                true )
 
 endif()
 
@@ -1571,7 +1648,8 @@ endif()
 if(COMPRESS_LZW_FEATURE)
 
   add_definitions(-DCOMPRESS_LZW_ACTIVE)
-  option(COMPRESS_FEATURE "Compress" true)
+
+  option(COMPRESS_FEATURE                                       "Compress"                                                true )
 
 endif()
 
@@ -1579,7 +1657,8 @@ endif()
 if(COMPRESS_ZIP_FEATURE)
 
   add_definitions(-DCOMPRESS_ZIP_ACTIVE)
-  option(COMPRESS_FEATURE "Compress" true)
+
+  option(COMPRESS_FEATURE                                       "Compress"                                                true )
 
 endif()
 

@@ -29,7 +29,6 @@ if(COMPILE_WITH_MSVC)
 endif()
 
 
-
 # --------------------------------------------------------------------
 # Linux GNU GCC Compiler
 
@@ -41,7 +40,6 @@ if(COMPILE_WITH_GCC)
  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wreturn-local-addr")                                   # warning: reference to local variable ‘var’ returned [-Wreturn-local-addr]   
 
 endif()
-
 
 
 # --------------------------------------------------------------------
@@ -62,13 +60,13 @@ if(COMPILE_WITH_CLANG)
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-cast-calling-convention")
   set(WARNING_TO_CPP  "${WARNING_TO_BOTH} -Wno-register")                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
 
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-writable-strings")
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-delete-incomplete")
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-microsoft-extra-qualification")
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-comment")     
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -ferror-limit=1000")
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-writable-strings")
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-delete-incomplete")
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-microsoft-extra-qualification")
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-comment")     
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -ferror-limit=1000")
 
- #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -fno-register")
+  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -fno-register")
     
 endif()
 

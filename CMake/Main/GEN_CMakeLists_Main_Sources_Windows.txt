@@ -186,7 +186,7 @@ list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_PLATFORMS_WINDOWS}
 
 if(DEBUG_FEATURE)
 
-  option(WINDOWS_STACKWALKER_FEATURE "Windows Stack Walcker Manager"  true )
+  option(WINDOWS_STACKWALKER_FEATURE                            "Windows Stack Walcker Manager"                           true )
 
 endif()
 

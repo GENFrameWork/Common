@@ -75,12 +75,6 @@ if(APP_FEATURE)
   endif()
 
 
-  if(APP_CFG_DIOLOCATION_FEATURE)
-
-    option(DIO_LOCATION_FEATURE  "Location API"  true )
-  
-  endif()
-
 endif()
 
    
@@ -427,8 +421,6 @@ if(SND_FEATURE)
 
   endif()
 
-  # option(SND_FILE_WAV_FEATURE "Sound WAV file" true)
-  # option(SND_FILE_OGG_FEATURE "Sound OGG file" true)
 
   if(SND_FILE_OGG_FEATURE OR SND_FILE_WAV_FEATURE)
 
@@ -443,7 +435,8 @@ if(SND_FEATURE)
     if(SND_FILE_WAV_FEATURE)
 
       list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_SOUND_FILES}/SNDFileWAV.cpp")  
-      option(XFILE_RIFF_FEATURE "XFile RIFF format" true)
+
+      option(XFILE_RIFF_FEATURE                                 "XFile RIFF format"                                       true )
 
     endif()
 
@@ -479,8 +472,9 @@ if(DIO_FEATURE)
     
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_PROTOCOLS}/DIODNSProtocol_MitM_Server.cpp")
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_PROTOCOLS}/DIODNSProtocol_MitM_Server_XEvent.cpp")
-     option(DIO_STREAMUDP_FEATURE   "Stream UDP"      true)   
-    option(DIO_DNSRESOLVER_FEATURE  "DNS Resolver"    true)
+
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )   
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
 
   endif()
 
@@ -1122,7 +1116,9 @@ endif()
 if(XCONSOLE_FEATURE)
 
   add_definitions(-DXCONSOLE_ACTIVE) 
-  option(XSLEEP_FEATURE "Sleep functions" true)
+
+  option(XSLEEP_FEATURE                                         "Sleep functions"                                         true)
+
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XConsole.cpp")
 
 endif()
