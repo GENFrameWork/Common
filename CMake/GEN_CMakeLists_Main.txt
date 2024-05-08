@@ -3,16 +3,10 @@
 # Main of GEN
 # --------------------------------------------------------------------
 
-message(STATUS "----------------------------------------------------------------------------------------------------------------")
 
-#if(NOT GEN_DETECT_PLATFORM_COMPILER)
-
-  # Compile Selection
-  include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Platform-Compiler.txt") 
- 
-#endif()
-
-#option(GEN_DETECT_PLATFORM_COMPILER   "Detect Platform Compiler"    false)
+# Compile Selection
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Platform-Compiler.txt") 
+  
 
 # Warnings control
 include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Warnings.txt") 
@@ -123,3 +117,7 @@ endif()
 
 message(STATUS "----------------------------------------------------------------------------------------------------------------")
 
+
+option(GEN_DETECT_PLATFORM_COMPILER                           "Detect platform compiler"                                false)
+unset(GEN_DETECT_PLATFORM_COMPILER CACHE)
+ 
