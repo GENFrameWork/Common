@@ -154,7 +154,6 @@ if(SCRIPT_FEATURE)
 
   if(SCRIPT_CACHE_FEATURE)
 
-    add_definitions(-DSCRIPT_CACHE_ACTIVE) 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_SCRIPT}/Script_Cache.cpp")
 
   endif()
@@ -435,9 +434,7 @@ if(SND_FEATURE)
     if(SND_FILE_WAV_FEATURE)
 
       list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_SOUND_FILES}/SNDFileWAV.cpp")  
-
-      option(XFILE_RIFF_FEATURE                                 "XFile RIFF format"                                       true )
-
+      
     endif()
 
   endif()
@@ -452,8 +449,15 @@ if(DIO_FEATURE)
 
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOFactory.cpp")
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOMAC.cpp")
+ 
+
+  if(DIO_PUBLICINTERNETIP_FEATURE)
+
+    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOPublicInternetIP.cpp")
+    
+  endif()
   
-  
+
   if(DIO_WAKEONLAN_FEATURE)
 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOWakeOnLAN.cpp")
@@ -472,10 +476,7 @@ if(DIO_FEATURE)
     
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_PROTOCOLS}/DIODNSProtocol_MitM_Server.cpp")
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_PROTOCOLS}/DIODNSProtocol_MitM_Server_XEvent.cpp")
-
-    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )   
-    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
-
+    
   endif()
 
 
@@ -684,6 +685,20 @@ if(DIO_FEATURE)
 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOGPIO.cpp")
 
+  endif()
+  
+  
+  if(DIO_OSPIPELINE_FEATURE)
+
+    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIOOSPipeline.cpp")
+
+  endif()
+
+
+  if(DIO_NATIVEMSGBROWSEREXTENSION_FEATURE)
+
+    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIONativeMgsBrowserExtension.cpp")
+    
   endif()
 
 
@@ -1114,11 +1129,7 @@ endif()
 
 
 if(XCONSOLE_FEATURE)
-
-  add_definitions(-DXCONSOLE_ACTIVE) 
-
-  option(XSLEEP_FEATURE                                         "Sleep functions"                                         true)
-
+  
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XConsole.cpp")
 
 endif()
@@ -1126,7 +1137,6 @@ endif()
 
 if(XSYSTEM_FEATURE)  
 
-  add_definitions(-DXSYSTEM_ACTIVE)  
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XSystem.cpp")
 
 endif()

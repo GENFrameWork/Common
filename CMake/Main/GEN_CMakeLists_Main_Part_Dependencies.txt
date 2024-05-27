@@ -127,9 +127,11 @@ if(APP_FEATURE)
   if(APP_INTERNETSERVICES_FEATURE)
 
     add_definitions(-DAPP_INTERNETSERVICES_ACTIVE)
+    
     option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       true )
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      true )
     option(XSCHEDULER_FEATURE                                   "XScheduler"                                              true )
-
+    
   endif()
 
 
@@ -345,6 +347,13 @@ if(SCRIPT_FEATURE)
   option(XFSMACHINE_FEATURE                                     "XFSMachine"                                              true )
   option(XCONSOLE_FEATURE                                       "Console functions"                                       true ) 
   option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         true )
+
+
+  if(SCRIPT_CACHE_FEATURE)
+
+    add_definitions(-DSCRIPT_CACHE_ACTIVE) 
+    
+  endif()
 
 
   if(SCRIPT_LIB_SYSTEM_FEATURE)
@@ -600,6 +609,8 @@ if(SND_FEATURE)
   if(SND_FILE_WAV_FEATURE)
 
     add_definitions(-DSND_FILE_WAV_ACTIVE)
+    
+    option(XFILE_RIFF_FEATURE                                   "XFile RIFF format"                                       true )
 
   endif()
 
@@ -638,9 +649,16 @@ if(DIO_FEATURE)
   add_definitions(-DDIO_ACTIVE)
 
   option(DIO_DNSRESOLVER_FEATURE                                "DNS Resolver"                                            true )
-  option(DIO_WEBCLIENT_FEATURE                                  "Web Client"                                              true )
-  option(DIO_SCRAPERWEB_FEATURE                                 "Scraper Web"                                             true )
   option(DIO_NOTIFICATIONS_MANAGER_FEATURE                      "Notifications Manager"                                   true )
+  
+
+  if(DIO_PUBLICINTERNETIP_FEATURE)
+
+    add_definitions(-DDIO_PUBLICINTERNETIP_ACTIVE)
+
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+  
+  endif()
   
 
   if(DIO_WAKEONLAN_FEATURE)
@@ -668,22 +686,19 @@ if(DIO_FEATURE)
   endif()
 
 
+  if(DIO_DNSPROTOCOL_MITM_SERVER)
+        
+    option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )   
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
+
+  endif()
+
+
   if(DIO_DNSRESOLVER_FEATURE)
 
     add_definitions(-DDIO_DNSRESOLVER_ACTIVE)
 
     option(DIO_STREAMUDP_FEATURE                                "Stream UDP"                                              true )
-
-  endif()
-
-
-  if(DIO_SCRAPERWEB_FEATURE)
-
-    add_definitions(-DDIO_SCRAPERWEB_ACTIVE)
-
-    option(XFILE_XML_FEATURE                                    "XFile XML format"                                        true )
-    option(XFILE_JSON_FEATURE                                   "XFile JSON format"                                       true )
-    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
 
   endif()
 
@@ -908,6 +923,13 @@ if(DIO_FEATURE)
     endif()
 
   endif()
+  
+  
+  if(DIO_OSPIPELINE_FEATURE)  
+
+    add_definitions(-DDIO_OSPIPELINE_ACTIVE)  
+
+  endif()
 
 
   if(DIO_WEBCLIENT_FEATURE) 
@@ -928,9 +950,20 @@ if(DIO_FEATURE)
     option(HASH_FEATURE                                         "HASH"                                                    true )
     option(HASH_SHA1_FEATURE                                    "Hash SHA1"                                               true )
     option(XPROCESSMANAGER_FEATURE                              "Process Manager"                                         true )
+    
+  endif()
+
+
+  if(DIO_SCRAPERWEB_FEATURE)
+
+    add_definitions(-DDIO_SCRAPERWEB_ACTIVE)
+
+    option(XFILE_XML_FEATURE                                    "XFile XML format"                                        true )
+    option(XFILE_JSON_FEATURE                                   "XFile JSON format"                                       true )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
 
   endif()
- 
+
 
   if(DIO_STREAMTLS_FEATURE)
 
@@ -1240,9 +1273,16 @@ if(DIO_FEATURE)
 
 endif()
 
+
 # --------------------------------------------------------------------
 # eXtended Utils
-     
+
+if(NOT XTRACE_NOINTERNET_FEATURE)
+   
+  option(DIO_PUBLICINTERNETIP_FEATURE                           "Public Internet IP"                                      true )  
+
+endif()
+
 
 if(XTHREADCOLLECTED_FEATURE)
 
@@ -1483,7 +1523,6 @@ if(XLICENSE_FEATURE)
   option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               true )
 
 endif()
-
 
 
 # --------------------------------------------------------------------
