@@ -627,6 +627,10 @@ if(XTRACE_FEATURE)
   if(XTRACE_NOINTERNET_FEATURE)
   
     add_definitions(-DXTRACE_NOINTERNET)  
+
+  else()
+
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      true )
 	
   endif()
  
@@ -657,6 +661,7 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_PUBLICINTERNETIP_ACTIVE)
 
     option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+    option(DIO_PING_FEATURE                                     "Ping"                                                    true )    
   
   endif()
   
