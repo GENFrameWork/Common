@@ -37,3 +37,44 @@ if(XMEMORY_CONTROL_FEATURE)
 endif()
 
 
+# --------------------------------------------------------------------
+# eXtended Trace    
+    
+if(XTRACE_FEATURE)
+
+  add_definitions(-DXTRACE_ACTIVE)
+
+  if(XTRACE_NOINTERNET_FEATURE)
+  
+    add_definitions(-DXTRACE_NOINTERNET)  
+
+    message(STATUS "[GEN Add XTrace without Internet]")
+
+  else()
+
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      true )
+
+    message(STATUS "[GEN Add XTrace by Internet]")
+	
+  endif()
+ 
+  if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
+  
+    option(DIO_FEATURE                                          "Data Input/Output"                                       true )
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+    
+  endif()
+
+endif()  
+
+
+# --------------------------------------------------------------------
+# Special
+
+if(ANONYMOUS_MODE_FEATURE)
+  
+  add_definitions(-DANONYMOUS_MODE)
+
+endif()
+
