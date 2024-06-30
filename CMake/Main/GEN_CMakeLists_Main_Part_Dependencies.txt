@@ -243,7 +243,7 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
     option(APP_INTERNETSERVICES_FEATURE                         "Application Internet Services"                           true )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     true )
     option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       true )
-    option(DIO_NETWORKTINEPROTOCOL_FEATURE                      "Network Time Protocol"                                   true )
+    option(DIO_NETWORKTIMEPROTOCOL_FEATURE                      "Network Time Protocol"                                   true )
 
   endif()
 
@@ -688,7 +688,7 @@ if(DIO_FEATURE)
   endif()
 
 
-  if(DIO_NETWORKTINEPROTOCOL_FEATURE)
+  if(DIO_NETWORKTIMEPROTOCOL_FEATURE)
 
     add_definitions(-DDIO_NETWORKTINEPROTOCOL_ACTIVE)
 

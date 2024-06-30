@@ -6,6 +6,10 @@
 
 # --------------------------------------------------------------------
 # Debug / Release 
+
+
+unset(CMAKE_BUILD_TYPE CACHE)
+
   
 if(DEBUG_FEATURE)
 
