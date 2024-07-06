@@ -332,6 +332,13 @@ if(USERINTERFACE_FEATURE)
   option(XFSMACHINE_FEATURE                                     "XFSMachine"                                              true )
   option(XFILE_XML_FEATURE                                      "XFile XML format"                                        true )
   option(XFILE_ZIP_FEATURE                                      "XFile Zip format"                                        true )  
+
+  option(GRP_FEATURE                                            "Graphics"                                                true )
+  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   true )
+  option(GRP_BITMAP_FILE_BMP_FEATURE                            "Graphics Bitmap File BMP"                                true )
+  option(GRP_BITMAP_FILE_JPG_FEATURE                            "Graphics Bitmap File JPG"                                true )
+  option(GRP_BITMAP_FILE_PNG_FEATURE                            "Graphics Bitmap File PNG"                                true )
+  option(GRP_BITMAP_FILE_TGA_FEATURE                            "Graphics Bitmap File TGA"                                true )
  
 endif()
 
