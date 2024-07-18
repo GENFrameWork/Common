@@ -56,7 +56,7 @@ if(XTRACE_FEATURE)
 
   else()
 
-    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      true )
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
 
     message(STATUS "[GEN Add XTrace by Internet]")
 	
@@ -64,9 +64,9 @@ if(XTRACE_FEATURE)
  
   if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
   
-    option(DIO_FEATURE                                          "Data Input/Output"                                       true )
-    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            true )
-    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              true )
+    option(DIO_FEATURE                                          "Data Input/Output"                                       ON )
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            ON )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
     
   endif()
 

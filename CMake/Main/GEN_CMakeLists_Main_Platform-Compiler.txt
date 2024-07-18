@@ -41,7 +41,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   message(STATUS "----------------------------------------------------------------------------------------------------------------")
 
-  option(GEN_DETECT_PLATFORM_COMPILER                             "Detect Platform Compiler"                                true )
+  option(GEN_DETECT_PLATFORM_COMPILER                             "Detect Platform Compiler"                                ON )
 
   # --- CACHE COMPILER ------------------------------------------------
 
@@ -68,7 +68,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
   
-    option(COMPILE_ON_WINDOWS                                     "Compile on Windows"                                      true )
+    option(COMPILE_ON_WINDOWS                                     "Compile on Windows"                                      ON )
 
     message(STATUS "[GEN Using Windows to compile]")
 
@@ -77,11 +77,11 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
       add_definitions(-DWINDOWS)
       add_definitions(-DHW_PC)
 
-      option(COMPILE_FOR_WINDOWS                                  "Compile to Windows General"                              true )
+      option(COMPILE_FOR_WINDOWS                                  "Compile to Windows General"                              ON )
 
       if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 
-        option(COMPILE_FOR_WINDOWS_PC_64                          "Compile to Windows PC 64 Bits"                           true )
+        option(COMPILE_FOR_WINDOWS_PC_64                          "Compile to Windows PC 64 Bits"                           ON )
 
         message(STATUS "[GEN Compile for platform Windows PC 64 Bits]")
 
@@ -89,7 +89,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
         if(CMAKE_SIZEOF_VOID_P EQUAL 4)
 
-          option(COMPILE_FOR_WINDOWS_PC_32                        "Compile to Windows PC 32 Bits"                           true )
+          option(COMPILE_FOR_WINDOWS_PC_32                        "Compile to Windows PC 32 Bits"                           ON )
 
           message(STATUS "[GEN Compile for platform Windows PC 32 Bits]")
 
@@ -104,7 +104,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       add_definitions(-DANDROID)  
 
-      option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      true )
+      option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      ON )
 
       message(STATUS "[GEN Compile for platform Android]")
 
@@ -116,7 +116,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
       add_definitions(-DMICROCONTROLLER)
       add_definitions(-DHW_STM32)
 
-      option(COMPILE_FOR_STM32                                    "Compile to STM32"                                        true )
+      option(COMPILE_FOR_STM32                                    "Compile to STM32"                                        ON )
 
       message(STATUS "[GEN Compile for platform STM32]")
 
@@ -128,7 +128,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
       add_definitions(-DMICROCONTROLLER)
       add_definitions(-DHW_ESP32)
 
-      option(COMPILE_FOR_ESP32                                    "Compile to ESP32"                                        true )
+      option(COMPILE_FOR_ESP32                                    "Compile to ESP32"                                        ON )
 
       message(STATUS "[GEN Compile for platform ESP32]")
  
@@ -143,17 +143,17 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     add_definitions(-DLINUX) 
 
-    option(COMPILE_ON_LINUX                                       "Compile on Linux"                                        true )  
+    option(COMPILE_ON_LINUX                                       "Compile on Linux"                                        ON )  
   
     message(STATUS "[GEN Using Linux to compile]") 
 
-    option(COMPILE_FOR_LINUX                                      "Compile to Linux General"                                true )  
+    option(COMPILE_FOR_LINUX                                      "Compile to Linux General"                                ON )  
 
     if("${TARGET}" STREQUAL "PC") 
  
       add_definitions(-DHW_PC)    
 
-      option(COMPILE_FOR_LINUX_PC_64                              "Compile to Linux PC 64 Bits"                             true )
+      option(COMPILE_FOR_LINUX_PC_64                              "Compile to Linux PC 64 Bits"                             ON )
 
       message(STATUS "[GEN Compile for platform Linux PC 64 Bits]")
 
@@ -163,7 +163,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       add_definitions(-DHW_RASPBERRYPI) 
 
-      option(COMPILE_FOR_LINUX_ARM_RPI                            "Compile to Linux Rapsberry Pi"                           true )
+      option(COMPILE_FOR_LINUX_ARM_RPI                            "Compile to Linux Rapsberry Pi"                           ON )
 
       message(STATUS "[GEN Compile for platform Linux Raspberry Pi]")
 
@@ -173,7 +173,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       add_definitions(-DHW_RASPBERRYPI)   
 
-      option(COMPILE_FOR_LINUX_ARM_RPI_64                         "Compile to Linux Rapsberry Pi 64"                        true )
+      option(COMPILE_FOR_LINUX_ARM_RPI_64                         "Compile to Linux Rapsberry Pi 64"                        ON )
 
       message(STATUS "[GEN Compile for platform Linux Raspberry Pi 64 Bits]")
 
@@ -183,7 +183,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       add_definitions(-DHW_ARM) 
 
-      option(COMPILE_FOR_LINUX_ARM                                "Compile to Linux ARM"                                    true )
+      option(COMPILE_FOR_LINUX_ARM                                "Compile to Linux ARM"                                    ON )
 
       message(STATUS "[GEN Compile for platform Linux ARM]")
 
@@ -193,7 +193,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       add_definitions(-DHW_ARM) 
 
-      option(COMPILE_FOR_LINUX_ARM_64                             "Compile to Linux ARM 64"                                 true )
+      option(COMPILE_FOR_LINUX_ARM_64                             "Compile to Linux ARM 64"                                 ON )
 
       message(STATUS "[GEN Compile for platform Linux ARM 64 Bits]")
 
@@ -208,7 +208,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     add_definitions(-DCOMPILER_MSVC)
 
-    option(COMPILE_WITH_MSVC                                      "Compile with Microsoft Compiler (MSVC)"                  true )
+    option(COMPILE_WITH_MSVC                                      "Compile with Microsoft Compiler (MSVC)"                  ON )
 
     message(STATUS "[GEN Select for compile: Microsoft Compiler (MSVC)]")
 
@@ -218,7 +218,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     add_definitions(-DCOMPILER_GCC)
 
-    option(COMPILE_WITH_GCC                                       "Compile with GNU Compiler Collection (GCC)"              true )
+    option(COMPILE_WITH_GCC                                       "Compile with GNU Compiler Collection (GCC)"              ON )
 
     message(STATUS "[GEN Select for compile: GNU Compiler Collection (GCC)]")
 
@@ -228,7 +228,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     add_definitions(-DCOMPILER_CLANG)
 
-    option(COMPILE_WITH_CLANG                                     "Compile with CLang (front-end of LLVM)"                  true )
+    option(COMPILE_WITH_CLANG                                     "Compile with CLang (front-end of LLVM)"                  ON )
 
     message(STATUS "[GEN Select for compile: CLang (front-end of LLVM)]")
 
