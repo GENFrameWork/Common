@@ -17,7 +17,15 @@ add_definitions(-DUNICODE)
 if(COMPILE_FOR_WINDOWS)
   
   option(XFILE_FEATURE                                          "XFile"                                                   ON )
-  option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )        
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )     
+
+  if(GRP_FEATURE)
+    
+    option(WINDOWS_XDESKTOPMANAGER_FEATURE                      "Windows Desktop Manager"                                 ON )
+
+  endif()
+  
+   
      
 endif()
 
