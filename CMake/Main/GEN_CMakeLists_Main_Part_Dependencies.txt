@@ -540,83 +540,92 @@ if(GRP_FEATURE)
   add_definitions(-DFT_DEBUG_LEVEL_TRACE)
   add_definitions(-DFT2_BUILD_LIBRARY)
 
-endif()
+  option(GRP_DESKTOPMANAGER_FEATURE                             "Graphics Desktop Manager"                                ON )
 
-if(GRP_BITMAP_FILE_BMP_FEATURE)    
+  if(GRP_DESKTOPMANAGER_FEATURE)
+
+    add_definitions(-DGRP_DESKTOPMANAGER_ACTIVE)
+
+  endif()
+
+
+  if(GRP_BITMAP_FILE_BMP_FEATURE)    
     
-  add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
+    add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
 
-  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
     
-endif()
+  endif()
 
 
-if(GRP_BITMAP_FILE_JPG_FEATURE)    
+  if(GRP_BITMAP_FILE_JPG_FEATURE)    
     
-  add_definitions(-DGRP_BITMAP_FILE_JPG_ACTIVE)    
+    add_definitions(-DGRP_BITMAP_FILE_JPG_ACTIVE)    
 
-  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
     
-endif()
+  endif()
   
 
-if(GRP_BITMAP_FILE_PNG_FEATURE)    
+  if(GRP_BITMAP_FILE_PNG_FEATURE)    
     
-  add_definitions(-DGRP_BITMAP_FILE_PNG_ACTIVE)    
+    add_definitions(-DGRP_BITMAP_FILE_PNG_ACTIVE)    
 
-  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
     
-endif()
+  endif()
 
 
-if(GRP_BITMAP_FILE_TGA_FEATURE)    
+  if(GRP_BITMAP_FILE_TGA_FEATURE)    
     
-  add_definitions(-DGRP_BITMAP_FILE_TGA_ACTIVE)    
+    add_definitions(-DGRP_BITMAP_FILE_TGA_ACTIVE)    
 
-  option(GRP_BITMAP_FILE_FEATURE                                "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
     
-endif()
+  endif()
 
 
-if(GRPVECTORFILEDXF_FEATURE)
+  if(GRPVECTORFILEDXF_FEATURE)
 
-  add_definitions(-DGRPVECTORFILEDXF_ACTIVE)
+    add_definitions(-DGRPVECTORFILEDXF_ACTIVE)
   
-  option(XFILE_TXT_FEATURE                                      "Activate XFile Text format"                              ON )
-  option(VECTORFILES_FEATURE                                    "Vector files class"                                      ON )
+    option(XFILE_TXT_FEATURE                                    "Activate XFile Text format"                              ON )
+    option(VECTORFILES_FEATURE                                  "Vector files class"                                      ON )
 
-endif()
+  endif()
 
 
-if(GRPVECTORFILE_FEATURE)
+  if(GRPVECTORFILE_FEATURE)
 
-  add_definitions(-DGRPVECTORFILE_ACTIVE)
+    add_definitions(-DGRPVECTORFILE_ACTIVE)
  
-  option(XFILE_FEATURE                                          "Activate XFile"                                          ON )   
+    option(XFILE_FEATURE                                        "Activate XFile"                                          ON )   
 
-endif()
+  endif()
 
    
-if(GRP_VIDEO_FILE_AVI_FEATURE)
+  if(GRP_VIDEO_FILE_AVI_FEATURE)
 
-  add_definitions(-DGRP_VIDEO_FILE_AVI_ACTIVE)
+    add_definitions(-DGRP_VIDEO_FILE_AVI_ACTIVE)
 
-  option(GRP_VIDEO_FILE_FEATURE                                 "Graphics Video File"                                     ON )
-  option(XFILE_RIFF_FEATURE                                     "XFile RIFF format"                                       ON )
+    option(GRP_VIDEO_FILE_FEATURE                               "Graphics Video File"                                     ON )
+    option(XFILE_RIFF_FEATURE                                   "XFile RIFF format"                                       ON )
 
-endif()
+  endif()
 
 
-if(GRP_VIDEO_FILE_FEATURE)
+  if(GRP_VIDEO_FILE_FEATURE)
   
-  add_definitions(-DGRP_VIDEO_FILE_ACTIVE)
+    add_definitions(-DGRP_VIDEO_FILE_ACTIVE)
 
-endif()
+  endif()
 
 
-if(GRP_OPENGL_FEATURE)
+  if(GRP_OPENGL_FEATURE)
 
-  add_definitions(-DGRP_OPENGL_ACTIVE)
+    add_definitions(-DGRP_OPENGL_ACTIVE)
+
+  endif()
 
 endif()
 
