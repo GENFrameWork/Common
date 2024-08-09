@@ -18,6 +18,7 @@ sh internal/erase_artifacts.sh "../../../Examples/Console/ScriptsExample"
 echo [Examples Graphics]
 sh internal/erase_artifacts.sh "../../../Examples/Graphics/Canvas2D"
 sh internal/erase_artifacts.sh "../../../Examples/Graphics/UI_Options"
+sh internal/erase_artifacts.sh "../../../Examples/Graphics/UI_Message"
 
 echo -------------------------------------------------------------
 echo [Tests]

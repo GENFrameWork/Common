@@ -24,6 +24,7 @@ call internal/compile_windows.bat ../../../Examples/Console/ScriptsExample/Platf
 ..\..\..\Utilities\printf\printf " * [Examples Graphics %3]\n\n"
 call internal/compile_windows.bat ../../../Examples/Graphics/Canvas2D/Platforms/Windows %3 canvas2d
 call internal/compile_windows.bat ../../../Examples/Graphics/UI_Options/Platforms/Windows %3 ui_options
+call internal/compile_windows.bat ../../../Examples/Graphics/UI_Message/Platforms/Windows %3 ui_message
 
 
 echo -------------------------------------------------------------

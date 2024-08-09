@@ -18,6 +18,7 @@ call internal/erase_artifacts "../../../Examples/Console/ScriptsExample"
 echo [Examples Graphics]
 call internal/erase_artifacts "../../../Examples/Graphics/Canvas2D"
 call internal/erase_artifacts "../../../Examples/Graphics/UI_Options"
+call internal/erase_artifacts "../../../Examples/Graphics/UI_Message"
 
 echo -------------------------------------------------------------
 echo [Tests]

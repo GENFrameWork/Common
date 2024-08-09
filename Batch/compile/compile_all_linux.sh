@@ -29,6 +29,7 @@ sh ./internal/compile_linux.sh ../../../Examples/Console/ScriptsExample/Platform
 printf " * [Examples Graphics x64]\n\n"
 sh ./internal/compile_linux.sh ../../../Examples/Graphics/Canvas2D/Platforms/Linux /x64 canvas2d
 sh ./internal/compile_linux.sh ../../../Examples/Graphics/UI_Options/Platforms/Linux /x64 ui_options
+sh ./internal/compile_linux.sh ../../../Examples/Graphics/UI_Message/Platforms/Linux /x64 ui_message
 
 
 
