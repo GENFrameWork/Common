@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
-# GEN_CMakeLists.txt
-# Main Part: Macros for Singletons
+# GEN_CMakeLists_Main_SingletonMacros.txt
+# Main: Macros for Singletons
 # --------------------------------------------------------------------
 
 

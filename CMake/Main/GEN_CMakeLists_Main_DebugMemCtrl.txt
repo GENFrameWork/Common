@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
-# GEN_CMakeLists_Main_Part_DebugMemCtrl.txt
-# Main Part: Debug management part and memory control
+# GEN_CMakeLists_Main_DebugMemCtrl.txt
+# Main: Debug management and memory control
 # --------------------------------------------------------------------
 
 

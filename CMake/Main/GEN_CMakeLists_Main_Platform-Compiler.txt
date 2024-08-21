@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Platform-Compiler.txt
-# Main Part: Platform-Compiler of GEN 
+# Main: Platform-Compiler 
 # --------------------------------------------------------------------
 
 

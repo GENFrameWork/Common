@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Main_Sources_ThirdPartyLibraries.txt
-# Main Part: Add Sources Third Party Libraries
+# Main: Sources Third Party Libraries
 # --------------------------------------------------------------------
 
           

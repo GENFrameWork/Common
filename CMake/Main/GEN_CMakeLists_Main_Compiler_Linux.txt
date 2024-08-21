@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Main_Compiler_Linux.txt
-# Main Part: Linux Compiler setup
+# Main: Linux Compiler
 # --------------------------------------------------------------------
 
 

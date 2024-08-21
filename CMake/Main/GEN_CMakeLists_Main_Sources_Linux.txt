@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Main_Sources_Linux.txt
-# Main Part: Add Sources Linux
+# Main: Sources Linux
 # --------------------------------------------------------------------
 
 

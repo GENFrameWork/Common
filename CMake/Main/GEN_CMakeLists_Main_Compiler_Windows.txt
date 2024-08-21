@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Main_Compiler_Windows.txt
-# Main Part: Windows Compiler setup
+# Main: Windows Compiler
 # --------------------------------------------------------------------
 
 

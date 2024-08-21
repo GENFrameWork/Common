@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
-# GEN_CMakeLists_Libraries.txt
-# Main Part: Warning (for compile) of GEN 
+# GEN_CMakeLists_Main_Warnings.txt
+# Main: Warning (for compile)
 # --------------------------------------------------------------------
 
 

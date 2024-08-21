@@ -14,19 +14,19 @@ include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Warnings.txt")
 
 
 # Set Directories
-include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Part_SetDirectories.txt")
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_SetDirectories.txt")
 
  
 # Debug management and memory control
-include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Part_DebugMemCtrl.txt") 
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_DebugMemCtrl.txt") 
 
 
 # Macros for Singletons
-include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Part_SingletonMacros.txt") 
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_SingletonMacros.txt") 
 
 
 # Dependencies for source 
-include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Part_Dependencies.txt") 
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_CMakeLists_Main_Dependencies.txt") 
 
 
 

@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
-# GEN_Part_Dependencies.txt
-# Main Part: Dependencies 
+# GEN_CMakeLists_Main_Dependencies.txt
+# Main: Dependencies 
 # --------------------------------------------------------------------
 
 
@@ -553,7 +553,7 @@ if(GRP_FEATURE)
     
     add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
 
-    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap File"                                    ON )
     
   endif()
 
@@ -562,7 +562,7 @@ if(GRP_FEATURE)
     
     add_definitions(-DGRP_BITMAP_FILE_JPG_ACTIVE)    
 
-    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap File"                                    ON )
     
   endif()
   
@@ -571,7 +571,7 @@ if(GRP_FEATURE)
     
     add_definitions(-DGRP_BITMAP_FILE_PNG_ACTIVE)    
 
-    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap File"                                    ON )
     
   endif()
 
@@ -580,24 +580,24 @@ if(GRP_FEATURE)
     
     add_definitions(-DGRP_BITMAP_FILE_TGA_ACTIVE)    
 
-    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap Files"                                   ON )
+    option(GRP_BITMAP_FILE_FEATURE                              "Graphics Bitmap File"                                    ON )
     
   endif()
 
 
-  if(GRPVECTORFILEDXF_FEATURE)
+  if(GRP_VECTOR_FILE_DXF_FEATURE)
 
-    add_definitions(-DGRPVECTORFILEDXF_ACTIVE)
+    add_definitions(-DGRP_VECTOR_FILE_DXF_ACTIVE)
   
     option(XFILE_TXT_FEATURE                                    "Activate XFile Text format"                              ON )
-    option(VECTORFILES_FEATURE                                  "Vector files class"                                      ON )
+    option(GRP_VECTOR_FILE_FEATURE                              "Graphics Vector File"                                    ON )
 
   endif()
 
 
-  if(GRPVECTORFILE_FEATURE)
+  if(GRP_VECTOR_FILE_FEATURE)
 
-    add_definitions(-DGRPVECTORFILE_ACTIVE)
+    add_definitions(-DGRP_VECTOR_FILE_ACTIVE)
  
     option(XFILE_FEATURE                                        "Activate XFile"                                          ON )   
 

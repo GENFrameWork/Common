@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
-# GEN_CMakeLists_Main_Sources_Linux.txt
-# Main Part: Add Sources ESP32
+# GEN_CMakeLists_Main_Sources_ESP32.txt
+# Main: Sources ESP32
 # --------------------------------------------------------------------
 
 list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XThreadListNonPreemptive.cpp")

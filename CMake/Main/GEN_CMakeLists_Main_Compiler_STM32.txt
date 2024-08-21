@@ -1,6 +1,6 @@
 # --------------------------------------------------------------------
 # GEN_CMakeLists_Main_Compiler_STM32.txt
-# Main Part: STM32 Compiler setup
+# Main: STM32 Compiler
 # --------------------------------------------------------------------
 
 set(CMAKE_C_STANDARD 11)
