@@ -25,6 +25,7 @@ sh ./internal/compile_linux.sh ../../../Examples/Console/BinConnPro/Platforms/Li
 sh ./internal/compile_linux.sh ../../../Examples/Console/Databases/Platforms/Linux /x64 databases
 sh ./internal/compile_linux.sh ../../../Examples/Console/MiniWebServer/Platforms/Linux /x64 miniwebserver
 sh ./internal/compile_linux.sh ../../../Examples/Console/ScriptsExample/Platforms/Linux /x64 scriptsexample 
+sh ./internal/compile_linux.sh ../../../Examples/Console/NetCapture/Platforms/Linux /x64 netcapture 
 
 printf " * [Examples Graphics x64]\n\n"
 sh ./internal/compile_linux.sh ../../../Examples/Graphics/Canvas2D/Platforms/Linux /x64 canvas2d

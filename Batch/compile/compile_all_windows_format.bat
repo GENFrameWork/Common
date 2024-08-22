@@ -20,6 +20,7 @@ call internal/compile_windows.bat ../../../Examples/Console/BinConnPro/Platforms
 call internal/compile_windows.bat ../../../Examples/Console/Databases/Platforms/Windows %3 databases
 call internal/compile_windows.bat ../../../Examples/Console/MiniWebServer/Platforms/Windows %3 miniwebserver
 call internal/compile_windows.bat ../../../Examples/Console/ScriptsExample/Platforms/Windows %3 scriptsexample 
+call internal/compile_windows.bat ../../../Examples/Console/NetCapture/Platforms/Windows %3 netcapture 
 
 ..\..\..\Utilities\printf\printf " * [Examples Graphics %3]\n\n"
 call internal/compile_windows.bat ../../../Examples/Graphics/Canvas2D/Platforms/Windows %3 canvas2d
@@ -38,7 +39,7 @@ call internal/compile_windows.bat ../../../Tests/DevTestsConsole/Platforms/Windo
 call internal/compile_windows.bat ../../../Tests/DevTestsDevices/Platforms/Windows %3 devtestsdevices
 call internal/compile_windows.bat ../../../Tests/DevTestsCanvas2D/Platforms/Windows %3 devtestscanvas2d
 
-..\..\..\Utilities\printf\printf " * [Unit tests x32]\n\n"
+..\..\..\Utilities\printf\printf " * [Unit tests %3]\n\n"
 call internal/compile_windows.bat ../../../Tests/UnitTests/Platforms/Windows %3 unit     
 
 

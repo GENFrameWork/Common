@@ -103,13 +103,13 @@ if(APP_FEATURE)
   option(XPUBLISHER_FEATURE                                     "XPublisher"                                              ON )
   option(XSYSTEM_FEATURE                                        "System functions"                                        ON )
 
+
   if(APP_EXTENDED_FEATURE)
      
    option(APP_LOG_FEATURE                                       "Application Log"                                         ON )  
    option(APP_CFG_LOG_FEATURE                                   "Application CFG LOG"                                     ON ) 
   
   endif()
-
 
 
   if(APP_CONSOLE_FEATURE)

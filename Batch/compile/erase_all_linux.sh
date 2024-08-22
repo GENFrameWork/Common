@@ -15,6 +15,7 @@ sh internal/erase_artifacts.sh "../../../Examples/Console/BinConnPro"
 sh internal/erase_artifacts.sh "../../../Examples/Console/Databases"
 sh internal/erase_artifacts.sh "../../../Examples/Console/MiniWebServer"
 sh internal/erase_artifacts.sh "../../../Examples/Console/ScriptsExample"
+sh internal/erase_artifacts.sh "../../../Examples/Console/NetCapture"
 echo [Examples Graphics]
 sh internal/erase_artifacts.sh "../../../Examples/Graphics/Canvas2D"
 sh internal/erase_artifacts.sh "../../../Examples/Graphics/UI_Options"

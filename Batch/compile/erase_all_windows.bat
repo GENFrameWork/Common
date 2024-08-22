@@ -15,6 +15,7 @@ call internal/erase_artifacts "../../../Examples/Console/BinConnPro"
 call internal/erase_artifacts "../../../Examples/Console/Databases"
 call internal/erase_artifacts "../../../Examples/Console/MiniWebServer"
 call internal/erase_artifacts "../../../Examples/Console/ScriptsExample"
+call internal/erase_artifacts "../../../Examples/Console/NetCapture"
 echo [Examples Graphics]
 call internal/erase_artifacts "../../../Examples/Graphics/Canvas2D"
 call internal/erase_artifacts "../../../Examples/Graphics/UI_Options"
