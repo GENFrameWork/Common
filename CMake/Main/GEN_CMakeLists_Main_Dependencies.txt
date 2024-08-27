@@ -104,11 +104,30 @@ if(APP_FEATURE)
   option(XSYSTEM_FEATURE                                        "System functions"                                        ON )
 
 
+  if(APP_EXTENDED_APPLICATIONHEADER_FEATURE)  
+
+    add_definitions(-DAPP_EXTENDED_APPLICATIONHEADER_ACTIVE)
+
+  endif()
+
+
+  if(APP_EXTENDED_APPLICATIONSTATUS_FEATURE)
+      
+    add_definitions(-DAPP_EXTENDED_APPLICATIONSTATUS_ACTIVE)
+
+    option(APP_CHECKRESOURCESHARDWARE_FEATURE                    "Application Check Resources Hardware"                    ON )  
+
+  endif()
+
+
   if(APP_EXTENDED_FEATURE)
      
+   add_definitions(-DAPP_EXTENDED_ACTIVE)
+
    option(APP_LOG_FEATURE                                       "Application Log"                                         ON )  
+   option(APP_CFG_FEATURE                                       "Application CFG"                                         ON ) 
    option(APP_CFG_LOG_FEATURE                                   "Application CFG LOG"                                     ON ) 
-  
+   
   endif()
 
 
@@ -674,6 +693,13 @@ if(DIO_FEATURE)
   option(DIO_DNSRESOLVER_FEATURE                                "DNS Resolver"                                            ON )
   option(DIO_NOTIFICATIONS_MANAGER_FEATURE                      "Notifications Manager"                                   ON )
   
+
+  if(DIO_WEBSERVER_FEATURE)
+
+    option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON )
+  
+  endif()
+
 
   if(DIO_PUBLICINTERNETIP_FEATURE)
 
