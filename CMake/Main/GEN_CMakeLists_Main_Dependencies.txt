@@ -24,9 +24,7 @@ if(COMPILE_FOR_WINDOWS)
     option(WINDOWS_XDESKTOPMANAGER_FEATURE                      "Windows Desktop Manager"                                 ON )
 
   endif()
-  
-   
-     
+          
 endif()
 
 
@@ -90,8 +88,23 @@ if(APPMODE_API_LIB_FEATURE)
 
   endif()   
 
-endif()   
+endif()  
 
+
+# --------------------------------------------------------------------
+# Special
+
+if(XTRACE_FEATURE)
+ 
+  if(NOT XTRACE_NOINTERNET_FEATURE)
+
+    option(DIO_FEATURE                                          "Input/Output"                                            ON )
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )  
+
+  endif()
+
+endif()
+ 
 
 # --------------------------------------------------------------------
 # Application 
@@ -111,19 +124,39 @@ if(APP_FEATURE)
   endif()
 
 
+  if(APP_EXTENDED_INTERNETSTATUS_FEATURE)
+  
+    add_definitions(-DAPP_EXTENDED_INTERNETSTATUS_ACTIVE)    
+
+    option(DIO_FEATURE                                          "Input/Output"                                            ON )
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
+    option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON ) 
+    option(APP_INTERNETSERVICES_FEATURE                         "Application Internet Services"                           ON )  
+    option(APP_CFG_INTERNETSERVICES_FEATURE                     "Application CFG Internet services"                       ON )
+    option(APP_EXTENDED_FEATURE                                 "Application Extended"                                    ON )  
+
+    
+  endif()
+
+
   if(APP_EXTENDED_APPLICATIONSTATUS_FEATURE)
       
     add_definitions(-DAPP_EXTENDED_APPLICATIONSTATUS_ACTIVE)
-
-    option(APP_CHECKRESOURCESHARDWARE_FEATURE                    "Application Check Resources Hardware"                    ON )  
-
+    
+    option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON )
+    option(APP_CHECKRESOURCESHARDWARE_FEATURE                   "Application Check Resources Hardware"                    ON )  
+    option(APP_CFG_CHECKRESOURCESHARDWARE_FEATURE               "Application CFG Check Resorces HW"                       ON ) 
+    option(APP_EXTENDED_FEATURE                                 "Application Extended"                                    ON )  
+  
+        
   endif()
-
+  
 
   if(APP_EXTENDED_FEATURE)
      
    add_definitions(-DAPP_EXTENDED_ACTIVE)
-
+  
+   option(DIO_FEATURE                                           "Input/Output"                                            ON )
    option(APP_LOG_FEATURE                                       "Application Log"                                         ON )  
    option(APP_CFG_FEATURE                                       "Application CFG"                                         ON ) 
    option(APP_CFG_LOG_FEATURE                                   "Application CFG LOG"                                     ON ) 
@@ -155,6 +188,7 @@ if(APP_FEATURE)
     add_definitions(-DAPP_CHECKRESOURCESHARDWARE_ACTIVE)
 
     option(XSCHEDULER_FEATURE                                   "XScheduler"                                              ON )
+    option(APP_CFG_INTERNETSERVICES_FEATURE                     "Application CFG Internet services"                       ON )      
 
   endif()
 
@@ -163,6 +197,7 @@ if(APP_FEATURE)
 
     add_definitions(-DAPP_INTERNETSERVICES_ACTIVE)
     
+    option(DIO_FEATURE                                          "Input/Output"                                            ON )
     option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       ON )
     option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
     option(XSCHEDULER_FEATURE                                   "XScheduler"                                              ON )
@@ -698,6 +733,14 @@ if(DIO_FEATURE)
 
     option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON )
   
+  endif()
+
+
+  if(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE)
+
+    option(XSERIALIZABLE_JSON_FEATURE                           "Serializable JSON"                                       ON )
+
+
   endif()
 
 
@@ -1326,12 +1369,6 @@ endif()
 
 # --------------------------------------------------------------------
 # eXtended Utils
-
-if(NOT XTRACE_NOINTERNET_FEATURE)
-   
-  option(DIO_PUBLICINTERNETIP_FEATURE                           "Public Internet IP"                                      ON )  
-
-endif()
 
 
 if(XTHREADCOLLECTED_FEATURE)
