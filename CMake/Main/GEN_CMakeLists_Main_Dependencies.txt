@@ -846,6 +846,15 @@ if(DIO_FEATURE)
 
   endif()
 
+
+  if(DIO_COREPROTOCOL_FEATURE)
+
+    add_definitions(-DDIO_COREPROTOCOL_ACTIVE)
+    option(HASH_CRC32_FEATURE                                   "Hash CRC32"                                              ON )
+    option(XUUID_FEATURE                                        "UUID functions"                                          ON )
+
+  endif()
+  
   
   if(DIO_PROTOCOL_FEATURE)
 
