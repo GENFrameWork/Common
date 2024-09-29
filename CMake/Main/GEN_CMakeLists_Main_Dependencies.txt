@@ -164,14 +164,6 @@ if(APP_FEATURE)
   endif()
 
 
-  if(APP_CONSOLE_FEATURE)
-    
-    add_definitions(-DAPP_CONSOLE_ACTIVE)
-    option(XCONSOLE_FEATURE                                     "Console functions"                                       ON )
-  
-  endif()
-        
-        
   if(APP_GRAPHICS_FEATURE) 
 
     add_definitions(-DAPP_GRAPHICS_ACTIVE)
@@ -179,9 +171,25 @@ if(APP_FEATURE)
     option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
     option(GRP_FEATURE                                          "Graphics"                                                ON )
     option(GRP_2D_FEATURE                                       "Graphics 2D"                                             ON )
+    option(APP_CONSOLE_FEATURE                                  "Application Console"                                     ON ) 
   
   endif()
 
+ 
+  if(APP_GRAPHICS_NOTCONSOLE_FEATURE)
+
+    add_definitions(-DAPP_GRAPHICS_NOTCONSOLE_ACTIVE)
+
+  endif()
+
+
+  if(APP_CONSOLE_FEATURE)
+    
+    add_definitions(-DAPP_CONSOLE_ACTIVE) 
+    option(XCONSOLE_FEATURE                                     "Console functions"                                       ON )
+  
+  endif()
+               
   
   if(APP_CHECKRESOURCESHARDWARE_FEATURE)
 
@@ -234,6 +242,29 @@ if(APP_FEATURE)
 
   endif()
 
+
+endif()
+
+
+if(APP_GRAPHICS_FEATURE)    
+  
+  if(APP_GRAPHICS_NOTCONSOLE_FEATURE)
+      
+      message(STATUS "[GEN APP Graphics Mode]")
+      
+    else()
+
+      message(STATUS "[GEN APP Console + Graphics Mode]")
+  
+  endif()
+
+else()
+
+  if(APP_GRAPHICS_FEATURE)    
+
+    message(STATUS "[GEN APP Console Mode]")
+
+  endif()
 
 endif()
 
@@ -1403,8 +1434,7 @@ endif()
 
 if(XCONSOLE_FEATURE)
 
-  add_definitions(-DXCONSOLE_ACTIVE) 
-
+  add_definitions(-DXCONSOLE_ACTIVE)  
   option(XSLEEP_FEATURE                                         "Sleep functions"                                         ON )
 
 endif()
