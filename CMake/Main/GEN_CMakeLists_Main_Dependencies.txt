@@ -1110,6 +1110,13 @@ if(DIO_FEATURE)
   endif()
 
 
+  if(DIO_COREPROTOCOL_FEATURE)
+
+    option(COMPRESS_GZ_FEATURE                                  "Compres GZ"                                              ON )
+
+  endif()
+
+
   if(DIO_STREAMUART_FEATURE         OR 
      DIO_STREAMUSB_FEATURE          OR 
      DIO_STREAMICMP_FEATURE         OR 
@@ -1792,14 +1799,6 @@ endif()
 # --------------------------------------------------------------------
 # Compress
 
-if(COMPRESS_GZ_FEATURE)
-
-  add_definitions(-DCOMPRESS_GZ_ACTIVE)
-
-  option(COMPRESS_FEATURE                                       "Compress"                                                ON )
-
-endif()
-
 
 if(COMPRESS_LZRW1KH_FEATURE)                                                              
 
@@ -1822,6 +1821,15 @@ endif()
 if(COMPRESS_ZIP_FEATURE)
 
   add_definitions(-DCOMPRESS_ZIP_ACTIVE)
+
+  option(COMPRESS_FEATURE                                       "Compress"                                                ON )
+
+endif()
+
+
+if(COMPRESS_GZ_FEATURE)
+
+  add_definitions(-DCOMPRESS_GZ_ACTIVE)
 
   option(COMPRESS_FEATURE                                       "Compress"                                                ON )
 
