@@ -12,6 +12,7 @@ call internal/erase_artifacts "../../../Examples/Base/Canvas2DDisplay"
 call internal/erase_artifacts "../../../Examples/Base/MemCtrlExample"
 echo [Examples Console]
 call internal/erase_artifacts "../../../Examples/Console/BinConnPro"
+call internal/erase_artifacts "../../../Examples/Console/NetConn"
 call internal/erase_artifacts "../../../Examples/Console/Databases"
 call internal/erase_artifacts "../../../Examples/Console/MiniWebServer"
 call internal/erase_artifacts "../../../Examples/Console/ScriptsExample"

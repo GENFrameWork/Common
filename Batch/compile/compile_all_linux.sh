@@ -22,6 +22,7 @@ sh ./internal/compile_linux.sh ../../../Examples/Base/NotAppExample/Platforms/Li
 
 printf " * [Examples Console x64]\n\n"
 sh ./internal/compile_linux.sh ../../../Examples/Console/BinConnPro/Platforms/Linux /x64 binconnpro
+sh ./internal/compile_linux.sh ../../../Examples/Console/NetConn/Platforms/Linux /x64 netconn
 sh ./internal/compile_linux.sh ../../../Examples/Console/Databases/Platforms/Linux /x64 databases
 sh ./internal/compile_linux.sh ../../../Examples/Console/MiniWebServer/Platforms/Linux /x64 miniwebserver
 sh ./internal/compile_linux.sh ../../../Examples/Console/ScriptsExample/Platforms/Linux /x64 scriptsexample 

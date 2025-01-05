@@ -17,6 +17,7 @@ call internal/compile_windows.bat ../../../Examples/Base/Canvas2DDisplay/Platfor
 
 ..\..\..\Utilities\printf\printf " * [Examples Console %3]\n\n"
 call internal/compile_windows.bat ../../../Examples/Console/BinConnPro/Platforms/Windows %3 binconnpro
+call internal/compile_windows.bat ../../../Examples/Console/NetConn/Platforms/Windows %3 netconn
 call internal/compile_windows.bat ../../../Examples/Console/Databases/Platforms/Windows %3 databases
 call internal/compile_windows.bat ../../../Examples/Console/MiniWebServer/Platforms/Windows %3 miniwebserver
 call internal/compile_windows.bat ../../../Examples/Console/ScriptsExample/Platforms/Windows %3 scriptsexample 
