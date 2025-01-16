@@ -109,101 +109,101 @@ endif()
 # --------------------------------------------------------------------
 # Application 
 
-if(APP_FEATURE)
+if(APPFLOW_FEATURE)
 
-  add_definitions(-DAPP_ACTIVE)
+  add_definitions(-DAPPFLOW_ACTIVE)
   
   option(XPUBLISHER_FEATURE                                     "XPublisher"                                              ON )
   option(XSYSTEM_FEATURE                                        "System functions"                                        ON )
 
 
-  if(APP_EXTENDED_APPLICATIONHEADER_FEATURE)  
+  if(APPFLOW_EXTENDED_APPLICATIONHEADER_FEATURE)  
 
-    add_definitions(-DAPP_EXTENDED_APPLICATIONHEADER_ACTIVE)
+    add_definitions(-DAPPFLOW_EXTENDED_APPLICATIONHEADER_ACTIVE)
 
   endif()
 
 
-  if(APP_EXTENDED_INTERNETSTATUS_FEATURE)
+  if(APPFLOW_EXTENDED_INTERNETSTATUS_FEATURE)
   
-    add_definitions(-DAPP_EXTENDED_INTERNETSTATUS_ACTIVE)    
+    add_definitions(-DAPPFLOW_EXTENDED_INTERNETSTATUS_ACTIVE)    
 
     option(DIO_FEATURE                                          "Input/Output"                                            ON )
     option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
     option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON ) 
-    option(APP_INTERNETSERVICES_FEATURE                         "Application Internet Services"                           ON )  
-    option(APP_CFG_INTERNETSERVICES_FEATURE                     "Application CFG Internet services"                       ON )
-    option(APP_EXTENDED_FEATURE                                 "Application Extended"                                    ON )  
+    option(APPFLOW_INTERNETSERVICES_FEATURE                     "Application Flow Internet Services"                      ON )  
+    option(APPFLOW_CFG_INTERNETSERVICES_FEATURE                 "Application Flow CFG Internet services"                  ON )
+    option(APPFLOW_EXTENDED_FEATURE                             "Application Flow Extended"                               ON )  
 
     
   endif()
 
 
-  if(APP_EXTENDED_APPLICATIONSTATUS_FEATURE)
+  if(APPFLOW_EXTENDED_APPLICATIONSTATUS_FEATURE)
       
-    add_definitions(-DAPP_EXTENDED_APPLICATIONSTATUS_ACTIVE)
+    add_definitions(-DAPPFLOW_EXTENDED_APPLICATIONSTATUS_ACTIVE)
     
     option(DIO_WEBSERVER_RESOLVEENDPOINT_FEATURE                "Web Server Resolved End Point"                           ON )
-    option(APP_CHECKRESOURCESHARDWARE_FEATURE                   "Application Check Resources Hardware"                    ON )  
-    option(APP_CFG_CHECKRESOURCESHARDWARE_FEATURE               "Application CFG Check Resorces HW"                       ON ) 
-    option(APP_EXTENDED_FEATURE                                 "Application Extended"                                    ON )  
+    option(APPFLOW_CHECKRESOURCESHARDWARE_FEATURE               "Application Flow Check Resources Hardware"               ON )  
+    option(APPFLOW_CFG_CHECKRESOURCESHARDWARE_FEATURE           "Application Flow CFG Check Resorces HW"                  ON ) 
+    option(APPFLOW_EXTENDED_FEATURE                             "Application Flow Extended"                               ON )  
   
         
   endif()
   
 
-  if(APP_EXTENDED_FEATURE)
+  if(APPFLOW_EXTENDED_FEATURE)
      
-   add_definitions(-DAPP_EXTENDED_ACTIVE)
+   add_definitions(-DAPPFLOW_EXTENDED_ACTIVE)
   
    option(DIO_FEATURE                                           "Input/Output"                                            ON )
-   option(APP_LOG_FEATURE                                       "Application Log"                                         ON )  
-   option(APP_CFG_FEATURE                                       "Application CFG"                                         ON ) 
-   option(APP_CFG_LOG_FEATURE                                   "Application CFG LOG"                                     ON ) 
+   option(APPFLOW_LOG_FEATURE                                   "Application Flow Log"                                    ON )  
+   option(APPFLOW_CFG_FEATURE                                   "Application Flow CFG"                                    ON ) 
+   option(APPFLOW_CFG_LOG_FEATURE                               "Application Flow CFG LOG"                                ON ) 
    
   endif()
 
 
-  if(APP_GRAPHICS_FEATURE) 
+  if(APPFLOW_GRAPHICS_FEATURE) 
 
-    add_definitions(-DAPP_GRAPHICS_ACTIVE)
+    add_definitions(-DAPPFLOW_GRAPHICS_ACTIVE)
 
     option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
     option(GRP_FEATURE                                          "Graphics"                                                ON )
     option(GRP_2D_FEATURE                                       "Graphics 2D"                                             ON )
-    option(APP_CONSOLE_FEATURE                                  "Application Console"                                     ON ) 
+    option(APPFLOW_CONSOLE_FEATURE                              "Application Flow Console"                                ON ) 
   
   endif()
 
  
-  if(APP_GRAPHICS_NOTCONSOLE_FEATURE)
+  if(APPFLOW_GRAPHICS_NOTCONSOLE_FEATURE)
 
-    add_definitions(-DAPP_GRAPHICS_NOTCONSOLE_ACTIVE)
+    add_definitions(-DAPPFLOW_GRAPHICS_NOTCONSOLE_ACTIVE)
 
   endif()
 
 
-  if(APP_CONSOLE_FEATURE)
+  if(APPFLOW_CONSOLE_FEATURE)
     
-    add_definitions(-DAPP_CONSOLE_ACTIVE) 
+    add_definitions(-DAPPFLOW_CONSOLE_ACTIVE) 
     option(XCONSOLE_FEATURE                                     "Console functions"                                       ON )
   
   endif()
                
   
-  if(APP_CHECKRESOURCESHARDWARE_FEATURE)
+  if(APPFLOW_CHECKRESOURCESHARDWARE_FEATURE)
 
-    add_definitions(-DAPP_CHECKRESOURCESHARDWARE_ACTIVE)
+    add_definitions(-DAPPFLOW_CHECKRESOURCESHARDWARE_ACTIVE)
 
     option(XSCHEDULER_FEATURE                                   "XScheduler"                                              ON )
-    option(APP_CFG_INTERNETSERVICES_FEATURE                     "Application CFG Internet services"                       ON )      
+    option(APPFLOW_CFG_INTERNETSERVICES_FEATURE                 "Application Flow CFG Internet services"                  ON )      
 
   endif()
 
 
-  if(APP_INTERNETSERVICES_FEATURE)
+  if(APPFLOW_INTERNETSERVICES_FEATURE)
 
-    add_definitions(-DAPP_INTERNETSERVICES_ACTIVE)
+    add_definitions(-DAPPFLOW_INTERNETSERVICES_ACTIVE)
     
     option(DIO_FEATURE                                          "Input/Output"                                            ON )
     option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       ON )
@@ -213,32 +213,32 @@ if(APP_FEATURE)
   endif()
 
 
-  if(APP_LOG_FEATURE)
+  if(APPFLOW_LOG_FEATURE)
 
-    add_definitions(-DAPP_LOG_ACTIVE)
+    add_definitions(-DAPPFLOW_LOG_ACTIVE)
   
   endif()
 
 
-  if(APP_WEBSERVER_FEATURE)
+  if(APPFLOW_WEBSERVER_FEATURE)
 
-    add_definitions(-DAPP_WEBSERVER_ACTIVE)
+    add_definitions(-DAPPFLOW_WEBSERVER_ACTIVE)
   
   endif()
 
 
-  if(APP_UPDATE_FEATURE)
+  if(APPFLOW_UPDATE_FEATURE)
 
-    add_definitions(-DAPP_UPDATE_ACTIVE)
+    add_definitions(-DAPPFLOW_UPDATE_ACTIVE)
 
     option(DIO_APPLICATIONUPDATE_FEATURE                        "Application Update"                                      ON )
 
   endif()
 
 
-  if(APP_ALERTS_FEATURE)
+  if(APPFLOW_ALERTS_FEATURE)
 
-    add_definitions(-DAPP_ALERTS_ACTIVE)
+    add_definitions(-DAPPFLOW_ALERTS_ACTIVE)
 
   endif()
 
@@ -246,9 +246,9 @@ if(APP_FEATURE)
 endif()
 
 
-if(APP_GRAPHICS_FEATURE)    
+if(APPFLOW_GRAPHICS_FEATURE)    
   
-  if(APP_GRAPHICS_NOTCONSOLE_FEATURE)
+  if(APPFLOW_GRAPHICS_NOTCONSOLE_FEATURE)
       
       message(STATUS "[GEN APP Graphics Mode]")
       
@@ -260,7 +260,7 @@ if(APP_GRAPHICS_FEATURE)
 
 else()
 
-  if(APP_GRAPHICS_FEATURE)    
+  if(APPFLOW_GRAPHICS_FEATURE)    
 
     message(STATUS "[GEN APP Console Mode]")
 
@@ -272,43 +272,43 @@ endif()
 # --------------------------------------------------------------------
 # Application CFG
 
-if(APP_CFG_REMOTEFILE_FEATURE               OR
-   APP_CFG_GENERAL_FEATURE                  OR 
-   APP_CFG_LOG_FEATURE                      OR
-   APP_CFG_INTERNETSERVICES_FEATURE         OR 
-   APP_CFG_DYNDNSMANAGER_FEATURE            OR
-   APP_CFG_WEBSERVER_FEATURE                OR
-   APP_CFG_CHECKRESOURCESHARDWARE_FEATURE   OR
-   APP_CFG_DIOLOCATION_FEATURE              OR
-   APP_CFG_DNSRESOLVER_FEATURE              OR
-   APP_CFG_ALERTS_FEATURE                   OR
-   APP_CFG_APPUPDATE_FEATURE)
+if(APPFLOW_CFG_REMOTEFILE_FEATURE               OR
+   APPFLOW_CFG_GENERAL_FEATURE                  OR 
+   APPFLOW_CFG_LOG_FEATURE                      OR
+   APPFLOW_CFG_INTERNETSERVICES_FEATURE         OR 
+   APPFLOW_CFG_DYNDNSMANAGER_FEATURE            OR
+   APPFLOW_CFG_WEBSERVER_FEATURE                OR
+   APPFLOW_CFG_CHECKRESOURCESHARDWARE_FEATURE   OR
+   APPFLOW_CFG_DIOLOCATION_FEATURE              OR
+   APPFLOW_CFG_DNSRESOLVER_FEATURE              OR
+   APPFLOW_CFG_ALERTS_FEATURE                   OR
+   APPFLOW_CFG_APPUPDATE_FEATURE)
  
 
-  add_definitions(-DAPP_CFG_ACTIVE)
+  add_definitions(-DAPPFLOW_CFG_ACTIVE)
 
-  option(APP_CFG_FEATURE                                        "Application CFG"                                         ON ) 
+  option(APPFLOW_CFG_FEATURE                                        "Application CFG"                                         ON ) 
 
 
-  if(APP_CFG_SCRIPTS_FEATURE)
+  if(APPFLOW_CFG_SCRIPTS_FEATURE)
 
-    add_definitions(-DAPP_CFG_SCRIPTS_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_SCRIPTS_ACTIVE)
     
   endif()
 
  
-  if(APP_CFG_LOG_FEATURE)
+  if(APPFLOW_CFG_LOG_FEATURE)
 
-    add_definitions(-DAPP_CFG_LOG_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_LOG_ACTIVE)
 
     option(XLOG_FEATURE                                         "LOG File"                                                ON )
 
   endif()
 
 
-  if(APP_CFG_REMOTEFILE_FEATURE)
+  if(APPFLOW_CFG_REMOTEFILE_FEATURE)
 
-    add_definitions(-DAPP_CFG_REMOTEFILE_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_REMOTEFILE_ACTIVE)
 
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
     option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
@@ -316,32 +316,32 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   endif()
 
 
-  if(APP_CFG_GENERAL_FEATURE)
+  if(APPFLOW_CFG_GENERAL_FEATURE)
 
-    add_definitions(-DAPP_CFG_GENERAL_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_GENERAL_ACTIVE)
 
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_LOG_FEATURE)
+  if(APPFLOW_CFG_LOG_FEATURE)
 
-    add_definitions(-DAPP_CFG_LOG_ACTIVE)  
+    add_definitions(-DAPPFLOW_CFG_LOG_ACTIVE)  
 
-    option(APP_LOG_FEATURE                                      "Application Log"                                         ON )
+    option(APPFLOW_LOG_FEATURE                                  "Application Flow Log"                                    ON )
     option(XLOG_FEATURE                                         "LOG File"                                                ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_INTERNETSERVICES_FEATURE)
+  if(APPFLOW_CFG_INTERNETSERVICES_FEATURE)
 
-    add_definitions(-DAPP_CFG_INTERNETSERVICES_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_INTERNETSERVICES_ACTIVE)
 
     option(HASH_FEATURE                                         "HASH"                                                    ON )
-    option(APP_INTERNETSERVICES_FEATURE                         "Application Internet Services"                           ON )
+    option(APPFLOW_INTERNETSERVICES_FEATURE                     "Application Flow Internet Services"                      ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
     option(DIO_CHECKCONNECTIONS_FEATURE                         "Check Connections"                                       ON )
     option(DIO_NETWORKTIMEPROTOCOL_FEATURE                      "Network Time Protocol"                                   ON )
@@ -349,35 +349,35 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   endif()
 
 
-  if(APP_CFG_DYNDNSMANAGER_FEATURE)
+  if(APPFLOW_CFG_DYNDNSMANAGER_FEATURE)
 
-    add_definitions(-DAPP_CFG_DYNDNSMANAGER_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_DYNDNSMANAGER_ACTIVE)
 
   endif()
 
 
-  if(APP_CFG_WEBSERVER_FEATURE)
+  if(APPFLOW_CFG_WEBSERVER_FEATURE)
 
-    add_definitions(-DAPP_CFG_WEBSERVER_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_WEBSERVER_ACTIVE)
 
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_CHECKRESOURCESHARDWARE_FEATURE)
+  if(APPFLOW_CFG_CHECKRESOURCESHARDWARE_FEATURE)
 
-    add_definitions(-DAPP_CFG_CHECKRESOURCESHARDWARE_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_CHECKRESOURCESHARDWARE_ACTIVE)
 
-    option(APP_CHECKRESOURCESHARDWARE_FEATURE                   "Application Check Resources Hardware"                    ON )
+    option(APPFLOW_CHECKRESOURCESHARDWARE_FEATURE               "Application Flow Check Resources Hardware"               ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_DIOLOCATION_FEATURE)
+  if(APPFLOW_CFG_DIOLOCATION_FEATURE)
 
-    add_definitions(-DAPP_CFG_DIOLOCATION_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_DIOLOCATION_ACTIVE)
 
     option(DIO_LOCATION_FEATURE                                 "Location API"                                            ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
@@ -385,30 +385,30 @@ if(APP_CFG_REMOTEFILE_FEATURE               OR
   endif()
 
 
-  if(APP_CFG_DNSRESOLVER_FEATURE)
+  if(APPFLOW_CFG_DNSRESOLVER_FEATURE)
 
-    add_definitions(-DAPP_CFG_DNSRESOLVER_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_DNSRESOLVER_ACTIVE)
 
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_ALERTS_FEATURE)
+  if(APPFLOW_CFG_ALERTS_FEATURE)
 
-    add_definitions(-DAPP_CFG_ALERTS_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_ALERTS_ACTIVE)
 
-    option(APP_ALERTS_FEATURE                                   "Application Alerts"                                      ON )
+    option(APPFLOW_ALERTS_FEATURE                               "Application Flow Alerts"                                 ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()
 
 
-  if(APP_CFG_APPUPDATE_FEATURE)
+  if(APPFLOW_CFG_APPUPDATE_FEATURE)
 
-    add_definitions(-DAPP_CFG_APPUPDATE_ACTIVE)
+    add_definitions(-DAPPFLOW_CFG_APPUPDATE_ACTIVE)
 
-    option(APP_UPDATE_FEATURE                                   "Application Update"                                      ON )
+    option(APPFLOW_UPDATE_FEATURE                               "Application Flow Update"                                 ON )
     option(XFILE_CFG_FEATURE                                    "XFile Config format"                                     ON )
 
   endif()

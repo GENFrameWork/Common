@@ -54,7 +54,9 @@ add_definitions(${GEN_MACRO})
 set(GEN_MACRO  "-DGEN_DIOALERTS=DIOALERTS::GetInstance()")
 add_definitions(${GEN_MACRO})
 
-set(GEN_MACRO  "-DGEN_APPALERTS=APPALERTS::GetInstance()")
+# --- App Flow -------------------------------------------------------
+
+set(GEN_MACRO  "-DGEN_APPFLOWALERTS=APPFLOWALERTS::GetInstance()")
 add_definitions(${GEN_MACRO})
 
 
