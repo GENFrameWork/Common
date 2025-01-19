@@ -34,6 +34,7 @@ call internal/erase_artifacts "../../../Tests/UnitTests"
 echo -------------------------------------------------------------
 echo [Utilities]
 call internal/erase_artifacts "../../../Utilities/APPUpdateCreator"
+call internal/erase_artifacts "../../../Utilities/TranslateScan"
 
 
 if exist "Output.txt" ( 

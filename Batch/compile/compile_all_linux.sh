@@ -56,6 +56,7 @@ export OUTFILE
 
 printf "[Utilities x64]\n\n"
 sh ./internal/compile_linux.sh ../../../Utilities/APPUpdateCreator/Platforms/Windows /x64 appupdatecreator
+sh ./internal/compile_linux.sh ../../../Utilities/TranslateScan/Platforms/Windows /x64 translatescan
 
 
 END_TIME=$(date +%s)

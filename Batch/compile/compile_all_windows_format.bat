@@ -51,6 +51,7 @@ set "PRINTF=..\..\..\..\..\Utilities\printf\printf"
 ..\..\..\Utilities\printf\printf "[Utilities Windows PC %3]\n\n"
 
 call internal/compile_windows.bat ../../../Utilities/APPUpdateCreator/Platforms/Windows %3 appupdatecreator
+call internal/compile_windows.bat ../../../Utilities/TranslateScan/Platforms/Windows %3 translatescan
 
 
 
