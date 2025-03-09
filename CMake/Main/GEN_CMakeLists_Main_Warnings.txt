@@ -19,6 +19,7 @@ if(COMPILE_WITH_MSVC)
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4065")                                               # warning C4065: switch statement contains 'default' but no 'case' labels  
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4995")                                               # warning C4995: 'xxx': name was marked as #pragma deprecated
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4293")                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
+  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4244")                                               # warning C4244: '=': invalid conversion from types, possible loss of data
    
   if(APPMODE_WINDOWS_DINAMIC)
 
