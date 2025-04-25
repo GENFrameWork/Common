@@ -42,6 +42,19 @@ endif()
 
 
 # --------------------------------------------------------------------
+# Feedback control 
+
+if(XFEEDBACK_CONTROL_FEATURE)
+
+  add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
+
+  message(STATUS "[GEN Add Feecback Control]")
+
+endif()
+
+
+# --------------------------------------------------------------------
 # eXtended Trace    
     
 if(XTRACE_FEATURE)
