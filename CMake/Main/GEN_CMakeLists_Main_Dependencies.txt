@@ -11,6 +11,12 @@ set(CMAKE_CXX_STANDARD 11)
 add_definitions(-DUNICODE)
 
 
+if(COMPILE_WITH_CLANG AND COMPILE_FOR_LINUX)
+
+  add_definitions(-Dregister=)    # Delete register use
+
+endif()
+
 # --------------------------------------------------------------------
 # Platforms General
 

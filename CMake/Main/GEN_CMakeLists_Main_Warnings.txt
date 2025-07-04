@@ -49,13 +49,21 @@ endif()
 
 if(COMPILE_WITH_CLANG)
 
-  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-invalid-source-encoding")
-  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-register")
+  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-invalid-source-encoding")  
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-variable") 
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-but-set-variable")
-  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-non-prototype")
+  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-coroutine")                             #  -Wno-deprecated-non-prototype
+
+  if(COMPILE_FOR_WINDOWS)
+
+    set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-non-prototype")
+
+  endif()
+
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-function")
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-switch")
+  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-switch-enum")
+  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-enum-compare")
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-implicit-function-declaration")
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-reorder-ctor")
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-ignored-attributes")
@@ -71,7 +79,6 @@ if(COMPILE_WITH_CLANG)
  #set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -fno-register")
     
 endif()
-
 
 
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} ${WARNING_TO_C}")
