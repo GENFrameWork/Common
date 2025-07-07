@@ -897,7 +897,7 @@ if(DIO_FEATURE)
     option(HASH_CRC32_FEATURE                                   "Hash CRC32"                                              ON )
     option(XUUID_FEATURE                                        "UUID functions"                                          ON )
     option(CIPHER_SYMMETRIC_AES_FEATURE                         "Cipher Symetric AES"                                     ON )
-    option(CIPHER_ASYMMETRIC_CURVE25519_FEATURE                 "Cipher ASymetric Curve25519"                             ON ) 
+    option(CIPHER_ASYMMETRIC_X25519_FEATURE                     "Cipher Asimetric ECDSA X25519"                           ON ) 
 
   endif()
   
@@ -1802,9 +1802,9 @@ if(CIPHER_ASYMMETRIC_FEATURE)
 
   endif()
 
-  if(CIPHER_ASYMMETRIC_CURVE25519_FEATURE)
+  if(CIPHER_ASYMMETRIC_X25519_FEATURE)
 
-    add_definitions(-DCIPHER_ASYMMETRIC_CURVE25519_ACTIVE)
+    add_definitions(-DCIPHER_ASYMMETRIC_X25519_ACTIVE)
   
   endif()
 
