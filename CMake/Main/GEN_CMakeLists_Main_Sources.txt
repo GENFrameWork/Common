@@ -66,6 +66,8 @@ if(APPFLOW_FEATURE)
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_APPFLOW}/APPFlowInternetServices.cpp")                         
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_APPFLOW}/APPFlowInternetServices_XEvent.cpp") 
     
+    message(STATUS "[GEN ---- [nternet Services]")
+       
   endif()
 
 
