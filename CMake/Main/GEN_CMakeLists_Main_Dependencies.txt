@@ -1116,7 +1116,7 @@ if(DIO_FEATURE)
 
   if(DIO_STREAMTLS_FEATURE)
 
-    add_definitions(-DDIO_TLS_ACTIVE)
+    add_definitions(-DDIO_STREAMTLS_ACTIVE)
 
     option(DIO_STREAMTCPIP_FEATURE                              "TCPIP"                                                   ON )
     option(HASH_FEATURE                                         "Hash"                                                    ON )
@@ -1129,6 +1129,13 @@ if(DIO_FEATURE)
   if(DIO_COREPROTOCOL_FEATURE)
 
     option(COMPRESS_GZ_FEATURE                                  "Compres GZ"                                              ON )
+
+  endif()
+
+
+  if(DIO_STREAMTLS_FEATURE)
+    
+    option(DIO_STREAMTCPIP_FEATURE                              "Stream TCPIP"                                            ON )
 
   endif()
 
