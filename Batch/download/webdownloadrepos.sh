@@ -4,6 +4,7 @@
 # 
 mkdir GENFrameWork
 cd GENFrameWork
+git clone https://gitlab.genframework.com/gen-framework/common.git Common
 git clone https://gitlab.genframework.com/gen-framework/gen.git GEN
 git clone https://gitlab.genframework.com/gen-framework/thirdpartylibraries.git ThirdPartyLibraries
 git clone https://gitlab.genframework.com/gen-framework/examples.git Examples

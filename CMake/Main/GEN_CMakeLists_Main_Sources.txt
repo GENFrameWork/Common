@@ -65,9 +65,7 @@ if(APPFLOW_FEATURE)
 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_APPFLOW}/APPFlowInternetServices.cpp")                         
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_APPFLOW}/APPFlowInternetServices_XEvent.cpp") 
-    
-    message(STATUS "[GEN ---- [nternet Services]")
-       
+         
   endif()
 
 
@@ -835,6 +833,7 @@ if(DIO_FEATURE)
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_STREAMS_TLS}/DIOStreamTLSMessages.cpp") 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_STREAMS_TLS}/DIOStreamTLSMessagesExtension.cpp") 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_STREAMS_TLS}/DIOStreamTLSMessagesHandShakeClientHello.cpp") 
+    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_STREAMS_TLS}/DIOStreamTLSMessagesHandShakeServerHello.cpp") 
   
   endif()
 
