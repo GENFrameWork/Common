@@ -1,0 +1,28 @@
+# --------------------------------------------------------------------
+# GEN_CMakeLists_Main_Compiler_Android.txt
+# Main: Android Compiler
+# --------------------------------------------------------------------
+     
+   
+add_definitions(-DANDROID)    
+add_definitions(-DIOAPI_NO_64)
+add_definitions(-DFT_DEBUG_LEVEL_ERROR)
+add_definitions(-DFT_DEBUG_LEVEL_TRACE)
+add_definitions(-DFT2_BUILD_LIBRARY)
+
+set(CMAKE_CXX_STANDARD 17)
+
+set(ANDROID_NDK_ROOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}/android-ndk")
+
+set(ANDROID_ABI arm64-v8a)
+set(ANDROID_PLATFORM android-23)  
+set(ANDROID_NDK ANDROID_NDK_ROOT)
+
+set(CMAKE_TOOLCHAIN_FILE  "${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake")
+
+list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/sources/android/native_app_glue/")
+#list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android")
+list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include")
+
+
+list(APPEND GEN_SOURCES_MODULES_LIST "${ANDROID_NDK_ROOT}/sources/android/native_app_glue/android_native_app_glue.c")

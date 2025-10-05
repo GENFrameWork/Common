@@ -1,0 +1,97 @@
+# --------------------------------------------------------------------
+# GEN_CMakeLists_Main_DebugMemCtrl.txt
+# Main: Debug management and memory control
+# --------------------------------------------------------------------
+
+
+# --------------------------------------------------------------------
+# Debug / Release 
+
+
+unset(CMAKE_BUILD_TYPE CACHE)
+
+  
+if(DEBUG_FEATURE)
+
+  add_definitions(-DGEN_DEBUG)
+  set(CMAKE_BUILD_TYPE Debug   CACHE STRING "Choose the type of build." FORCE)
+
+else()
+
+  add_definitions(-DGEN_NODEBUG)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
+
+endif()
+
+set(CMAKE_CONFIGURATION_TYPES ${CMAKE_BUILD_TYPE} CACHE STRING "" FORCE)
+  
+message(STATUS "[GEN Setting build type to ${CMAKE_BUILD_TYPE} specified]")
+
+
+# --------------------------------------------------------------------
+# Memory control 
+
+if(XMEMORY_CONTROL_FEATURE)
+
+  add_definitions(-DXMEMORY_CONTROL_ACTIVE)
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
+
+  message(STATUS "[GEN Add Memory Control]")
+
+endif()
+
+
+# --------------------------------------------------------------------
+# Feedback control 
+
+if(XFEEDBACK_CONTROL_FEATURE)
+
+  add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
+
+  message(STATUS "[GEN Add Feecback Control]")
+
+endif()
+
+
+# --------------------------------------------------------------------
+# eXtended Trace    
+    
+if(XTRACE_FEATURE)
+
+  add_definitions(-DXTRACE_ACTIVE)
+
+  if(XTRACE_NOINTERNET_FEATURE)
+  
+    add_definitions(-DXTRACE_NOINTERNET)  
+
+    message(STATUS "[GEN Add XTrace without Internet]")
+
+  else()
+
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
+
+    message(STATUS "[GEN Add XTrace by Internet]")
+	
+  endif()
+ 
+  if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
+  
+    option(DIO_FEATURE                                          "Data Input/Output"                                       ON )
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            ON )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
+    
+  endif()
+
+endif()  
+
+
+# --------------------------------------------------------------------
+# Special
+
+if(ANONYMOUS_MODE_FEATURE)
+  
+  add_definitions(-DANONYMOUS_MODE)
+
+endif()
+
