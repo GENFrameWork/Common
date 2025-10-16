@@ -1673,6 +1673,7 @@ if(XLICENSE_FEATURE)
                    
   add_definitions(-DXLICENSE_ACTIVE)
 
+  option(XUUID_FEATURE                                          "UUID functions"                                          ON )
   option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
   option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
   option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )    

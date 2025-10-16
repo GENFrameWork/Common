@@ -115,10 +115,3 @@ if(COMPILE_FOR_ESP32)
 
 endif()
 
-
-message(STATUS "----------------------------------------------------------------------------------------------------------------")
-
-
-option(GEN_DETECT_PLATFORM_COMPILER                           "Detect platform compiler"                                  OFF )
-unset(GEN_DETECT_PLATFORM_COMPILER CACHE)
- 
