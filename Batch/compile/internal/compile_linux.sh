@@ -18,28 +18,28 @@ fi
 cd $DIR
  
 printf "Generate CMake    %-16s ... " $3 
-cmake -G "Ninja" -DTARGET=PC ../..  >> "$OUTFILE" 2>&1
+cmake -G "Ninja" -DTARGET=INTEL ../..  >> "$OUTFILE" 2>&1
 if [ $? -eq 0 ]; then
-    printf " %s\n" [Ok]
+    printf "[Ok]\n" 
 else
-    printf " %s\n" [Error!]
+    printf "[Error!]\n" 
 fi
 
 printf "Compilate project %-16s ... " $3
 ninja  >> "$OUTFILE" 2>&1
 if [ $? -eq 0 ]; then    
-    printf " %s\n" [Ok]
+    printf "[Ok]\n" 
 else
-    printf " %s\n" [Error!]
+    printf "[Error!]\n" 
 fi
 
 if [ -e "$3tests" ]; then
-  printf "Test project      %-16s ... " $3
+printf "Test project      %-16s ... " $3
   ./$3tests  >> "$OUTFILE" 2>&1
   if [ $? -eq 0 ]; then    
-      printf " %s\n" [Ok]
+      printf "[Ok]\n" 
   else
-      printf " %s\n" [Error!]
+      printf "[Error!]\n" 
   fi
 fi
 

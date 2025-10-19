@@ -18,15 +18,15 @@ if not exist "%DIR%" (
 
 cd "%DIR%" 
  
-%PRINTF% "Generate CMake %%-16s %%s " "%3%" "..."
-cmake -G "Ninja" -DTARGET=PC ../..  >> %OUTFILE% 
+%PRINTF% "Generate CMake    %%-16s ... " "%3%" 
+cmake -G "Ninja" -DTARGET=INTEL ../..  >> %OUTFILE% 
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
 ) else (
     %PRINTF% "[Error!]\n"
 )
 
-%PRINTF% "Compilate project %%-16s %%s " "%3%" "..."
+%PRINTF% "Compilate project %%-16s ... " "%3%" 
 ninja  >> %OUTFILE%
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
@@ -35,7 +35,7 @@ if %ERRORLEVEL% equ 0 (
 )
 
 if exist "%3%tests.exe" (
-  %PRINTF% "Test project %%-16s %%s " "%3%tests" "..."
+  %PRINTF% "Test project      %%-16s ... " "%3%" 
   %3tests.exe >> %OUTFILE%
   
   rem %PRINTF% "[Error level %%d] "  %ERRORLEVEL% 

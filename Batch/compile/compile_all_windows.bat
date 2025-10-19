@@ -26,9 +26,9 @@ echo -------------------------------------------------------------
 ..\..\..\Utilities\printf\printf "Start process ... \n\n"
 
 
-call compile_all_windows_format.bat %vctype% amd64_x86 /x32  
+call compile_all_windows_format.bat %vctype% amd64_x86 /intel32  
 
-call compile_all_windows_format.bat %vctype% amd64 /x64
+call compile_all_windows_format.bat %vctype% amd64 /intel64
 
 
 for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (

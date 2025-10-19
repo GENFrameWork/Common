@@ -27,9 +27,9 @@ endif()
 
 
 # ----------------------------------------
-# PC 
+# INTEL 
 
-if(COMPILE_FOR_LINUX_PC_64)  
+if(COMPILE_FOR_LINUX_INTEL_64)  
   
   set(LINK_FLAGS "-Wl,--start-group")
 
