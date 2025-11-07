@@ -1157,6 +1157,20 @@ if(DIO_FEATURE)
     option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
 
 
+    if(DIO_LINUX_DBUS_FEATURE)
+    
+      add_definitions(-DDIO_LINUX_DBUS_ACTIVE)
+    
+    endif()
+
+    
+    if(DIO_LINUX_NETWORKMANAGER_FEATURE) 
+    
+      add_definitions(-DDIO_LINUX_NETWORKMANAGER_ACTIVE)  
+    
+    endif()
+
+
     if(DIO_STREAMUART_FEATURE)
 
       add_definitions(-DDIO_STREAMUART_ACTIVE)
