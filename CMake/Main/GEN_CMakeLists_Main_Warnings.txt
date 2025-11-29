@@ -21,7 +21,7 @@ if(COMPILE_WITH_MSVC)
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4293")                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4244")                                               # warning C4244: '=': invalid conversion from types, possible loss of data
    
-  if(APPMODE_WINDOWS_DINAMIC)
+  if(WINDOWS_APPMODE_DINAMIC)
 
     set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4251")                                             # warning C4251: needs to have dll-interface to be used by clients of class 'xxxxxxxx'
 

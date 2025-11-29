@@ -24,13 +24,7 @@ if(COMPILE_FOR_WINDOWS)
   
   option(XFILE_FEATURE                                          "XFile"                                                   ON )
   option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )     
-
-  if(GRP_FEATURE)
-    
-    option(WINDOWS_XDESKTOPMANAGER_FEATURE                      "Windows Desktop Manager"                                 ON )
-
-  endif()
-          
+  
 endif()
 
 
@@ -1157,14 +1151,14 @@ if(DIO_FEATURE)
     option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
 
 
-    if(DIO_LINUX_DBUS_FEATURE)
+    if(LINUX_DIO_DBUS_FEATURE)
     
       add_definitions(-DDIO_LINUX_DBUS_ACTIVE)
     
     endif()
 
     
-    if(DIO_LINUX_NETWORKMANAGER_FEATURE) 
+    if(LINUX_DIO_NETWORKMANAGER_FEATURE) 
     
       add_definitions(-DDIO_LINUX_NETWORKMANAGER_ACTIVE)  
     

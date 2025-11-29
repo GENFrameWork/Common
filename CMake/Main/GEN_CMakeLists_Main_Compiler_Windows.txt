@@ -28,7 +28,7 @@ set(CompilerFlags CMAKE_C_FLAGS
                 
 foreach(CompilerFlag ${CompilerFlags})
 
-  if(APPMODE_WINDOWS_DINAMIC)  
+  if(WINDOWS_APPMODE_DINAMIC)  
     string(REPLACE "/MT" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
   else()
     string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
