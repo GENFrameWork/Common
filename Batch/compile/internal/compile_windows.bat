@@ -1,10 +1,10 @@
 @echo off
 
-set "DIR=%1%2"
+set "DIR=%~1/Platforms/%SO_PATH%/%PLATFORM_PATH%"
 set "OLDPATH=%CD%"
 
-if not exist "%1%" (
-  mkdir "%1%"
+if not exist "%~1/Platforms/%SO_PATH%" (
+  mkdir "%~1/Platforms/%SO_PATH%"
 )
  
 if exist "%DIR%" (
@@ -17,16 +17,22 @@ if not exist "%DIR%" (
 )
 
 cd "%DIR%" 
+
+%PRINTF% "\n\n[%%s]\n\n" "%~2" >> %OUTFILE% 
+
  
-%PRINTF% "Generate CMake    %%-16s ... " "%3%" 
-cmake -G "Ninja" -DTARGET=INTEL ../..  >> %OUTFILE% 
+%PRINTF% "[#CMake#]\n"  >> %OUTFILE% 
+%PRINTF% "Generate CMake      %%-16s ... " "%~2" 
+cmake -G "Ninja" -DTARGET=%TARGET% -DDEBUG_EXTCFG=%DEBUG_EXTCFG% -DMEMORY_EXTCFG=%MEMORY_EXTCFG% -DTRACE_EXTCFG=%TRACE_EXTCFG% -DFEEDBACK_EXTCFG=%FEEDBACK_EXTCFG% ../..  >> %OUTFILE% 
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
 ) else (
     %PRINTF% "[Error!]\n"
 )
 
-%PRINTF% "Compilate project %%-16s ... " "%3%" 
+
+%PRINTF% "[#Compile#]\n"  >> %OUTFILE% 
+%PRINTF% "Compilate project   %%-16s ... " "%~2" 
 ninja  >> %OUTFILE%
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
@@ -34,12 +40,12 @@ if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Error!]\n"
 )
 
-if exist "%3%tests.exe" (
-  %PRINTF% "Test project      %%-16s ... " "%3%" 
-  %3tests.exe >> %OUTFILE%
-  
-  rem %PRINTF% "[Error level %%d] "  %ERRORLEVEL% 
-  
+
+if exist "%~2tests.exe" (
+  %PRINTF% "[#Tests#]\n"  >> %OUTFILE% 
+  %PRINTF% "Test project        %%-16s ... " "%~2" 
+  %~2tests.exe >> %OUTFILE%
+    
   if %ERRORLEVEL% equ 5 (
     %PRINTF% "[Ok]\n" 
   ) else (

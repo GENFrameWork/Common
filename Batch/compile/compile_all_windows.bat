@@ -1,22 +1,8 @@
 @echo off
+
 call erase_all_windows.bat
-set vctype=%1
 
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Community" (
-  set vctype=Community
-)
-
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Professional" (
-  set vctype=Professional
-)
-
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise" (
-  set vctype=Enterprise
-)
-
-if "%vctype%"=="" (set vctype=Enterprise)
-
-echo %DATE% %TIME% >> Output.txt
+echo %DATE% %TIME% >> output.txt
 for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (
     set /a "start_time=(((%%a*60+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100)"
 )
@@ -25,10 +11,8 @@ for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (
 echo -------------------------------------------------------------
 ..\..\..\Utilities\printf\printf "Start process ... \n\n"
 
-
-call compile_all_windows_format.bat %vctype% amd64_x86 /intel32  
-
-call compile_all_windows_format.bat %vctype% amd64 /intel64
+call compile_windows_format.bat INTEL32 %~2 %~3 %~4 %~5  
+call compile_windows_format.bat INTEL64 %~2 %~3 %~4 %~5   
 
 
 for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (

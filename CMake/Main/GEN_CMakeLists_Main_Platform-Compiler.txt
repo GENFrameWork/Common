@@ -5,17 +5,30 @@
 
 
 # --------------------------------------------------------------------
+# Params available
+
+# INTEL32
+# INTEL64
+# ARM
+# ARM64
+# RPI32
+# RPI64
+# ANDROID
+# STM32
+# ESP32
+
+# --------------------------------------------------------------------
 # Variables assignated
 
 # COMPILE_ON_WINDOWS              "Compile on Windows"
 # COMPILE_ON_LINUX                "Compile on Linux"
 
 # COMPILE_FOR_WINDOWS             "Compile to Windows General"
-# COMPILE_FOR_WINDOWS_INTEL_32       "Compile to Windows PC 32 Bits"
-# COMPILE_FOR_WINDOWS_INTEL_64       "Compile to Windows INTEL 64 Bits"
+# COMPILE_FOR_WINDOWS_INTEL_32    "Compile to Windows PC 32 Bits"
+# COMPILE_FOR_WINDOWS_INTEL_64    "Compile to Windows INTEL 64 Bits"
 
 # COMPILE_FOR_LINUX               "Compile to Linux General"
-# COMPILE_FOR_LINUX_INTEL_64         "Compile to Linux INTEL 64"
+# COMPILE_FOR_LINUX_INTEL_64      "Compile to Linux INTEL 64"
 
 # COMPILE_FOR_LINUX_ARM           "Compile to Linux ARM"
 # COMPILE_FOR_LINUX_ARM_64        "Compile to Linux ARM 64"
@@ -72,24 +85,24 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     message(STATUS "[GEN Using Windows to compile]")
 
-    if("${TARGET}" STREQUAL "INTEL") 
+    if(("${TARGET}" STREQUAL "INTEL32") OR ("${TARGET}" STREQUAL "INTEL64"))
 
       add_definitions(-DWINDOWS)
       add_definitions(-DHW_INTEL)
 
       option(COMPILE_FOR_WINDOWS                                  "Compile to Windows General"                              ON )
 
-      if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+      if("${TARGET}" STREQUAL "INTEL64")
 
-        option(COMPILE_FOR_WINDOWS_INTEL_64                          "Compile to Windows INTEL 64 Bits"                           ON )
+        option(COMPILE_FOR_WINDOWS_INTEL_64                       "Compile to Windows Intel 64 Bits"                        ON )
 
         message(STATUS "[GEN Compile for platform Windows INTEL 64 Bits]")
 
       else()
 
-        if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        if("${TARGET}" STREQUAL "INTEL32")
 
-          option(COMPILE_FOR_WINDOWS_INTEL_32                        "Compile to Windows INTEL 32 Bits"                           ON )
+          option(COMPILE_FOR_WINDOWS_INTEL_32                     "Compile to Windows Intel 32 Bits"                        ON )
 
           message(STATUS "[GEN Compile for platform Windows INTEL 32 Bits]")
 
@@ -149,27 +162,27 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     option(COMPILE_FOR_LINUX                                      "Compile to Linux General"                                ON )  
 
-    if("${TARGET}" STREQUAL "INTEL") 
+    if("${TARGET}" STREQUAL "INTEL64") 
  
       add_definitions(-DHW_INTEL)    
 
-      option(COMPILE_FOR_LINUX_INTEL_64                              "Compile to Linux INTEL 64 Bits"                             ON )
+      option(COMPILE_FOR_LINUX_INTEL_64                           "Compile to Linux INTEL 64 Bits"                          ON )
 
       message(STATUS "[GEN Compile for platform Linux INTEL 64 Bits]")
 
     endif()
 
-    if("${TARGET}" STREQUAL "Raspberrypi")
+    if("${TARGET}" STREQUAL "RPI32")
 
       add_definitions(-DHW_RASPBERRYPI) 
 
       option(COMPILE_FOR_LINUX_ARM_RPI                            "Compile to Linux Rapsberry Pi"                           ON )
 
-      message(STATUS "[GEN Compile for platform Linux Raspberry Pi]")
+      message(STATUS "[GEN Compile for platform Linux Raspberry Pi 32 Bits]")
 
     endif()
 
-    if("${TARGET}" STREQUAL "Raspberrypi_64")
+    if("${TARGET}" STREQUAL "RPI64")
 
       add_definitions(-DHW_RASPBERRYPI)   
 
@@ -189,7 +202,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     endif()
 
-    if("${TARGET}" STREQUAL "ARM_64")
+    if("${TARGET}" STREQUAL "ARM64")
 
       add_definitions(-DHW_ARM) 
 

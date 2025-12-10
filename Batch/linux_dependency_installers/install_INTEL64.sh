@@ -6,7 +6,7 @@ apt-get update
 echo "-----------------------------------------------------------------------"
 echo "Compiler and Debugger"
 echo "Compilers C++"
-sudo apt-get install build-essential -y
+apt-get install build-essential -y
 echo "IDE with Debug."
 apt-get install kdevelop -y
 echo "cmake"

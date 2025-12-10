@@ -105,7 +105,7 @@ endif()
 
 if(COMPILE_FOR_LINUX)
   
-  if((COMPILE_FOR_LINUX_ARM_RPI) OR (COMPILE_FOR_LINUX_ARM_RPI64))   
+  if((COMPILE_FOR_LINUX_ARM_RPI) OR (COMPILE_FOR_LINUX_ARM_RPI_64))   
 
     target_link_directories(${CMAKE_PROJECT_NAME} PUBLIC "${RPI_SYSROOT}/lib/arm-linux-gnueabihf"  "${RPI_SYSROOT}/usr/lib/arm-linux-gnueabihf")     
 

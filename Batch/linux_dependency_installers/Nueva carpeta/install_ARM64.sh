@@ -5,50 +5,73 @@
 
 dpkg --add-architecture arm64 
 apt-get update
-echo "-----------------------------------------------------------------------"
-echo "Compiler and Debugger"
-echo "Compilers C++"
-apt-get install crossbuild-essential-arm64 -y
-echo "-----------------------------------------------------------------------"
-echo "System"
+
+# -----------------------------------------------------------------------
+# "Compiler and Debugger"
+#sudo apt-get install build-essential -y
+sudo apt install crossbuild-essential-arm64 -y
+
+
+# -----------------------------------------------------------------------
+# System
 apt-get install cpuid:arm64 -y
-echo "-----------------------------------------------------------------------"
-echo "Comunications"
-echo "Wifi library"
+
+
+# -----------------------------------------------------------------------
+# Comunications"
+
+# Wifi library
 apt-get install libiw-dev:arm64 -y
-echo "USB"
+
+# USB
 apt-get install libudev-dev:arm64 -y
 apt-get install libusb-1.0.0-dev:arm64 -y
-echo "DBus"
+
+# DBus
 apt-get install dbus libdbus-1-dev:arm64 -y
-echo "Network Manager"
+
+# Network Manager
 apt-get install network-manager-dev:arm64  -y
 apt-get install libnm-dev:arm64 -y
 apt-get install libsystemd-dev:arm64 -y
-echo "Bluetooth"
+
+# Bluetooth
 apt-get install libbluetooth-dev:arm64 -y
-echo "PCap"
+
+# PCap
 apt-get install libpcap-dev:arm64 -y
-echo "-----------------------------------------------------------------------"
-echo "Graphics"
-echo "X11"
+
+
+# -----------------------------------------------------------------------
+# Graphics"
+
+# X11"
 apt-get install libx11-dev:arm64 -y
 apt-get install libxxf86vm-dev:arm64 -y
 apt-get install libxrandr-dev:arm64 -y
-echo "OpenGL"
+
+# OpenGL
 apt-get install libegl1-mesa-dev:arm64 -y
 apt-get install libgles2-mesa-dev:arm64 -y
-echo "-----------------------------------------------------------------------"
-echo "Sound"
-echo "Sound Linux"
+
+
+# -----------------------------------------------------------------------
+# Sound
+
+# Sound Linux
 apt-get install libasound2-dev:arm64 -y
 apt-get install pulseaudio:arm64 -y
 apt-get install libpulse-dev:arm64 -y
-echo "-----------------------------------------------------------------------"
-echo "Databases"
-echo "PosgreSQL client"
+
+
+# -----------------------------------------------------------------------
+# Databases
+
+# PosgreSQL client
 apt-get install libpq-dev:arm64 -y
-echo "MySQL client"
+
+# MySQL client
 apt-get install python3-dev:arm64  -y
 apt-get install default-libmysqlclient-dev:arm64 -y
-echo "-----------------------------------------------------------------------"
+
+

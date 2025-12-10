@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# -ne 1 ]; then
   echo "Uso: $0 directorio"
@@ -10,10 +10,6 @@ directory="$1"
 echo "Remove directory $directory"
 if [ -d "$directory/Platforms/.vs" ]; then
   rm -rf "$directory/Platforms/.vs"
-fi
-
-if [ -d "$directory/Platforms/Windows" ]; then
-  rm -rf "$directory/Platforms/Windows"
 fi
 
 if [ -d "$directory/Platforms/out" ]; then

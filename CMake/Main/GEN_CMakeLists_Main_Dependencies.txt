@@ -775,7 +775,14 @@ if(DIO_FEATURE)
 
   option(DIO_DNSRESOLVER_FEATURE                                "DNS Resolver"                                            ON )
   option(DIO_NOTIFICATIONS_MANAGER_FEATURE                      "Notifications Manager"                                   ON )
+
+
+  if(DIO_APPLICATIONUPDATE_FEATURE)
   
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
+
+  endif()
+
 
   if(DIO_WEBSERVER_FEATURE)
 
@@ -1457,6 +1464,14 @@ endif()
 
 # --------------------------------------------------------------------
 # eXtended Utils
+
+
+if(XFEEDBACK_CONTROL_FEATURE)
+
+  add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)    
+  option(XLOG_FEATURE                                           "LOG File"                                                ON )  
+  
+endif()  
 
 
 if(XTHREADCOLLECTED_FEATURE)
