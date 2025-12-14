@@ -295,6 +295,7 @@ if(SND_FEATURE)
     add_definitions(-DWIN32)
     add_definitions(-D_WIN32)
     add_definitions(-D_WINDOWS)
+    add_definitions(-DWINDOWS)
 
     list(APPEND GEN_INCLUDES_DIR_LIST "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_OPENAL_INCLUDE}/windows") 
 
