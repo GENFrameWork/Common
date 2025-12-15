@@ -110,7 +110,7 @@ if(COMPILE_FOR_LINUX)
     target_link_directories(${CMAKE_PROJECT_NAME} PUBLIC "${RPI_SYSROOT}/lib/arm-linux-gnueabihf"  "${RPI_SYSROOT}/usr/lib/arm-linux-gnueabihf")     
 
   endif() 
-
+  
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS stdc++)  
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS pthread)  
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS rt)  

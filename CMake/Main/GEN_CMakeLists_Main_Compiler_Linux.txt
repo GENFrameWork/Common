@@ -25,14 +25,11 @@ if(LINUX_VISUALSTUDIOUTF8_FEATURE)
 endif()
 
 
-
 # ----------------------------------------
 # INTEL 
 
 if(COMPILE_FOR_LINUX_INTEL_64)  
-  
-  set(LINK_FLAGS "-Wl,--start-group")
-
+ 
 endif()
 
 

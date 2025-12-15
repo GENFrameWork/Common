@@ -12,8 +12,7 @@ if(COMPILE_FOR_ESP32)
 else()
 
   include_directories(${GEN_INCLUDES_DIR_LIST})
-
-
+  
   if("${APP_RESOURCE_FILE}" STREQUAL "")
 
     add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST})
@@ -26,3 +25,10 @@ else()
 
 endif()
 
+
+if(COMPILE_FOR_LINUX  AND (CMAKE_BUILD_TYPE STREQUAL "Debug"))  
+  
+  target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -O0 -fno-omit-frame-pointer -fno-inline)
+  target_link_options   (${CMAKE_PROJECT_NAME} PRIVATE -Wl,--export-dynamic) 
+    
+endif()

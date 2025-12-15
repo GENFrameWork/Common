@@ -43,7 +43,7 @@ if(DEBUG_CTRL_FEATURE)
 
   set(CMAKE_BUILD_TYPE Debug            CACHE STRING "Choose the type of build."  FORCE)
   set(CMAKE_CONFIGURATION_TYPES Debug   CACHE STRING "Choose the type of build."  FORCE)
-
+    
 else()
 
   add_definitions(-DGEN_NODEBUG)
