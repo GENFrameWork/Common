@@ -1900,4 +1900,19 @@ if(COMPRESS_FEATURE)
 endif()
 
 
+# --------------------------------------------------------------------
+# ThirdPartyLibraries
 
+
+if(GOOGLETEST_FEATURE)
+
+  add_definitions(-DGOOGLETEST_ACTIVE)  
+
+endif()
+
+
+if(GOOGLETEST_EXECFORDISCOVER_FEATURE)
+
+  add_definitions(-DGOOGLETEST_EXECFORDISCOVER_ACTIVE)  
+
+endif()

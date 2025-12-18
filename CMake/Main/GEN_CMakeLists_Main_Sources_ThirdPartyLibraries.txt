@@ -487,8 +487,6 @@ endif()
 
 if(GOOGLETEST_FEATURE)    
 
-  add_definitions(-DGOOGLETEST_ACTIVE) 
-
   list(APPEND GEN_THIRDPARTY_LIBRARYS GoogleTest)
 
   # GoogleTest requires at least C++14
