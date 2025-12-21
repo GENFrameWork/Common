@@ -222,7 +222,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME} ${GEN_SO_THIRDPARTY_LIBRARYS})
 string(REPLACE ";" ", " _GEN_THIRDPARTY_LIBRARYS "${GEN_THIRDPARTY_LIBRARYS}")
 string(REPLACE ";" ", " _GEN_SO_THIRDPARTY_LIBRARYS "${GEN_SO_THIRDPARTY_LIBRARYS}")
 
-message(STATUS "[GEN ThirdParty Libraries: ${_GEN_THIRDPARTY_LIBRARYS} + SO: ${_GEN_SO_THIRDPARTY_LIBRARYS} ]")
+message(STATUS "[GEN ThirdParty Libraries Source: ${_GEN_THIRDPARTY_LIBRARYS} / Compiled: ${_GEN_SO_THIRDPARTY_LIBRARYS} ]")
 
 message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
