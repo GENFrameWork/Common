@@ -68,6 +68,7 @@ endif()
 # --------------------------------------------------------------------
 # App Modes
 
+
 if(APPMODE_SERVICE_FEATURE)
 
   add_definitions(-DAPPMODE_SERVICE_ACTIVE)  
@@ -75,37 +76,18 @@ if(APPMODE_SERVICE_FEATURE)
 endif()
 
 
-if(APPMODE_LIBRARYDINAMIC_FEATURE)
+if(APPMODE_LIBRARY_DINAMIC_FEATURE)
   
-  add_definitions(-DAPPMODE_LIBRARYDINAMIC_ACTIVE)
-
-  option(APPMODE_API_LIB_FEATURE                                "Activates the export/import of classes in a library"     ON )
-  option(APPMODE_API_LIB_EXPORT_FEATURE                         "Activates the export of classes in a library"            ON )  
-
+  add_definitions(-DAPPMODE_LIBRARY_DINAMIC_ACTIVE)
+  
 endif()
 
 
-if(APPMODE_LIBRARYSTATIC_FEATURE)
+if(APPMODE_LIBRARY_STATIC_FEATURE)
   
-  add_definitions(-DAPPMODE_LIBRARYSTATIC_ACTIVE)
-
-  option(APPMODE_API_LIB_FEATURE                                "Activates the export/import of classes in a library"     ON )
-  option(APPMODE_API_LIB_EXPORT_FEATURE                         "Activates the export of classes in a library"            ON )  
+  add_definitions(-DAPPMODE_LIBRARY_STATIC_ACTIVE)
 
 endif()
-
-
-if(APPMODE_API_LIB_FEATURE)
-
-  add_definitions(-DAPPMODE_API_LIB_ACTIVE) 
-
-  if(APPMODE_API_LIB_EXPORT_FEATURE)
-    
-    add_definitions(-DAPPMODE_API_LIB_EXPORT_ACTIVE)  
-
-  endif()   
-
-endif()  
 
 
 # --------------------------------------------------------------------
