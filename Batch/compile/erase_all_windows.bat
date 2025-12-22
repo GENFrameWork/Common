@@ -1,46 +1,16 @@
 echo off
 
-echo -------------------------------------------------------------
-echo [Remove directorys]
 
-echo
-echo [Examples Base]
-call internal/erase_artifacts "../../../Examples/Base/NotAppExample"
-call internal/erase_artifacts "../../../Examples/Base/AppBaseExample"
-call internal/erase_artifacts "../../../Examples/Base/Canvas2DDisplay"
-call internal/erase_artifacts "../../../Examples/Base/MemCtrlExample"
+@echo off
+setlocal
 
-echo
-echo [Examples Console]
-call internal/erase_artifacts "../../../Examples/Console/BinConnPro"
-call internal/erase_artifacts "../../../Examples/Console/NetConn"
-call internal/erase_artifacts "../../../Examples/Console/Databases"
-call internal/erase_artifacts "../../../Examples/Console/MiniWebServer"
-call internal/erase_artifacts "../../../Examples/Console/ScriptsExample"
-call internal/erase_artifacts "../../../Examples/Console/NetCapture"
+rem Lee cada línea como un único token (incluye espacios si están entre comillas)
+for /f "usebackq delims=" %%L in ("listapp.txt") do (
+   call internal/erase_artifacts %%L
+)
 
-echo
-echo [Examples Graphics]
-call internal/erase_artifacts "../../../Examples/Graphics/Canvas2D"
-call internal/erase_artifacts "../../../Examples/Graphics/UI_Options"
-call internal/erase_artifacts "../../../Examples/Graphics/UI_Message"
+endlocal
 
-echo
-echo [Development tests]
-call internal/erase_artifacts "../../../Tests/DevTestsConsole"
-call internal/erase_artifacts "../../../Tests/DevTestsDevices"
-call internal/erase_artifacts "../../../Tests/DevTestsCanvas2D"
-
-echo
-echo [Unit tests]
-call internal/erase_artifacts "../../../Tests/UnitTests"
-
-echo
-echo [Utilities]
-call internal/erase_artifacts "../../../Utilities/APPUpdateCreator"
-call internal/erase_artifacts "../../../Utilities/TranslateScan"
-
-echo 
 
 if exist "output.txt" ( 
   del output.txt
