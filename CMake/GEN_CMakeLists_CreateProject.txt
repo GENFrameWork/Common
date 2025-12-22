@@ -10,53 +10,60 @@ if(COMPILE_FOR_ESP32)
 
   # idf_component_register(SRCS "hello_world_main.c"  INCLUDE_DIRS "")
 
-
 else()
 
   if(APPMODE_LIBRARY_STATIC_FEATURE)
 
+    add_library(${CMAKE_PROJECT_NAME} STATIC ${GEN_SOURCES_MODULES_LIST}) 
+
+  endif()
+
+
+  if(APPMODE_LIBRARY_DINAMIC_FEATURE)
+
+    add_library(${CMAKE_PROJECT_NAME} SHARED ${GEN_SOURCES_MODULES_LIST})
+
+  endif()
+
+
+  if(APPMODE_LIBRARY_STATIC_FEATURE OR APPMODE_LIBRARY_DINAMIC_FEATURE)
+
     if(COMPILE_FOR_LINUX)
 
-      set(CMAKE_C_ARCHIVE_CREATE   "<CMAKE_AR> rcsD <TARGET> <OBJECTS>")
-      set(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> <TARGET>")
-      set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> rcsD <TARGET> <OBJECTS>")
-      set(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> <TARGET>")
+      if(APPMODE_LIBRARY_STATIC_FEATURE)
 
-    endif()
-
-    add_library(${CMAKE_PROJECT_NAME} STATIC ${GEN_SOURCES_MODULES_LIST})
-
-    # set_target_properties(syncloaderapi PROPERTIES OUTPUT_NAME ${CMAKE_PROJECT_NAME}  ARCHIVE_OUTPUT_DIRECTORY /tmp)
-                      
-    # add_custom_command( TARGET syncloaderapi POST_BUILD
-    #                     COMMAND ${CMAKE_COMMAND} -E echo "Copiando /tmp/libsyncloaderapi.a a ${CMAKE_BINARY_DIR}"
-    #                     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}
-    #                     COMMAND ${CMAKE_COMMAND} -E copy_if_different 
-    #                     /tmp/libsyncloaderapi.a
-    #                     ${CMAKE_BINARY_DIR}/libsyncloaderapi.a
-    #                   )
-
-  else()
-
-    if(APPMODE_LIBRARY_DINAMIC_FEATURE)
-
-      add_library(${CMAKE_PROJECT_NAME} SHARED ${GEN_SOURCES_MODULES_LIST})
-
-    else()
-  
-      if("${APP_RESOURCE_FILE}" STREQUAL "")
-
-        add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST})
-
-      else()
-
-        add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST} ${APP_RESOURCE_FILE})
+        set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${CMAKE_PROJECT_NAME} ARCHIVE_OUTPUT_DIRECTORY /tmp)   # <- STATIC (.a)
 
       endif()
+
+
+      if(APPMODE_LIBRARY_DINAMIC_FEATURE)
+
+        set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES OUTPUT_NAME ${CMAKE_PROJECT_NAME} LIBRARY_OUTPUT_DIRECTORY /tmp)   # <- SHARED (.so)
+
+      endif()
+
+      add_custom_command( TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+                          COMMAND ${CMAKE_COMMAND} -E echo "Copy $<TARGET_FILE:${CMAKE_PROJECT_NAME}> to ${CMAKE_BINARY_DIR}"
+                          COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}
+                          COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_BINARY_DIR}/$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}>
+                        )
+    endif()
+
+  else()  
+
+    if("${APP_RESOURCE_FILE}" STREQUAL "")
+
+      add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST})
+
+    else()
+
+      add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST} ${APP_RESOURCE_FILE})
 
     endif()
 
   endif()
+
 
 endif()
 
