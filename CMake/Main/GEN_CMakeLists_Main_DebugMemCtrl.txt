@@ -18,7 +18,7 @@ if("${DEBUG_EXTCFG}" STREQUAL "DEBUG")
     
 else()
   
-  if("${DEBUG_EXTCFG}" STREQUAL "NODEBUG")
+  if("${DEBUG_EXTCFG}" STREQUAL "NOTDEBUG")
   
     unset(DEBUG_CTRL_FEATURE CACHE)
 
@@ -69,7 +69,7 @@ if("${MEMORY_EXTCFG}" STREQUAL "MEMCTRL")
     
 else()
   
-  if("${MEMORY_EXTCFG}" STREQUAL "NONE")
+  if("${MEMORY_EXTCFG}" STREQUAL "NOTMEMCTRL")
   
     unset(MEMORY_CONTROL_FEATURE CACHE)
 
@@ -109,21 +109,21 @@ unset(MEMORY_CONTROL_FEATURE CACHE)
 
 set(TRACE_CONTROL_MSG "by External Config") 
 
-if("${TRACE_EXTCFG}" STREQUAL "ALL")
+if("${TRACE_EXTCFG}" STREQUAL "TRACE")
 
   option(XTRACE_FEATURE                                         "XTrace"                                                  ON )  
   unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
     
 else()
 
-  if("${TRACE_EXTCFG}" STREQUAL "NOTINTER")
+  if("${TRACE_EXTCFG}" STREQUAL "TRACENOTINTER")
     
     option(XTRACE_FEATURE                                       "XTrace"                                                  ON )  
     option(XTRACE_NOINTERNET_FEATURE                            "No need for trace dependencies with Internet"            ON )   
 
   else()
       
-    if("${TRACE_EXTCFG}" STREQUAL "NONE")
+    if("${TRACE_EXTCFG}" STREQUAL "NOTTRACE")
   
       unset(XTRACE_FEATURE             CACHE)
       unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
@@ -190,13 +190,13 @@ endif()
 
 set(FEEDBACK_CONTROL_MSG "by External Config") 
 
-if("${FEEDBACK_EXTCFG}" STREQUAL "ALL")
+if("${FEEDBACK_EXTCFG}" STREQUAL "FEEDBACK")
 
-  option(XFEEDBACK_CONTROL_FEATURE                                "XFeedback Control"                                       ON )               
+  option(XFEEDBACK_CONTROL_FEATURE                              "XFeedback Control"                                       ON )               
     
 else()
 
-  if("${FEEDBACK_EXTCFG}" STREQUAL "NONE")
+  if("${FEEDBACK_EXTCFG}" STREQUAL "NOTFEEDBACK")
   
     unset(XFEEDBACK_CONTROL_FEATURE CACHE)                 
   

@@ -1152,14 +1152,14 @@ if(DIO_FEATURE)
 
     if(LINUX_DIO_DBUS_FEATURE)
     
-      add_definitions(-DDIO_LINUX_DBUS_ACTIVE)
+      add_definitions(-DLINUX_DIO_DBUS_ACTIVE)
     
     endif()
 
     
     if(LINUX_DIO_NETWORKMANAGER_FEATURE) 
     
-      add_definitions(-DDIO_LINUX_NETWORKMANAGER_ACTIVE)  
+      add_definitions(-DLINUX_DIO_NETWORKMANAGER_ACTIVE)  
     
     endif()
 

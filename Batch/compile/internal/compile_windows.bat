@@ -3,6 +3,7 @@
 set "DIR=%~1/Platforms/%SO_PATH%/%PLATFORM_PATH%"
 set "OLDPATH=%CD%"
 
+
 if not exist "%~1/Platforms/%SO_PATH%" (
   mkdir "%~1/Platforms/%SO_PATH%"
 )
