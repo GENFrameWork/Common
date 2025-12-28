@@ -1,5 +1,4 @@
 #!/bin/sh
-#
 
 # Install dependencies (cross-plataform ARM 64) (PC)
 
@@ -8,6 +7,22 @@ apt-get update
 echo "-----------------------------------------------------------------------"
 echo "Compiler and Debugger"
 echo "Compilers C++"
+apt-get install build-essential -y
+echo "cmake"
+apt-get install cmake -y
+echo "Compiler"
+apt-get install g++	-y
+echo "Debugger"
+apt-get install gdb -y
+echo "Compiler script"
+apt-get install make -y
+echo "Compiler script"
+apt-get install ninja-build -y
+echo "rsync"
+apt-get install rsync -y
+echo "Zip compresion"
+apt-get install zip -y
+echo "Cross Compiler"
 apt-get install crossbuild-essential-arm64 -y
 echo "-----------------------------------------------------------------------"
 echo "System"
@@ -49,6 +64,7 @@ echo "Databases"
 echo "PosgreSQL client"
 apt-get install libpq-dev:arm64 -y
 echo "MySQL client"
-apt-get install python3-dev:arm64  -y
+# apt-get install python3-dev:arm64  -y
 apt-get install default-libmysqlclient-dev:arm64 -y
 echo "-----------------------------------------------------------------------"
+apt --fix-broken install -y

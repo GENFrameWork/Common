@@ -7,8 +7,6 @@ echo "-----------------------------------------------------------------------"
 echo "Compiler and Debugger"
 echo "Compilers C++"
 apt-get install build-essential -y
-echo "IDE with Debug."
-apt-get install kdevelop -y
 echo "cmake"
 apt-get install cmake -y
 echo "Compiler"
@@ -66,3 +64,4 @@ echo "MySQL client"
 apt-get install python3-dev  -y
 apt-get install default-libmysqlclient-dev -y
 echo "-----------------------------------------------------------------------"
+apt --fix-broken install -y

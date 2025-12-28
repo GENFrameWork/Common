@@ -1,46 +1,25 @@
 #!/bin/bash
 
-echo -------------------------------------------------------------
-echo [Remove directorys]
+set -euo pipefail
 
-echo
-echo [Examples Base]
-sh internal/erase_artifacts.bash "../../../Examples/Base/NotAppExample"
-sh internal/erase_artifacts.bash "../../../Examples/Base/AppBaseExample"
-sh internal/erase_artifacts.bash "../../../Examples/Base/Canvas2DDisplay"
-sh internal/erase_artifacts.bash "../../../Examples/Base/MemCtrlExample"
+FILE="listapp.txt"
 
-echo
-echo [Examples Console]
-sh internal/erase_artifacts.bash "../../../Examples/Console/BinConnPro"
-sh internal/erase_artifacts.bash "../../../Examples/Console/NetConn"
-sh internal/erase_artifacts.bash "../../../Examples/Console/Databases"
-sh internal/erase_artifacts.bash "../../../Examples/Console/MiniWebServer"
-sh internal/erase_artifacts.bash "../../../Examples/Console/ScriptsExample"
-sh internal/erase_artifacts.bash "../../../Examples/Console/NetCapture"
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # saltar líneas vacías o solo espacios
+  [[ -z "${line//[[:space:]]/}" ]] && continue
 
-echo
-echo [Examples Graphics]
-sh internal/erase_artifacts.bash "../../../Examples/Graphics/Canvas2D"
-sh internal/erase_artifacts.bash "../../../Examples/Graphics/UI_Options"
-sh internal/erase_artifacts.bash "../../../Examples/Graphics/UI_Message"
+  # Extrae lo que hay entre comillas: "a" "b"
+  if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
+    param1="${BASH_REMATCH[1]}"
+    param2="${BASH_REMATCH[2]}"
 
-echo
-echo [Development tests]
-sh internal/erase_artifacts.bash "../../../Tests/DevTestsConsole"
-sh internal/erase_artifacts.bash "../../../Tests/DevTestsDevices"
-sh internal/erase_artifacts.bash "../../../Tests/DevTestsCanvas2D"
+    # Llama pasando DOS argumentos separados
+    bash internal/erase_artifacts.bash "$param1"
+  else
+    echo "Línea con formato inválido (se ignora): $line" >&2
+  fi
+done < "$FILE"
 
-echo
-echo [Unit tests]           
-sh internal/erase_artifacts.bash "../../../Tests/UnitTests"
-
-echo
-echo [Utilities]
-sh internal/erase_artifacts.bash "../../../Utilities/APPUpdateCreator"
-sh internal/erase_artifacts.bash "../../../Utilities/TranslateScan"
-
-echo 
 
 if [ -f "Output.txt" ]; then
   rm Output.txt

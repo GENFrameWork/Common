@@ -6,11 +6,14 @@ date >> output.txt
 
 START_TIME=$(date +%s)
 
-export TARGET=$1
-export DEBUG_EXTCFG=$2
-export MEMORY_EXTCFG=$3
-export TRACE_EXTCFG=$4
-export FEEDBACK_EXTCFG=$5
+TARGET="${1:-}"
+DEBUG_EXTCFG="${2:-}"
+MEMORY_EXTCFG="${3:-}"
+TRACE_EXTCFG="${4:-}"
+FEEDBACK_EXTCFG="${5:-}"
+IMAGEBASE="${6:-}"
+
+export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE
 
 export SO_PATH="Linux"
 
@@ -25,59 +28,36 @@ if [ "$TARGET" = "INTEL32" ]; then
   export TARGET="INTEL64"
 fi
 
+OLDPATH=$(pwd)
+OUTFILE="$OLDPATH/output.txt"
+export OUTFILE
 
-printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG ]\n"
+
+printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base (docker) $IMAGEBASE]\n"
 echo
 
-printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG ]\n" >> output.txt
-printf "\n" >> output.txt
+printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base (docker) $IMAGEBASE]\n" >> $OUTFILE
+printf "\n" >> $OUTFILE
 
+set -euo pipefail
 
-OUTFILE="../../../../../../Common/Batch/compile/output.txt"
-export OUTFILE
+FILE="listapp.txt"
 
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # saltar líneas vacías o solo espacios
+  [[ -z "${line//[[:space:]]/}" ]] && continue
 
-echo --------------------------------------------------------------------------
-printf "\n[Examples Base]\n\n"
-sh ./internal/compile_linux.bash ../../../Examples/Base/AppBaseExample      appbaseexample
-sh ./internal/compile_linux.bash ../../../Examples/Base/Canvas2DDisplay     canvas2ddisplay
-sh ./internal/compile_linux.bash ../../../Examples/Base/MemCtrlExample      memctrlexample
-sh ./internal/compile_linux.bash ../../../Examples/Base/NotAppExample       notappexample
-  
-printf "\n[Examples Console]\n\n" 
-sh ./internal/compile_linux.bash ../../../Examples/Console/BinConnPro       binconnpro
-sh ./internal/compile_linux.bash ../../../Examples/Console/NetConn          netconn
-sh ./internal/compile_linux.bash ../../../Examples/Console/Databases        databases
-sh ./internal/compile_linux.bash ../../../Examples/Console/MiniWebServer    miniwebserver
-sh ./internal/compile_linux.bash ../../../Examples/Console/ScriptsExample   scriptsexample 
-sh ./internal/compile_linux.bash ../../../Examples/Console/NetCapture       netcapture 
-  
-printf "\n[Examples Graphics]\n\n"  
-sh ./internal/compile_linux.bash ../../../Examples/Graphics/Canvas2D        canvas2d
-sh ./internal/compile_linux.bash ../../../Examples/Graphics/UI_Options      ui_options
-sh ./internal/compile_linux.bash ../../../Examples/Graphics/UI_Message      ui_message
+  # Extrae lo que hay entre comillas: "a" "b"
+  if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
+    param1="${BASH_REMATCH[1]}"
+    param2="${BASH_REMATCH[2]}"
 
-
-OUTFILE="../../../../../Common/Batch/compile/output.txt"
-export OUTFILE
-
-
-echo --------------------------------------------------------------------------
-
-printf "\n[Development tests]\n\n"
-sh ./internal/compile_linux.bash ../../../Tests/DevTestsConsole             devtestconsole
-sh ./internal/compile_linux.bash ../../../Tests/DevTestsDevices             devtestsdevices
-sh ./internal/compile_linux.bash ../../../Tests/DevTestsCanvas2D            devtestscanvas2D
-
-printf "\n[Unit tests]\n\n"
-sh ./internal/compile_linux.bash ../../../Tests/UnitTests                   unit
-
-
-echo --------------------------------------------------------------------------
-
-printf "\n[Utilities]\n\n"
-sh ./internal/compile_linux.bash ../../../Utilities/APPUpdateCreator        appupdatecreator
-sh ./internal/compile_linux.bash ../../../Utilities/TranslateScan           translatescan
+    # Llama pasando DOS argumentos separados
+    bash ./internal/compile_linux.bash "$param1" "$param2" 
+  else
+    echo "Línea con formato inválido (se ignora): $line" >&2
+  fi
+done < "$FILE"
 
 
 END_TIME=$(date +%s)
