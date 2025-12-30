@@ -227,12 +227,22 @@ endif()
 	
 if(COMPILE_FOR_LINUX)
 
-  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/dbus-1.0")
-  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/x86_64-linux-gnu/dbus-1.0/include")
+  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/dbus-1.0")  
+  if(COMPILE_FOR_LINUX_INTEL_64)  
+    list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/x86_64-linux-gnu/dbus-1.0/include")
+  endif()  
+  if(COMPILE_FOR_LINUX_ARM_64 OR COMPILE_FOR_LINUX_ARM_RPI_64)  
+    list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/aarch64-linux-gnu/dbus-1.0/include")                                       
+  endif()
 	 
   list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/libnm")
-  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/glib-2.0")
-  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/x86_64-linux-gnu/glib-2.0/include")  
+  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/glib-2.0")  
+  if(COMPILE_FOR_LINUX_INTEL_64)  
+    list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/x86_64-linux-gnu/glib-2.0/include")  
+  endif()
+  if(COMPILE_FOR_LINUX_ARM_64 OR COMPILE_FOR_LINUX_ARM_RPI_64)  
+    list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/aarch64-linux-gnu/glib-2.0/include")  
+  endif()
 	  
   list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LIBPCAP})
 	

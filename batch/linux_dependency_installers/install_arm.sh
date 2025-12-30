@@ -1,14 +1,32 @@
 #!/bin/sh
-#
 
-# Install dependencies (cross-plataform ARM) (PC)
+# Install dependencies (cross-plataform ARM 64) (PC)
 
 dpkg --add-architecture armhf 
 apt-get update
 echo "-----------------------------------------------------------------------"
 echo "Compiler and Debugger"
 echo "Compilers C++"
-sudo apt install crossbuild-essential-armhf -y
+apt-get install build-essential -y
+echo "cmake"
+apt-get install cmake -y
+echo "Compiler"
+apt-get install g++	-y
+echo "Debugger"
+apt-get install gdb -y
+echo "Compiler script"
+apt-get install make -y
+echo "Compiler script"
+apt-get install ninja-build -y
+echo "rsync"
+apt-get install rsync -y
+echo "Zip compresion"
+apt-get install zip -y
+echo "Cross Compiler"
+apt-get install crossbuild-essential-armhf -y
+echo "-----------------------------------------------------------------------"
+echo "System"
+apt-get install cpuid:armhf -y
 echo "-----------------------------------------------------------------------"
 echo "Comunications"
 echo "Wifi library"
@@ -46,6 +64,7 @@ echo "Databases"
 echo "PosgreSQL client"
 apt-get install libpq-dev:armhf -y
 echo "MySQL client"
-apt-get install python3-dev:armhf -y
+# apt-get install python3-dev:armhf  -y
 apt-get install default-libmysqlclient-dev:armhf -y
 echo "-----------------------------------------------------------------------"
+apt --fix-broken install -y

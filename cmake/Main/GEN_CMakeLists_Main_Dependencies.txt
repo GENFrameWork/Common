@@ -1149,20 +1149,21 @@ if(DIO_FEATURE)
     option(XPUBLISHER_FEATURE                                   "XPublisher"                                              ON )
     option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
 
+    if(LINUX_DIO_NETWORKMANAGER_FEATURE) 
+    
+      add_definitions(-DLINUX_DIO_NETWORKMANAGER_ACTIVE)
+      
+      option(LINUX_DIO_DBUS_FEATURE                             "Linux DBus"                                              ON )
+      
+    endif()
+    
 
     if(LINUX_DIO_DBUS_FEATURE)
     
       add_definitions(-DLINUX_DIO_DBUS_ACTIVE)
     
     endif()
-
     
-    if(LINUX_DIO_NETWORKMANAGER_FEATURE) 
-    
-      add_definitions(-DLINUX_DIO_NETWORKMANAGER_ACTIVE)  
-    
-    endif()
-
 
     if(DIO_STREAMUART_FEATURE)
 
