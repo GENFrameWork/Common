@@ -3,7 +3,6 @@
 DIR="$1/Platforms/$SO_PATH/$PLATFORM_PATH"
 OLDPATH=$(pwd)
 
-
 if [ ! -d "$1/Platforms/$SO_PATH" ]; then
   mkdir $1/Platforms/$SO_PATH;
 fi
