@@ -1,9 +1,5 @@
 #!/bin/bash
 
-source ./erase_all_linux.bash
-
-date >> output.txt
-
 START_TIME=$(date +%s)
 
 TARGET="${1:-}"
@@ -12,36 +8,43 @@ MEMORY_EXTCFG="${3:-}"
 TRACE_EXTCFG="${4:-}"
 FEEDBACK_EXTCFG="${5:-}"
 IMAGEBASE="${6:-}"
+PATHCOMPILE="${7:-}"
 
-export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE
+export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE PATHCOMPILE
+
+FILELISTAPP=$PATHCOMPILE"listapp.txt"
+OUTFILE=$PATHCOMPILE"output.txt"
+
+export FILELISTAPP OUTFILE
 
 export SO_PATH="Linux"
 
-echo --------------------------------------------------------------------------
-printf "Start process ... \n\n"
-
 source ./defaultenv.bash
 
+bash ./erase_all_linux.bash $PATHCOMPILE
+
+date >> $OUTFILE
+
+echo --------------------------------------------------------------------------
+printf "Start process ... \n\n"
 
 if [ "$TARGET" = "INTEL32" ]; then  
   printf "INTEL32 target not valid: Change to INTEL64\n"
   export TARGET="INTEL64"
 fi
 
-OLDPATH=$(pwd)
-OUTFILE="$OLDPATH/output.txt"
+printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHCOMPILE\n"
+echo
+
+printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHCOMPILE\n" >> $OUTFILE
+printf "\n" >> $OUTFILE
+
+OUTFILE="../"$PATHCOMPILE"output.txt"
+
 export OUTFILE
 
 
-printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base (docker) $IMAGEBASE]\n"
-echo
-
-printf "GEN Plataform $TARGET, External Config [ Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base (docker) $IMAGEBASE]\n" >> $OUTFILE
-printf "\n" >> $OUTFILE
-
 set -euo pipefail
-
-FILE="listapp.txt"
 
 while IFS= read -r line || [[ -n "$line" ]]; do
   # saltar líneas vacías o solo espacios
@@ -57,7 +60,7 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   else
     echo "Línea con formato inválido (se ignora): $line" >&2
   fi
-done < "$FILE"
+done < "$FILELISTAPP"
 
 
 END_TIME=$(date +%s)

@@ -25,6 +25,10 @@ if not defined IMAGEBASE (
     set "IMAGEBASE=debian"
 )
 
+if not defined LISTAPP (
+    set "LISTAPP=listapp.txt"
+)
+
 rem -------------------------------------------------------
 
 if /I "%TARGET%"=="INTEL32" (

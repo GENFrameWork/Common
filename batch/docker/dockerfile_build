@@ -13,6 +13,8 @@ RUN sh -c "./install_${TARGET}.sh"
 # RUN sh -c "./install_INTEL64.sh"
 # RUN sh -c "./install_ARM64.sh"
 
-WORKDIR /GEN_FrameWork/Common/batch/compile
+WORKDIR /Projects/GEN_FrameWork/Common/batch/compile
 
-CMD ["sh", "-c", "./compile_all_linux.bash $TARGET $DEBUG_EXTCFG $MEMORY_EXTCFG $TRACE_EXTCFG $FEEDBACK_EXTCFG"]
+CMD ["sh", "-c", "./compile_all_linux.bash $TARGET $DEBUG_EXTCFG $MEMORY_EXTCFG $TRACE_EXTCFG $FEEDBACK_EXTCFG $IMAGEBASE $PATHCOMPILE"]
+
+# CMD bash

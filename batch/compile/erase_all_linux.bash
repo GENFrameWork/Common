@@ -1,8 +1,17 @@
 #!/bin/bash
 
-set -euo pipefail
+PATHCOMPILE="${1:-}"
 
-FILE="listapp.txt"
+export PATHCOMPILE
+
+source ./defaultenv.bash
+
+FILELISTAPP=$PATHCOMPILE"listapp.txt"
+OUTFILE=$PATHCOMPILE"output.txt"
+
+export FILELISTAPP OUTFILE
+
+set -euo pipefail
 
 while IFS= read -r line || [[ -n "$line" ]]; do
   # saltar líneas vacías o solo espacios
@@ -18,11 +27,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
   else
     echo "Línea con formato inválido (se ignora): $line" >&2
   fi
-done < "$FILE"
+done < "$FILELISTAPP"
 
 
-if [ -f "Output.txt" ]; then
-  rm Output.txt
+if [ -f $OUTFILE ]; then
+  rm $OUTFILE
 fi
 
 #echo Press any key to continue ...
