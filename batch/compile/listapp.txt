@@ -15,6 +15,6 @@
 "../../../Tests/DevTestsConsole"            "devtestsconsole"
 "../../../Tests/DevTestsDevices"            "devtestsdevices"
 "../../../Tests/DevTestsCanvas2D"           "devtestscanvas2D"
-"../../../Tests/UnitTests"                  "unit"
+"../../../Tests/XUtils_UnitTests"           "xutils_unit"
 "../../../Utilities/APPUpdateCreator"       "appupdatecreator"
 "../../../Utilities/TranslateScan"          "translatescan"

@@ -12,14 +12,14 @@ PATHCOMPILE="${7:-}"
 
 export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE PATHCOMPILE
 
+source ./defaultenv.bash
+
 FILELISTAPP=$PATHCOMPILE"listapp.txt"
 OUTFILE=$PATHCOMPILE"output.txt"
 
 export FILELISTAPP OUTFILE
 
 export SO_PATH="Linux"
-
-source ./defaultenv.bash
 
 bash ./erase_all_linux.bash $PATHCOMPILE
 
@@ -38,11 +38,6 @@ echo
 
 printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHCOMPILE\n" >> $OUTFILE
 printf "\n" >> $OUTFILE
-
-OUTFILE="../"$PATHCOMPILE"output.txt"
-
-export OUTFILE
-
 
 set -euo pipefail
 

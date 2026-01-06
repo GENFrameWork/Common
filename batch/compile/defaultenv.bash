@@ -36,6 +36,11 @@ if [ -z "$PATHCOMPILE" ]; then
 fi
 
 
+if [ "$PATHCOMPILE" = "" ]; then
+ export PATHCOMPILE="$(pwd)/"
+fi
+
+
 #-------------------------------------------------------------------------------------------
 
 
