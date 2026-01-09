@@ -64,7 +64,6 @@ echo "Databases"
 echo "PosgreSQL client"
 apt-get install libpq-dev:armhf -y
 echo "MySQL client"
-# apt-get install python3-dev:armhf  -y
 apt-get install default-libmysqlclient-dev:armhf -y
 echo "-----------------------------------------------------------------------"
 apt --fix-broken install -y

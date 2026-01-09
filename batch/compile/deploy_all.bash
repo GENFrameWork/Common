@@ -1,15 +1,21 @@
 #!/bin/bash
 
-PATHLISTAPP="${1:-}"
-
-export PATHLISTAPP
+export TARGET="${1:-}"
+export IMAGEBASE="${2:-}"
+export PATHLISTAPP="${3:-}"
 
 source ./defaultenv.bash
 
-FILELISTAPP=$PATHLISTAPP"listapp.txt"
-OUTFILE=$PATHLISTAPP"output.txt"
+if [ "$PATHLISTAPP" = "" ]; then
+ export PATHLISTAPP="$(pwd)/"
+fi
 
-export FILELISTAPP OUTFILE
+FILELISTAPP=$PATHLISTAPP"listapp.txt"
+
+printf "GEN Plataform $TARGET, Image Base $IMAGEBASE, List app $PATHLISTAPP\n"
+echo
+
+bash -c "docker compose -f ../../docker/docker-compose-prod.yml down"
 
 set -euo pipefail
 
@@ -19,22 +25,15 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
   # Extrae lo que hay entre comillas: "a" "b"
   if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
-    param1="${BASH_REMATCH[1]}"
-    param2="${BASH_REMATCH[2]}"
-
+    PARAM1="${BASH_REMATCH[1]}"
+    PARAM2="${BASH_REMATCH[2]}"
+       
     # Llama pasando DOS argumentos separados
-    bash internal/erase_artifacts.bash "$param1"
+    source ./deploy.bash "$TARGET" "$IMAGEBASE" "$PARAM1" "$PARAM2" 
   else
     echo "Línea con formato inválido (se ignora): $line" >&2
   fi
 done < "$FILELISTAPP"
 
 
-if [ -f $OUTFILE ]; then
-  rm $OUTFILE
-fi
-
-#echo Press any key to continue ...
-#read KEY
-
-
+bash -c "docker compose -f ../../docker/docker-compose-prod.yml up"

@@ -1,0 +1,20 @@
+ARG IMAGEBASE
+FROM ${IMAGEBASE:-debian}
+
+ARG TARGET=INTEL32
+ENV TARGET=${TARGET}
+
+WORKDIR /install
+COPY Common/batch/linux_dependency_installers/ ./
+
+RUN set -eux; \
+    chmod +x "/install/install_dev_${TARGET}.sh"; \
+    "/install/install_dev_${TARGET}.sh"; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install
+
+WORKDIR /Projects/GEN_FrameWork/Common/batch/compile
+
+CMD ["sh", "-ec", "./compile_all_linux.bash \"$TARGET\" \"$DEBUG_EXTCFG\" \"$MEMORY_EXTCFG\" \"$TRACE_EXTCFG\" \"$FEEDBACK_EXTCFG\" \"$IMAGEBASE\" \"$PATHCOMPILE\""]
+
+
+

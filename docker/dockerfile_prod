@@ -1,0 +1,81 @@
+
+ARG IMAGEBASE
+FROM ${IMAGEBASE:-debian}
+
+ARG IMAGEBASE
+ARG TARGET
+ARG TARGET_IMG
+ARG APPPATH
+ARG APPNAME
+
+ENV IMAGEBASE="${IMAGEBASE}" \
+    TARGET="${TARGET}" \
+    TARGET_IMG="${TARGET_IMG}" \
+    APPPATH="${APPPATH}" \
+    APPNAME="${APPNAME}"
+
+WORKDIR /install
+COPY Common/batch/linux_dependency_installers/ ./
+
+RUN set -eux; \
+    script="/install/install_prod_${TARGET}.sh"; \
+    chmod +x "$script"; \
+    "$script"; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
+    rm -rf /install
+
+WORKDIR /app
+COPY ${APPPATH}/assets/ ./assets/
+
+COPY ${APPPATH}/Platforms/Linux/${TARGET_IMG}/ /tmp/platform/
+RUN set -eux; \
+    picked=""; \
+    c1="${APPNAME}"; \
+    c2="${APPNAME}tests"; \
+    c3="lib${APPNAME}.so"; \
+    c4="lib${APPNAME}.a"; \
+    for c in "$c1" "$c2" "$c3" "$c4"; do \
+      if [ -f "/tmp/platform/$c" ]; then picked="$c"; break; fi; \
+    done; \
+    if [ -z "$picked" ]; then \
+      echo "ERROR: No se encontro ningun artefacto valido en /tmp/platform"; \
+      ls -la /tmp/platform; \
+      exit 1; \
+    fi; \
+    echo "Seleccionado: $picked"; \
+    cp -av "/tmp/platform/$picked" "/app/$picked"; \
+    rm -rf /tmp/platform; \
+    printf '%s\n' "APPENTRY=${picked}" > /app/.runtime_env; \
+    chmod +x "/app/$picked" || true; \
+    cat > /app/entrypoint.sh <<'SH'
+#!/bin/sh
+set -eu
+
+[ -f /app/.runtime_env ] && . /app/.runtime_env || true
+
+echo "Artefacto seleccionado: ${APPENTRY}"
+
+case "${APPENTRY}" in
+  lib*.a|lib*.so)
+    echo "Es una libreria (${APPENTRY}). Arrancando shell..."
+    exec /bin/sh
+    ;;
+  *)
+    if [ ! -x "/app/${APPENTRY}" ]; then
+      echo "ERROR: /app/${APPENTRY} no es ejecutable"
+      exit 1
+    fi
+    exec "/app/${APPENTRY}"
+    ;;
+esac
+SH
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD []
+
+# Command for build (el comando debe ser ejecutado desde XXXX)
+#--> docker compose -f ../../../common/docker/docker-compose-prod.yml build [syncloader] [...]
+#--> docker compose -f ../../../common/docker/docker-compose-prod.yml up [syncloader] [...]
+#--> docker compose -f ../../../common/docker/docker-compose-prod.yml down [syncloader] [...]
+#--> docker compose -f ../../../common/docker/docker-compose-prod.yml exec syncloader bash

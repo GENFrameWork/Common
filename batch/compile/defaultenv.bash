@@ -31,13 +31,8 @@ if [ -z "$IMAGEBASE" ]; then
 fi
 
 
-if [ -z "$PATHCOMPILE" ]; then
-  export PATHCOMPILE=""
-fi
-
-
-if [ "$PATHCOMPILE" = "" ]; then
- export PATHCOMPILE="$(pwd)/"
+if [ -z "$PATHLISTAPP" ]; then
+  export PATHLISTAPP=""
 fi
 
 
