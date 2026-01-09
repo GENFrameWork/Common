@@ -15,13 +15,19 @@ if [ ! -d "$DIR" ]; then
   mkdir $DIR;
 fi
 
+if [[ "$OUTFILE" == /* ]]; then
+  OUTFILE2=$OUTFILE
+else
+  OUTFILE2="../"$OUTFILE
+fi
+
 cd $DIR
 
-printf "\n\n[%s]\n\n" $2 >> "$OUTFILE" 2>&1
+printf "\n\n[%s]\n\n" $2 >> "$OUTFILE2" 2>&1
 
-printf "[#CMake#]\n"  >> "$OUTFILE" 2>&1
+printf "[#CMake#]\n"  >> "$OUTFILE2" 2>&1
 printf "Generate CMake      %-16s ... " $2 
-cmake -G "Ninja" -DTARGET=$TARGET -DDEBUG_EXTCFG=$DEBUG_EXTCFG -DMEMORY_EXTCFG=$MEMORY_EXTCFG -DTRACE_EXTCFG=$TRACE_EXTCFG -DFEEDBACK_EXTCFG=$FEEDBACK_EXTCFG ../..  >> "$OUTFILE" 2>&1
+cmake -G "Ninja" -DTARGET=$TARGET -DDEBUG_EXTCFG=$DEBUG_EXTCFG -DMEMORY_EXTCFG=$MEMORY_EXTCFG -DTRACE_EXTCFG=$TRACE_EXTCFG -DFEEDBACK_EXTCFG=$FEEDBACK_EXTCFG ../..  >> "$OUTFILE2" 2>&1
 if [ $? -eq 0 ]; then
     printf "[Ok]\n" 
 else
@@ -29,9 +35,9 @@ else
 fi
 
 
-printf "[#Compilate#]\n"  >> "$OUTFILE" 2>&1
+printf "[#Compilate#]\n"  >> "$OUTFILE2" 2>&1
 printf "Compilate project   %-16s ... " $2
-ninja -j8  >> "$OUTFILE" 2>&1
+ninja -j8  >> "$OUTFILE2" 2>&1
 if [ $? -eq 0 ]; then    
     printf "[Ok]\n" 
 else
@@ -43,7 +49,7 @@ if [[ "$TARGET" == "INTEL32" || "$TARGET" == "INTEL64" ]]; then
   if [ -e "$2tests" ]; then
     printf "[#Tests#]\n"  >> "$OUTFILE" 2>&1
     printf "Test project        %-16s ... " $2
-    ./$2tests  >> "$OUTFILE" 2>&1
+    ./$2tests  >> "$OUTFILE2" 2>&1
     if [ $? -eq 0 ]; then    
         printf "[Ok]\n" 
     else

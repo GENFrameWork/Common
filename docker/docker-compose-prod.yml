@@ -1,0 +1,374 @@
+services:
+
+  notappexample:
+    container_name: notappexample
+    image: gen_prod:notappexample
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./notappexample
+    
+    
+  appbaseexample:
+    container_name: appbaseexample
+    image: gen_prod:appbaseexample
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./appbaseexample
+ 
+
+  memctrlexample:
+    container_name: memctrlexample
+    image: gen_prod:memctrlexample
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./memctrlexample
+ 
+ 
+  canvas2Ddisplay:
+    container_name: canvas2Ddisplay
+    image: gen_prod:canvas2Ddisplay
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./canvas2Ddisplay
+ 
+ 
+  loglib:
+    container_name: loglib
+    image: gen_prod:loglib
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./loglib
+ 
+ 
+  binconnpro:
+    container_name: binconnpro
+    image: gen_prod:binconnpro
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./binconnpro
+ 
+ 
+  netconn:
+    container_name: netconn
+    image: gen_prod:netconn
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./netconn
+ 
+ 
+  databases:
+    container_name: databases
+    image: gen_prod:databases
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./databases
+ 
+ 
+  miniwebserver:
+    container_name: miniwebserver
+    image: gen_prod:miniwebserver
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./miniwebserver
+ 
+ 
+  scriptsexample:
+    container_name: scriptsexample
+    image: gen_prod:scriptsexample
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./scriptsexample
+ 
+ 
+  netcapture:
+    container_name: netcapture
+    image: gen_prod:netcapture
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./netcapture
+ 
+ 
+  canvas2D:
+    container_name: canvas2D
+    image: gen_prod:canvas2D
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./canvas2D
+ 
+ 
+  ui_options:
+    container_name: ui_options
+    image: gen_prod:ui_options
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./ui_options
+ 
+ 
+  ui_message:
+    container_name: ui_message
+    image: gen_prod:ui_message
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./ui_message
+ 
+ 
+  devtestsconsole:
+    container_name: devtestsconsole
+    image: gen_prod:devtestsconsole
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./devtestsconsole
+ 
+ 
+  devtestsdevices:
+    container_name: devtestsdevices
+    image: gen_prod:devtestsdevices
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./devtestsdevices
+ 
+ 
+  devtestscanvas2D:
+    container_name: devtestscanvas2D
+    image: gen_prod:devtestscanvas2D
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./devtestscanvas2D
+    
+    
+  xutils_unit:
+    container_name: xutils_unit
+    image: gen_prod:xutils_unit
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./xutils_unit
+       
+       
+  appupdatecreator:
+    container_name: appupdatecreator
+    image: gen_prod:appupdatecreator
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./appupdatecreator
+    
+    
+  translatescan:
+    container_name: translatescan
+    image: gen_prod:translatescan
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./translatescan
+
+ 
+networks:
+
+  example_app_net:
+    driver: bridge
+  
+volumes:
+
+  shared_mem: 
+    driver: local
+    
+    
+    

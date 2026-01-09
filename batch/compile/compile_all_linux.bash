@@ -8,20 +8,24 @@ MEMORY_EXTCFG="${3:-}"
 TRACE_EXTCFG="${4:-}"
 FEEDBACK_EXTCFG="${5:-}"
 IMAGEBASE="${6:-}"
-PATHCOMPILE="${7:-}"
+PATHLISTAPP="${7:-}"
 
-export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE PATHCOMPILE
+export TARGET DEBUG_EXTCFG MEMORY_EXTCFG TRACE_EXTCFG FEEDBACK_EXTCFG IMAGEBASE PATHLISTAPP
 
 source ./defaultenv.bash
 
-FILELISTAPP=$PATHCOMPILE"listapp.txt"
-OUTFILE=$PATHCOMPILE"output.txt"
+if [ "$PATHLISTAPP" = "" ]; then
+ export PATHLISTAPP="$(pwd)/"
+fi
+
+FILELISTAPP=$PATHLISTAPP"listapp.txt"
+OUTFILE=$PATHLISTAPP"output.txt"
 
 export FILELISTAPP OUTFILE
 
 export SO_PATH="Linux"
 
-bash ./erase_all_linux.bash $PATHCOMPILE
+bash ./erase_all_linux.bash $PATHLISTAPP
 
 date >> $OUTFILE
 
@@ -33,10 +37,10 @@ if [ "$TARGET" = "INTEL32" ]; then
   export TARGET="INTEL64"
 fi
 
-printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHCOMPILE\n"
+printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHLISTAPP\n"
 echo
 
-printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHCOMPILE\n" >> $OUTFILE
+printf "GEN Plataform $TARGET, Debug $DEBUG_EXTCFG, Memory Control $MEMORY_EXTCFG, Trace $TRACE_EXTCFG, FeedBack $FEEDBACK_EXTCFG, Image Base $IMAGEBASE, List app $PATHLISTAPP\n" >> $OUTFILE
 printf "\n" >> $OUTFILE
 
 set -euo pipefail
@@ -47,11 +51,11 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
   # Extrae lo que hay entre comillas: "a" "b"
   if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
-    param1="${BASH_REMATCH[1]}"
-    param2="${BASH_REMATCH[2]}"
+    PARAM1="${BASH_REMATCH[1]}"
+    PARAM2="${BASH_REMATCH[2]}"
 
     # Llama pasando DOS argumentos separados
-    bash ./internal/compile_linux.bash "$param1" "$param2" 
+    bash ./internal/compile_linux.bash "$PARAM1" "$PARAM2" 
   else
     echo "Línea con formato inválido (se ignora): $line" >&2
   fi
