@@ -14,7 +14,7 @@ RUN set -eux; \
 
 WORKDIR /Projects/GEN_FrameWork/Common/batch/compile
 
-CMD ["sh", "-ec", "./compile_all_linux.bash \"$TARGET\" \"$DEBUG_EXTCFG\" \"$MEMORY_EXTCFG\" \"$TRACE_EXTCFG\" \"$FEEDBACK_EXTCFG\" \"$IMAGEBASE\" \"$PATHCOMPILE\""]
+CMD ["sh", "-ec", "./compile_all_linux.bash \"$TARGET\" \"$DEBUG_EXTCFG\" \"$MEMORY_EXTCFG\" \"$TRACE_EXTCFG\" \"$FEEDBACK_EXTCFG\" \"$IMAGEBASE\" \"$PATHLISTAPP\""]
 
 
 
