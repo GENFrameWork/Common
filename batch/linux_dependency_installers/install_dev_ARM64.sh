@@ -10,6 +10,8 @@ echo "Compilers C++"
 apt-get install build-essential -y
 echo "cmake"
 apt-get install cmake -y
+echo "ccache"
+apt-get install ccache -y
 echo "Compiler"
 apt-get install g++	-y
 echo "Debugger"
