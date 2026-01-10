@@ -2,5 +2,5 @@
 
 # Install dependencies RPI64
 
-sh ./install_ARM64.sh
+sh ./install_prod_ARM64.sh
 
