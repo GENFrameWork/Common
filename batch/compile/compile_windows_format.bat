@@ -49,8 +49,8 @@ set "OLDPATH=%CD%"
 set "OUTFILE=%OLDPATH%\output.txt"
 set "PRINTF=%OLDPATH%\..\..\..\Utilities\printf\printf"
 
+call "C:\Program Files\Microsoft Visual Studio\2022\%vctype%\VC\Auxiliary\Build\vcvarsall.bat" %vcplatform% 
 
-call "C:\Program Files\Microsoft Visual Studio\2022\%vctype%\VC\Auxiliary\Build\vcvarsall.bat" %vcplatform%
 %PRINTF% "\n"
 
 %PRINTF% "GEN Plataform %TARGET%, External Config [ Debug %DEBUG_EXTCFG%, Memory Control %MEMORY_EXTCFG%, Trace %TRACE_EXTCFG%, FeedBack %FEEDBACK_EXTCFG% ]\n"

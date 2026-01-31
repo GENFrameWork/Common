@@ -7,10 +7,10 @@ set "OLDPATH=%CD%"
 if not exist "%~1/Platforms/%SO_PATH%" (
   mkdir "%~1/Platforms/%SO_PATH%"
 )
- 
-if exist "%DIR%" (
-  del /s /q "%DIR%\*.*"
-  rmdir /s /q "%%i"
+
+
+ if exist "%DIR%" (
+  rmdir /s /q "%DIR%"
 )
 
 if not exist "%DIR%" (
