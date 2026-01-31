@@ -39,7 +39,7 @@ endif()
 
 if(DEBUG_CTRL_FEATURE)
 
-  add_definitions(-DGEN_DEBUG)
+  # add_definitions(-DGEN_DEBUG)
 
   set(CMAKE_BUILD_TYPE Debug            CACHE STRING "Choose the type of build."  FORCE)
   set(CMAKE_CONFIGURATION_TYPES Debug   CACHE STRING "Choose the type of build."  FORCE)

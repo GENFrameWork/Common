@@ -7,13 +7,10 @@ for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (
     set /a "start_time=(((%%a*60+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100)"
 )
 
-
 echo -------------------------------------------------------------
 ..\..\..\Utilities\printf\printf "Start process ... \n\n"
 
-call compile_windows_format.bat INTEL32 %~2 %~3 %~4 %~5  
-call compile_windows_format.bat INTEL64 %~2 %~3 %~4 %~5   
-
+call compile_windows_format.bat %~1 %~2 %~3 %~4 %~5   
 
 for /f "tokens=1-4 delims=:.," %%a in ("%time%") do (
     set /a "end_time=(((%%a*60+1%%b %% 100)*60+1%%c %% 100)*100+1%%d %% 100)"
