@@ -40,6 +40,7 @@ echo.
 echo.
 echo.
 echo.
+call erase_all_windows.bat
 echo ----------------------------------------------------------------------------------------------------
 echo Creando ZIP: %ZIP%
 echo.
