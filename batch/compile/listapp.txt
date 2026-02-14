@@ -3,6 +3,7 @@
 "../../../Examples/Base/MemCtrlExample"     "memctrlexample"
 "../../../Examples/Base/Canvas2DDisplay"    "canvas2Ddisplay"
 "../../../Examples/Base/LogLib"             "loglib"
+"../../../Examples/Console/IniBase"         "inibase"  
 "../../../Examples/Console/BinConnPro"      "binconnpro"
 "../../../Examples/Console/NetConn"         "netconn"
 "../../../Examples/Console/Databases"       "databases"

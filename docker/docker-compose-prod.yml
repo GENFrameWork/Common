@@ -106,6 +106,23 @@ services:
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./binconnpro
+    
+  inibase:
+    container_name: inibase
+    image: gen_prod:inibase
+    tty: true
+    networks:
+      - example_app_net
+    build:
+      context: ../../
+      dockerfile: Common/docker/dockerfile_prod
+      args:       
+        TARGET: ${TARGET:-}
+        TARGET_IMG: ${TARGET_IMG:-}
+        IMAGEBASE: ${IMAGEBASE:-}
+        APPPATH: ${APPPATH:-}
+        APPNAME: ${APPNAME:-}
+    command: ./inibase    
  
  
   netconn:

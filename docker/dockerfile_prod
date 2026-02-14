@@ -73,9 +73,3 @@ RUN chmod +x /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 CMD []
-
-# Command for build (el comando debe ser ejecutado desde XXXX)
-#--> docker compose -f ../../../common/docker/docker-compose-prod.yml build [syncloader] [...]
-#--> docker compose -f ../../../common/docker/docker-compose-prod.yml up [syncloader] [...]
-#--> docker compose -f ../../../common/docker/docker-compose-prod.yml down [syncloader] [...]
-#--> docker compose -f ../../../common/docker/docker-compose-prod.yml exec syncloader bash
