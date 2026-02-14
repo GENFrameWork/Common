@@ -19,6 +19,26 @@ DOCKER_FILE_BUILD=dockerfile_build
 GEN_PATH=../../..
 BIND_MOUNT_GEN=../../$GEN_PATH/Projects:/Projects
 BIND_MOUNT_CCACHE=/root/.cache/:/root/.cache/
+TMPFS_BUILD="--tmpfs /build:rw,noexec,nosuid,size=16g"
 
-bash -c "docker build --build-arg TARGET=$TARGET --build-arg IMAGEBASE=$IMAGEBASE --build-arg PATHLISTAPP=$PATHLISTAPP -t $COMPILE_IMAGE -f $GEN_PATH/Common/docker/$DOCKER_FILE_BUILD $GEN_PATH"                        
-bash -c "docker run -it --rm --name gen_compiler_container -e TARGET=$TARGET -e DEBUG_EXTCFG=$DEBUG_EXTCFG -e MEMORY_EXTCFG=$MEMORY_EXTCFG -e TRACE_EXTCFG=$TRACE_EXTCFG -e FEEDBACK_EXTCFG=$FEEDBACK_EXTCFG -e IMAGEBASE=$IMAGEBASE -e PATHLISTAPP=$PATHLISTAPP -v $BIND_MOUNT_GEN -v $BIND_MOUNT_CCACHE $COMPILE_IMAGE"
+bash -c "docker build \
+        --build-arg TARGET=$TARGET \
+        --build-arg IMAGEBASE=$IMAGEBASE \
+        --build-arg PATHLISTAPP=$PATHLISTAPP \
+        -t $COMPILE_IMAGE \
+        -f $GEN_PATH/Common/docker/$DOCKER_FILE_BUILD \
+        $GEN_PATH"                        
+                
+bash -c "docker run -it --rm \
+        --name gen_compiler_container \
+        -e TARGET=$TARGET \
+        -e DEBUG_EXTCFG=$DEBUG_EXTCFG \
+        -e MEMORY_EXTCFG=$MEMORY_EXTCFG \
+        -e TRACE_EXTCFG=$TRACE_EXTCFG \
+        -e FEEDBACK_EXTCFG=$FEEDBACK_EXTCFG \
+        -e IMAGEBASE=$IMAGEBASE \
+        -e PATHLISTAPP=$PATHLISTAPP \
+        $TMPFS_BUILD \
+        -v $BIND_MOUNT_GEN \
+        -v $BIND_MOUNT_CCACHE \
+        $COMPILE_IMAGE"

@@ -32,7 +32,7 @@ if(COMPILE_FOR_LINUX)
  
   option(XFILE_FEATURE                                          "XFile"                                                   ON )
   option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )     
-  option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )    # TO REVISATED 
+  #option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )    # TO REVISATED 
   
 endif()
 
@@ -1561,6 +1561,7 @@ endif()
 if(XPROCESSMANAGER_FEATURE)
 
   add_definitions(-DXPROCESSMANAGER_ACTIVE)
+  option(XCONSOLE_FEATURE                                         "Console functions"                                       ON )
 
 endif()
 

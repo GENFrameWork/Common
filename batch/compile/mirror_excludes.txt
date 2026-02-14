@@ -1,0 +1,6 @@
+# Repos
+.git/
+
+# Build
+Extras
+output.txt
