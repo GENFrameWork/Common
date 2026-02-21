@@ -6,31 +6,61 @@
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
+set(CMAKE_RC_COMPILER rc.exe CACHE FILEPATH "" FORCE)
+  
+if(USE_CLANG_COMPILER_FEATURE)
+ 
+  set(CMAKE_C_COMPILER   clang-cl CACHE FILEPATH "" FORCE)
+  set(CMAKE_CXX_COMPILER clang-cl CACHE FILEPATH "" FORCE)
 
 
-set(CompilerFlags CMAKE_C_FLAGS 
-                  CMAKE_C_FLAGS_DEBUG 
-                  CMAKE_C_FLAGS_RELEASE 
-                  CMAKE_C_FLAGS_MINSIZEREL 
-                  CMAKE_C_FLAGS_RELWITHDEBINFO
+  if(COMPILE_FOR_WINDOWS_INTEL_32)
 
-                  CMAKE_CXX_FLAGS 
-                  CMAKE_CXX_FLAGS_DEBUG 
-                  CMAKE_CXX_FLAGS_RELEASE 
-                  CMAKE_CXX_FLAGS_MINSIZEREL 
-                  CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+    add_compile_options(/clang:-m32)
+    add_link_options(/MACHINE:X86)
+
+  endif()
+
+
+  if(COMPILE_FOR_WINDOWS_INTEL_64)
+
+    add_compile_options(/clang:-m64)
+    add_link_options(/MACHINE:X64)
+
+  endif()
+
+
+else()
+
+  set(CompilerFlags CMAKE_C_FLAGS 
+                    CMAKE_C_FLAGS_DEBUG 
+                    CMAKE_C_FLAGS_RELEASE 
+                    CMAKE_C_FLAGS_MINSIZEREL 
+                    CMAKE_C_FLAGS_RELWITHDEBINFO
+
+                    CMAKE_CXX_FLAGS 
+                    CMAKE_CXX_FLAGS_DEBUG 
+                    CMAKE_CXX_FLAGS_RELEASE 
+                    CMAKE_CXX_FLAGS_MINSIZEREL 
+                    CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+
                 
-foreach(CompilerFlag ${CompilerFlags})
+  foreach(CompilerFlag ${CompilerFlags})
 
-  if(WINDOWS_APPMODE_DINAMIC)  
-    string(REPLACE "/MT" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
-  else()
-    string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
-  endif()  
+    if(WINDOWS_APPMODE_DINAMIC)  
+
+      string(REPLACE "/MT" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
+
+    else()
+
+      string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+
+    endif()  
   
-  set(${CompilerFlag} "${${CompilerFlag}}" CACHE STRING "msvc compiler flags"   FORCE)
-  #message("MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
+    set(${CompilerFlag} "${${CompilerFlag}}" CACHE STRING "msvc compiler flags"   FORCE)
+    #message("MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
 
-endforeach()
+  endforeach()
 
-  
+
+endif()

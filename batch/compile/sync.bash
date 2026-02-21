@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRC_WIN="/mnt/d/Projects/GEN_FrameWork"             
+SRC_WIN="/mnt/e/Projects/GEN_FrameWork"             
 MIRROR_BASE="/home/Projects/GEN_FrameWork" 
 SYNC_TRANSFERRED="0"            
 
