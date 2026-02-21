@@ -47,7 +47,7 @@ endif()
 # --------------------------------------------------------------------
 # CLang Multiplaform Compiler
 
-if(COMPILE_WITH_CLANG)
+if(COMPILE_WITH_CLANG OR COMPILE_WITH_CLANG_CL)
 
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-invalid-source-encoding")  
   set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-variable") 
@@ -57,6 +57,8 @@ if(COMPILE_WITH_CLANG)
   if(COMPILE_FOR_WINDOWS)
 
     set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-non-prototype")
+    set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-string-plus-int")
+    set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-tautological-constant-out-of-range-compare")
 
   endif()
 

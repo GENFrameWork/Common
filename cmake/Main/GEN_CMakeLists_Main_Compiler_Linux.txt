@@ -29,6 +29,15 @@ endif()
 # INTEL 
 
 if(COMPILE_FOR_LINUX_INTEL_64)  
+
+  
+  if(USE_CLANG_COMPILER_FEATURE)
+
+    set(CMAKE_C_COMPILER   clang   CACHE FILEPATH   "" FORCE)
+    set(CMAKE_CXX_COMPILER clang++ CACHE FILEPATH   "" FORCE)
+
+  endif()
+
  
 endif()
 

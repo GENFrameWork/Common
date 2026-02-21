@@ -52,13 +52,17 @@ else()
 
   else()  
 
-    if("${APP_RESOURCE_FILE}" STREQUAL "")
+   
+    
+    add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST})
+    
+    if(APP_RESOURCE_FILE)
 
-      add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST})
+      set_source_files_properties(${APP_RESOURCE_FILE} PROPERTIES LANGUAGE RC)
+      target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${APP_RESOURCE_FILE})
 
-    else()
-
-      add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST} ${APP_RESOURCE_FILE})
+      # old method
+      # add_executable(${CMAKE_PROJECT_NAME} ${GEN_SOURCES_MODULES_LIST} ${APP_RESOURCE_FILE})
 
     endif()
 
