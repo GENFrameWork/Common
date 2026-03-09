@@ -1,0 +1,235 @@
+# --------------------------------------------------------------------
+# GEN_Main_DebugMemCtrl.cmake
+# Main: Debug management and memory control
+# --------------------------------------------------------------------
+
+
+# --------------------------------------------------------------------
+# Debug / Release 
+
+unset(CMAKE_BUILD_TYPE          CACHE)
+unset(CMAKE_CONFIGURATION_TYPES CACHE)
+
+set(DEBUG_CTRL_MSG "by External Config") 
+
+if("${DEBUG_EXTCFG}" STREQUAL "DEBUG")
+
+  option(DEBUG_CTRL_FEATURE  "Debug Mode Ctrl"  ON)
+    
+else()
+  
+  if("${DEBUG_EXTCFG}" STREQUAL "NOTDEBUG")
+  
+    unset(DEBUG_CTRL_FEATURE CACHE)
+
+  else()
+      
+    if(DEBUG_FEATURE)
+        
+      option(DEBUG_CTRL_FEATURE  "Debug Mode Ctrl"  ON)
+      
+    endif()
+
+   set(DEBUG_CTRL_MSG "by Proyect") 
+
+  endif()
+  
+endif()
+
+
+if(DEBUG_CTRL_FEATURE)
+
+  # add_definitions(-DGEN_DEBUG)
+
+  set(CMAKE_BUILD_TYPE Debug            CACHE STRING "Choose the type of build."  FORCE)
+  set(CMAKE_CONFIGURATION_TYPES Debug   CACHE STRING "Choose the type of build."  FORCE)
+    
+else()
+
+  add_definitions(-DGEN_NODEBUG)
+  
+  set(CMAKE_BUILD_TYPE Release          CACHE STRING "Choose the type of build."  FORCE)
+  set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING "Choose the type of build."  FORCE)
+
+endif()
+
+message(STATUS "[GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBUG_CTRL_MSG}]")  
+
+unset(DEBUG_CTRL_FEATURE CACHE)
+
+
+# --------------------------------------------------------------------
+# Memory control 
+
+set(MEMORY_CONTROL_MSG "by External Config") 
+
+if("${MEMORY_EXTCFG}" STREQUAL "MEMCTRL")
+
+  option(MEMORY_CONTROL_FEATURE  "Memory Mode Ctrl"  ON)
+    
+else()
+  
+  if("${MEMORY_EXTCFG}" STREQUAL "NOTMEMCTRL")
+  
+    unset(MEMORY_CONTROL_FEATURE CACHE)
+
+  else()
+      
+    if(XMEMORY_CONTROL_FEATURE)
+        
+      option(MEMORY_CONTROL_FEATURE  "Memory Mode Ctrl"  ON)
+      
+    endif()
+
+   set(MEMORY_CONTROL_MSG "by Proyect") 
+
+  endif()
+  
+endif()
+
+
+if(MEMORY_CONTROL_FEATURE)
+
+  add_definitions(-DXMEMORY_CONTROL_ACTIVE)
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
+  
+  message(STATUS "[GEN Memory Control: Active specified ${MEMORY_CONTROL_MSG}]")  
+  
+else()  
+
+  message(STATUS "[GEN Memory Control: Deactive specified ${MEMORY_CONTROL_MSG}]")  
+ 
+endif()
+
+unset(MEMORY_CONTROL_FEATURE CACHE)
+
+
+# --------------------------------------------------------------------
+# Trace control 
+
+set(TRACE_CONTROL_MSG "by External Config") 
+
+if("${TRACE_EXTCFG}" STREQUAL "TRACE")
+
+  option(XTRACE_FEATURE                                         "XTrace"                                                  ON )  
+  unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
+    
+else()
+
+  if("${TRACE_EXTCFG}" STREQUAL "TRACENOTINTER")
+    
+    option(XTRACE_FEATURE                                       "XTrace"                                                  ON )  
+    option(XTRACE_NOINTERNET_FEATURE                            "No need for trace dependencies with Internet"            ON )   
+
+  else()
+      
+    if("${TRACE_EXTCFG}" STREQUAL "NOTTRACE")
+  
+      unset(XTRACE_FEATURE             CACHE)
+      unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
+      
+    else()
+      
+      set(TRACE_CONTROL_MSG "by Proyect") 
+         
+    endif()
+  
+  endif()
+  
+endif()
+
+
+if(XTRACE_NOINTERNET_FEATURE)
+
+  message(STATUS "[GEN Trace Control: Active without Internet specified ${TRACE_CONTROL_MSG}]")  
+ 
+else()
+
+  if(XTRACE_FEATURE)
+
+    message(STATUS "[GEN Trace Control: Active specified ${TRACE_CONTROL_MSG}]")  
+ 
+  else()
+  
+    message(STATUS "[GEN Trace Control: Deactive specified ${TRACE_CONTROL_MSG}]")  
+   
+  endif()
+
+endif() 
+ 
+
+if(XTRACE_FEATURE)
+
+  add_definitions(-DXTRACE_ACTIVE)
+
+  if(XTRACE_NOINTERNET_FEATURE)
+  
+    add_definitions(-DXTRACE_NOINTERNET)  
+    
+  else()
+
+    option(DIO_PUBLICINTERNETIP_FEATURE                         "Public Internet IP"                                      ON )
+
+  endif()
+ 
+  if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
+  
+    option(DIO_FEATURE                                          "Data Input/Output"                                       ON )
+    option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            ON )
+    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
+    
+  endif()
+
+endif()  
+ 
+
+
+# --------------------------------------------------------------------
+# Feedback control 
+
+
+set(FEEDBACK_CONTROL_MSG "by External Config") 
+
+if("${FEEDBACK_EXTCFG}" STREQUAL "FEEDBACK")
+
+  option(XFEEDBACK_CONTROL_FEATURE                              "XFeedback Control"                                       ON )               
+    
+else()
+
+  if("${FEEDBACK_EXTCFG}" STREQUAL "NOTFEEDBACK")
+  
+    unset(XFEEDBACK_CONTROL_FEATURE CACHE)                 
+  
+  else()
+           
+    set(FEEDBACK_CONTROL_MSG "by Proyect") 
+    
+  endif()
+  
+endif()
+
+
+if(XFEEDBACK_CONTROL_FEATURE)
+
+  add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
+  list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
+  
+  message(STATUS "[GEN Feedback Control: Active specified ${FEEDBACK_CONTROL_MSG}]")  
+
+else()
+
+  message(STATUS "[GEN Feedback Control: Deactive specified ${FEEDBACK_CONTROL_MSG}]")  
+
+endif()
+
+
+
+# --------------------------------------------------------------------
+# Special
+
+if(ANONYMOUS_MODE_FEATURE)
+  
+  add_definitions(-DANONYMOUS_MODE)
+
+endif()
+
