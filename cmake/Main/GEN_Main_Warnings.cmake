@@ -13,21 +13,21 @@
 
 if(COMPILE_WITH_MSVC)
   
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4018")                                               # warning C4018: '>': signed/unsigned mismatch
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4091")                                               # warning C4091: 'typedef ': ignored on left of 'xxx' when no variable is declared
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4595")                                               # warning C4595: 'xxx': non-member operator new or delete functions may not be declared inline
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4996")                                               # warning C4996: 'xxx': was declared deprecated
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4624")                                               # warning C4624: 'xxx' destructor was implicitly defined as deleted
-  set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd5033")                                                 # warning C5033: 'register' is no longer a supported storage class (AGG header included by GEN sources)
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd5030")                                               # warning C5030: attribute 'xxx' is not recognized
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4065")                                               # warning C4065: switch statement contains 'default' but no 'case' labels
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4995")                                               # warning C4995: 'xxx': name was marked as #pragma deprecated
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4293")                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4244")                                               # warning C4244: '=': invalid conversion from types, possible loss of data
+  # list(APPEND WARNING_TO_BOTH /wd4018)                                               # warning C4018: '>': signed/unsigned mismatch
+  # list(APPEND WARNING_TO_BOTH /wd4091)                                               # warning C4091: 'typedef ': ignored on left of 'xxx' when no variable is declared
+  # list(APPEND WARNING_TO_BOTH /wd4595)                                               # warning C4595: 'xxx': non-member operator new or delete functions may not be declared inline
+  # list(APPEND WARNING_TO_BOTH /wd4996)                                               # warning C4996: 'xxx': was declared deprecated
+  # list(APPEND WARNING_TO_BOTH /wd4624)                                               # warning C4624: 'xxx' destructor was implicitly defined as deleted
+  list(APPEND WARNING_TO_BOTH /wd5033)                                                               # warning C5033: 'register' is no longer a supported storage class (AGG header included by GEN sources)
+  # list(APPEND WARNING_TO_BOTH /wd5030)                                               # warning C5030: attribute 'xxx' is not recognized
+  # list(APPEND WARNING_TO_BOTH /wd4065)                                               # warning C4065: switch statement contains 'default' but no 'case' labels
+  # list(APPEND WARNING_TO_BOTH /wd4995)                                               # warning C4995: 'xxx': name was marked as #pragma deprecated
+  # list(APPEND WARNING_TO_BOTH /wd4293)                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
+  # list(APPEND WARNING_TO_BOTH /wd4244)                                               # warning C4244: '=': invalid conversion from types, possible loss of data
 
   if(WINDOWS_APPMODE_DINAMIC)
 
-    # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4251")                                             # warning C4251: needs to have dll-interface to be used by clients of class 'xxxxxxxx'
+    # list(APPEND WARNING_TO_BOTH /wd4251)                                             # warning C4251: needs to have dll-interface to be used by clients of class 'xxxxxxxx'
 
   endif()
 
@@ -39,13 +39,13 @@ endif()
 
 if(COMPILE_WITH_GCC)
 
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated")                                       # warning: Eliminate warning of functions deprecated
-  # set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
-  # set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-pointer-arith")
+  # list(APPEND WARNING_TO_BOTH -Wno-deprecated)                                       # warning: Eliminate warning of functions deprecated
+  # list(APPEND WARNING_TO_CPP -Wno-register)                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
+  # list(APPEND WARNING_TO_CPP -Wno-pointer-arith)
 
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wreturn-local-addr")                                   # warning: reference to local variable 'var' returned [-Wreturn-local-addr]
+  # list(APPEND WARNING_TO_BOTH -Wreturn-local-addr)                                   # warning: reference to local variable 'var' returned [-Wreturn-local-addr]
 
-  set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")                                           # warning: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # warning: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
@@ -55,27 +55,27 @@ endif()
 
 if(COMPILE_WITH_CLANG)
 
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-invalid-source-encoding")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-variable")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-but-set-variable")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-coroutine")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-function")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-switch")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-switch-enum")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-enum-compare")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-implicit-function-declaration")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-reorder-ctor")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-ignored-attributes")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-cast-calling-convention")
-  # set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
+  # list(APPEND WARNING_TO_BOTH -Wno-invalid-source-encoding)
+  # list(APPEND WARNING_TO_BOTH -Wno-unused-variable)
+  # list(APPEND WARNING_TO_BOTH -Wno-unused-but-set-variable)
+  # list(APPEND WARNING_TO_BOTH -Wno-deprecated-coroutine)
+  # list(APPEND WARNING_TO_BOTH -Wno-unused-function)
+  # list(APPEND WARNING_TO_BOTH -Wno-switch)
+  # list(APPEND WARNING_TO_BOTH -Wno-switch-enum)
+  # list(APPEND WARNING_TO_BOTH -Wno-enum-compare)
+  # list(APPEND WARNING_TO_BOTH -Wno-implicit-function-declaration)
+  # list(APPEND WARNING_TO_BOTH -Wno-reorder-ctor)
+  # list(APPEND WARNING_TO_BOTH -Wno-ignored-attributes)
+  # list(APPEND WARNING_TO_BOTH -Wno-cast-calling-convention)
+  # list(APPEND WARNING_TO_CPP -Wno-register)                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
 
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-writable-strings")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-delete-incomplete")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-comment")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -ferror-limit=1000")
+  # list(APPEND WARNING_TO_BOTH -Wno-writable-strings)
+  # list(APPEND WARNING_TO_BOTH -Wno-delete-incomplete)
+  # list(APPEND WARNING_TO_BOTH -Wno-comment)
+  # list(APPEND WARNING_TO_BOTH -ferror-limit=1000)
 
-  set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-deprecated-register")                               # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
-  set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")                                           # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                             # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
@@ -86,42 +86,46 @@ endif()
 
 if(COMPILE_WITH_CLANG_CL)
 
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4018")                                               # warning C4018: '>': signed/unsigned mismatch
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4244")                                               # warning C4244: conversion, possible loss of data
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4267")                                               # warning C4267: conversion from 'size_t', possible loss of data
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4996")                                               # warning C4996: 'xxx': was declared deprecated
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4065")                                               # warning C4065: switch statement contains 'default' but no 'case' labels
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4293")                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} /wd4624")                                               # warning C4624: destructor was implicitly defined as deleted
+  # list(APPEND WARNING_TO_BOTH /wd4018)                                               # warning C4018: '>': signed/unsigned mismatch
+  # list(APPEND WARNING_TO_BOTH /wd4244)                                               # warning C4244: conversion, possible loss of data
+  # list(APPEND WARNING_TO_BOTH /wd4267)                                               # warning C4267: conversion from 'size_t', possible loss of data
+  # list(APPEND WARNING_TO_BOTH /wd4996)                                               # warning C4996: 'xxx': was declared deprecated
+  # list(APPEND WARNING_TO_BOTH /wd4065)                                               # warning C4065: switch statement contains 'default' but no 'case' labels
+  # list(APPEND WARNING_TO_BOTH /wd4293)                                               # warning C4293: '>>': shift count negative or too big, undefined behavior
+  # list(APPEND WARNING_TO_BOTH /wd4624)                                               # warning C4624: destructor was implicitly defined as deleted
   # 
   # Clang-specific flags accepted by clang-cl via -Wno- pass-through
   #
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-deprecated-non-prototype")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-string-plus-int")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-tautological-constant-out-of-range-compare")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-function")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-invalid-source-encoding")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-unused-variable")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-switch")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-reorder-ctor")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-ignored-attributes")
-  # set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")
+  # list(APPEND WARNING_TO_BOTH -Wno-deprecated-non-prototype)
+  # list(APPEND WARNING_TO_BOTH -Wno-string-plus-int)
+  # list(APPEND WARNING_TO_BOTH -Wno-tautological-constant-out-of-range-compare)
+  # list(APPEND WARNING_TO_BOTH -Wno-unused-function)
+  # list(APPEND WARNING_TO_BOTH -Wno-invalid-source-encoding)
+  # list(APPEND WARNING_TO_BOTH -Wno-unused-variable)
+  # list(APPEND WARNING_TO_BOTH -Wno-switch)
+  # list(APPEND WARNING_TO_BOTH -Wno-reorder-ctor)
+  # list(APPEND WARNING_TO_BOTH -Wno-ignored-attributes)
+  # list(APPEND WARNING_TO_CPP -Wno-register)
    
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-microsoft-extra-qualification")
-  # set(WARNING_TO_BOTH "${WARNING_TO_BOTH} -Wno-cast-calling-convention")
+  # list(APPEND WARNING_TO_BOTH -Wno-microsoft-extra-qualification)
+  # list(APPEND WARNING_TO_BOTH -Wno-cast-calling-convention)
 
-  set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-deprecated-register")                               # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
-  set(WARNING_TO_CPP  "${WARNING_TO_CPP}  -Wno-register")                                           # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                             # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
 
-set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}     ${WARNING_TO_C}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}   ${WARNING_TO_CPP}")
-set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}     ${WARNING_TO_BOTH}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}   ${WARNING_TO_BOTH}")
+string(JOIN " " WARNING_TO_C_STR    ${WARNING_TO_C})
+string(JOIN " " WARNING_TO_CPP_STR  ${WARNING_TO_CPP})
+string(JOIN " " WARNING_TO_BOTH_STR ${WARNING_TO_BOTH})
 
-message(STATUS "[GEN Warnings de-activated C + CPP + BOTH: ${WARNING_TO_C} - ${WARNING_TO_CPP} - ${WARNING_TO_BOTH}]")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${WARNING_TO_C_STR}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_TO_CPP_STR}")
+set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${WARNING_TO_BOTH_STR}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_TO_BOTH_STR}")
+
+message(STATUS "[GEN Warnings de-activated C + CPP + BOTH: ${WARNING_TO_C_STR} - ${WARNING_TO_CPP_STR} - ${WARNING_TO_BOTH_STR}]")
 
 
 # --------------------------------------------------------------------
@@ -476,7 +480,8 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_RPI_WS281X
      # -Wno-conversion
      # -Wno-sign-compare
      # -Wno-unused-variable
-     # -Wno-unused-parameter  
+     # -Wno-unused-parameter
+     -Wno-array-bounds                                                                                  # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_RPI_WS281X
@@ -484,6 +489,7 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_RPI_WS281X
      # -Wno-sign-compare
      # -Wno-unused-variable
      # -Wno-unused-parameter
+     -Wno-array-bounds                                                                                  # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_RPI_WS281X )                                             # (not used on Windows)
