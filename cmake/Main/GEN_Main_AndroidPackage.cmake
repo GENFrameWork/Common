@@ -18,7 +18,8 @@ function(_gen_to_cmake_path VAR_NAME)
   endif()
 endfunction()
 
-get_filename_component(_GEN_COMMON_DIR "${CMAKE_CURRENT_LIST_DIR}" DIRECTORY)
+get_filename_component(_GEN_CMAKE_DIR "${CMAKE_CURRENT_LIST_DIR}" DIRECTORY)
+get_filename_component(_GEN_COMMON_DIR "${_GEN_CMAKE_DIR}" DIRECTORY)
 get_filename_component(_GEN_FRAMEWORK_ROOT "${_GEN_COMMON_DIR}" DIRECTORY)
 file(TO_CMAKE_PATH "${_GEN_FRAMEWORK_ROOT}" _GEN_FRAMEWORK_ROOT)
 
@@ -81,7 +82,7 @@ if(NOT DEFINED GEN_ANDROID_SOURCE_ASSETS_DIR OR "${GEN_ANDROID_SOURCE_ASSETS_DIR
 endif()
 
 if(NOT DEFINED GEN_ANDROID_GENERATED_MANIFEST OR "${GEN_ANDROID_GENERATED_MANIFEST}" STREQUAL "")
-  set(GEN_ANDROID_GENERATED_MANIFEST "${GEN_ANDROID_OUTPUT_DIR}/android_package/AndroidManifest.xml")
+  set(GEN_ANDROID_GENERATED_MANIFEST "${GEN_ANDROID_OUTPUT_DIR}/.gen_android_package/AndroidManifest.xml")
 endif()
 
 if(NOT DEFINED GEN_ANDROID_JAVA_HOME)
@@ -142,7 +143,7 @@ foreach(_var
   _gen_to_cmake_path(${_var})
 endforeach()
 
-set(_GEN_ANDROID_BUILD_SCRIPT "${_GEN_FRAMEWORK_ROOT}/Common/cmake/GEN_AndroidPackage_Build.cmake")
+set(_GEN_ANDROID_BUILD_SCRIPT "${_GEN_FRAMEWORK_ROOT}/Common/cmake/Main/GEN_Main_AndroidPackage_Build.cmake")
 file(TO_CMAKE_PATH "${_GEN_ANDROID_BUILD_SCRIPT}" _GEN_ANDROID_BUILD_SCRIPT)
 
 if(NOT EXISTS "${_GEN_ANDROID_BUILD_SCRIPT}")
@@ -150,7 +151,7 @@ if(NOT EXISTS "${_GEN_ANDROID_BUILD_SCRIPT}")
 endif()
 
 if(NOT TARGET "${GEN_ANDROID_TARGET_NAME}")
-  message(FATAL_ERROR "[GEN Android] No existe el target '${GEN_ANDROID_TARGET_NAME}' al incluir GEN_AndroidPackage.cmake")
+  message(FATAL_ERROR "[GEN Android] No existe el target '${GEN_ANDROID_TARGET_NAME}' al incluir GEN_Main_AndroidPackage.cmake")
 endif()
 
 message(STATUS "[GEN Android] Project name     : ${GEN_ANDROID_PROJECT_NAME}")

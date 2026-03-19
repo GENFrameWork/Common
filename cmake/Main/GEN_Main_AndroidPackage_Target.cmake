@@ -49,12 +49,11 @@ function(gen_android_add_apk_target)
   endif()
 
   if(NOT GENAPK_GENERATED_MANIFEST)
-    set(GENAPK_GENERATED_MANIFEST "${GENAPK_OUTPUT_DIR}/android_package/AndroidManifest.xml")
+    set(GENAPK_GENERATED_MANIFEST "${GENAPK_OUTPUT_DIR}/.gen_android_package/AndroidManifest.xml")
   endif()
 
   if(NOT GENAPK_FRAMEWORK_ROOT)
-    get_filename_component(_gen_common_dir "${CMAKE_CURRENT_LIST_DIR}" DIRECTORY)
-    get_filename_component(GENAPK_FRAMEWORK_ROOT "${_gen_common_dir}" DIRECTORY)
+    get_filename_component(GENAPK_FRAMEWORK_ROOT "${CMAKE_CURRENT_LIST_DIR}/../../.." ABSOLUTE)
   endif()
 
   file(TO_CMAKE_PATH "${GENAPK_FRAMEWORK_ROOT}" GENAPK_FRAMEWORK_ROOT)
@@ -101,7 +100,7 @@ function(gen_android_add_apk_target)
   file(TO_CMAKE_PATH "${GENAPK_NDK_ROOT}" GENAPK_NDK_ROOT)
   file(TO_CMAKE_PATH "${GENAPK_SDK_ROOT}" GENAPK_SDK_ROOT)
 
-  set(_gen_build_script "${GENAPK_FRAMEWORK_ROOT}/Common/cmake/GEN_AndroidPackage_Build.cmake")
+  set(_gen_build_script "${GENAPK_FRAMEWORK_ROOT}/Common/cmake/Main/GEN_Main_AndroidPackage_Build.cmake")
   file(TO_CMAKE_PATH "${_gen_build_script}" _gen_build_script)
 
   set(_gen_guard "GEN_ANDROID_POST_BUILD_ADDED_${GENAPK_TARGET_NAME}")
