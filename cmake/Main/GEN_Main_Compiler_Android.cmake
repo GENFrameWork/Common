@@ -2,9 +2,8 @@
 # GEN_Main_Compiler_Android.cmake
 # Main: Android Compiler
 # --------------------------------------------------------------------
-     
-   
-add_definitions(-DANDROID)    
+
+add_definitions(-DANDROID)
 add_definitions(-DIOAPI_NO_64)
 add_definitions(-DFT_DEBUG_LEVEL_ERROR)
 add_definitions(-DFT_DEBUG_LEVEL_TRACE)
@@ -12,17 +11,61 @@ add_definitions(-DFT2_BUILD_LIBRARY)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(ANDROID_NDK_ROOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}/android-ndk")
+# IMPORTANT:
+# This module is included from GEN_Main_Platform-Compiler.cmake before
+# GEN_Main_SetDirectories.cmake. Therefore GEN_DIRECTORY_THIRDPARTYLIBRARIES
+# is not guaranteed to exist yet here.
+#
+# Android toolchain selection must already have happened before project()
+# (from Visual Studio / presets / command line). Here we only need to locate
+# the NDK robustly for headers, native_app_glue and related paths.
 
-set(ANDROID_ABI arm64-v8a)
-set(ANDROID_PLATFORM android-23)  
-set(ANDROID_NDK ANDROID_NDK_ROOT)
+set(GEN_ANDROID_NDK_ROOT "")
 
-set(CMAKE_TOOLCHAIN_FILE  "${ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake")
+# 1) Prefer the toolchain file that was actually passed to CMake.
+if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT "${CMAKE_TOOLCHAIN_FILE}" STREQUAL "" AND EXISTS "${CMAKE_TOOLCHAIN_FILE}")
+  get_filename_component(_GEN_ANDROID_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_FILE}" DIRECTORY)
+  get_filename_component(GEN_ANDROID_NDK_ROOT "${_GEN_ANDROID_TOOLCHAIN_DIR}/../.." ABSOLUTE)
+endif()
 
-list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/sources/android/native_app_glue/")
-#list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/x86_64-linux-android")
-list(APPEND GEN_INCLUDES_DIR_LIST "${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include")
+# 2) Fallback to the repository-relative location.
+if("${GEN_ANDROID_NDK_ROOT}" STREQUAL "")
+  if(DEFINED GEN_DIRECTORY AND NOT "${GEN_DIRECTORY}" STREQUAL "")
+    get_filename_component(GEN_ANDROID_NDK_ROOT "${GEN_DIRECTORY}/ThirdPartyLibraries/android-ndk" ABSOLUTE)
+  endif()
+endif()
 
+# 3) Last fallback: if GEN_DIRECTORY_THIRDPARTYLIBRARIES is already available,
+# use it. This keeps compatibility if include order changes in the future.
+if("${GEN_ANDROID_NDK_ROOT}" STREQUAL "")
+  if(DEFINED GEN_DIRECTORY_THIRDPARTYLIBRARIES AND NOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}" STREQUAL "")
+    get_filename_component(GEN_ANDROID_NDK_ROOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}/android-ndk" ABSOLUTE)
+  endif()
+endif()
 
-list(APPEND GEN_SOURCES_MODULES_LIST "${ANDROID_NDK_ROOT}/sources/android/native_app_glue/android_native_app_glue.c")
+if(NOT EXISTS "${GEN_ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake")
+  message(FATAL_ERROR
+    "[GEN Android] NDK not found. Checked root: ${GEN_ANDROID_NDK_ROOT}. "
+    "Expected ThirdPartyLibraries/android-ndk/build/cmake/android.toolchain.cmake "
+    "or a valid CMAKE_TOOLCHAIN_FILE passed before project().")
+endif()
+
+if(NOT DEFINED ANDROID_ABI OR "${ANDROID_ABI}" STREQUAL "")
+  set(ANDROID_ABI arm64-v8a)
+endif()
+
+if(NOT DEFINED ANDROID_PLATFORM OR "${ANDROID_PLATFORM}" STREQUAL "")
+  set(ANDROID_PLATFORM android-24)
+endif()
+
+file(GLOB _GEN_ANDROID_NDK_PREBUILT_DIRS "${GEN_ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/*")
+list(LENGTH _GEN_ANDROID_NDK_PREBUILT_DIRS _GEN_ANDROID_NDK_PREBUILT_DIRS_COUNT)
+if(_GEN_ANDROID_NDK_PREBUILT_DIRS_COUNT EQUAL 0)
+  message(FATAL_ERROR "[GEN Android] Could not find an LLVM prebuilt toolchain inside ${GEN_ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt")
+endif()
+list(GET _GEN_ANDROID_NDK_PREBUILT_DIRS 0 GEN_ANDROID_NDK_PREBUILT_DIR)
+
+list(APPEND GEN_INCLUDES_DIR_LIST "${GEN_ANDROID_NDK_ROOT}/sources/android/native_app_glue")
+list(APPEND GEN_INCLUDES_DIR_LIST "${GEN_ANDROID_NDK_PREBUILT_DIR}/sysroot/usr/include")
+
+list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_ANDROID_NDK_ROOT}/sources/android/native_app_glue/android_native_app_glue.c")

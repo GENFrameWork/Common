@@ -75,6 +75,19 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   endif()
 
 
+  # --- Compile in Android Platform ------------------------------------
+
+  if(("${TARGET}" STREQUAL "ANDROID") OR (CMAKE_SYSTEM_NAME STREQUAL "Android"))
+
+    add_definitions(-DANDROID)
+
+    option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      ON )
+
+    message(STATUS "[GEN Compile for platform Android]")
+
+  endif()
+
+
   # --- Compile in Windows Platform ------------------------------------
 
 
@@ -112,17 +125,6 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     endif()
 
 
-    if("${TARGET}" STREQUAL "ANDROID")   
-
-      add_definitions(-DANDROID)  
-
-      option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      ON )
-
-      message(STATUS "[GEN Compile for platform Android]")
-
-    endif()
-
-
     if("${TARGET}" STREQUAL "STM32")
 
       add_definitions(-DMICROCONTROLLER)
@@ -151,7 +153,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   # --- Compile in Linux Platform ---------------------------------------
 
-  if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  if((${CMAKE_SYSTEM_NAME} MATCHES "Linux") AND NOT COMPILE_FOR_ANDROID)
 
     add_definitions(-DLINUX) 
 

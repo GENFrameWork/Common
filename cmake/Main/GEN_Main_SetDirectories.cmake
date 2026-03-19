@@ -215,6 +215,7 @@ list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_GOOGLETEST
 list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_GOOGLETEST_SOURCES})
 list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_NAMEOF})
 
+
 if(COMPILE_FOR_WINDOWS)
   
   list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_WINTOAST_INCLUDE})
@@ -225,12 +226,15 @@ if(COMPILE_FOR_WINDOWS)
   
 endif()
 	
+
 if(COMPILE_FOR_LINUX)
 
   list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/dbus-1.0")  
+
   if(COMPILE_FOR_LINUX_INTEL_64)  
     list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/x86_64-linux-gnu/dbus-1.0/include")
   endif()  
+
   if(COMPILE_FOR_LINUX_ARM_64 OR COMPILE_FOR_LINUX_ARM_RPI_64)  
     list(APPEND GEN_INCLUDES_DIR_LIST "/usr/lib/aarch64-linux-gnu/dbus-1.0/include")                                       
   endif()
@@ -250,8 +254,12 @@ if(COMPILE_FOR_LINUX)
 
 endif()
 
+
+
 if(COMPILE_FOR_ANDROID)
  
+  list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/dbus-1.0")  
+  
   list(APPEND GEN_INCLUDES_DIR_LIST ${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANDROID_GLUE})
 
 endif()
@@ -260,7 +268,7 @@ endif()
 # --------------------------------------------------------------------
 # Add Directories Libraries of ThirdPartyLibraries
 
- if(COMPILE_FOR_WINDOWS)
+if(COMPILE_FOR_WINDOWS)
 
   if(COMPILE_FOR_WINDOWS_INTEL_32)
 
@@ -282,5 +290,3 @@ endif()
   link_directories(${LIBRARIES_DIR})
 
 endif()
-
-
