@@ -109,7 +109,8 @@ if(COMPILE_FOR_WINDOWS)
   
   if(SND_FEATURE)      
 
-    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS winmm.lib)    
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS winmm.lib)
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS avrt.lib)
 
   endif()
 
@@ -214,6 +215,12 @@ if(COMPILE_FOR_ANDROID)
 
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS android)
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS log)
+
+  if(SND_FEATURE)
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS OpenSLES)
+
+  endif()
     
 endif()
 
