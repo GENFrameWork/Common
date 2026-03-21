@@ -48,7 +48,10 @@ if /I "%TARGET%"=="ARM64" (
 )
 
 if /I "%TARGET%"=="ANDROID" (
-    set "PLATFORM_PATH=android"
+    if not defined ANDROID_ABI (
+        set "ANDROID_ABI=arm64-v8a"
+    )
+    set "PLATFORM_PATH=%ANDROID_ABI%"
 )
 
 if /I "%TARGET%"=="STM32" (

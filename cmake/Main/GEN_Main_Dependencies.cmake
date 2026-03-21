@@ -37,10 +37,11 @@ if(COMPILE_FOR_LINUX)
 endif()
 
  
-if(COMPILE_FOR_ANDROID)      
+if(COMPILE_FOR_ANDROID)
 
-  option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )  
- 
+  option(XFILE_FEATURE                                          "XFile"                                                   ON )
+  option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )
+
 endif()
 
    

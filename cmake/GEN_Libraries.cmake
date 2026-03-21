@@ -75,13 +75,6 @@ if(COMPILE_FOR_WINDOWS)
   endif()
 
 
-  if(SND_FEATURE)      
-
-    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS winmm.lib)    
-
-  endif()
-
-
   if(DATABASES_SQL_MYSQL_FEATURE)    
 
     list(APPEND GEN_SO_THIRDPARTY_LIBRARYS libmysql.lib)
@@ -113,6 +106,14 @@ if(COMPILE_FOR_WINDOWS)
 
   endif()  
 
+  
+  if(SND_FEATURE)      
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS winmm.lib)
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS avrt.lib)
+
+  endif()
+
 
 endif()
 
@@ -137,11 +138,7 @@ if(COMPILE_FOR_LINUX)
   
   if(XSYSTEM_FEATURE)  
 
-    if(SND_FEATURE)
-    
-      list(APPEND GEN_SO_THIRDPARTY_LIBRARYS asound)    
-      
-    endif()
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS asound)    
 
   endif()
 
@@ -218,8 +215,15 @@ if(COMPILE_FOR_ANDROID)
 
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS android)
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS log)
+
+  if(SND_FEATURE)
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS OpenSLES)
+
+  endif()
     
 endif()
+
 
 
 # ----------------------------------------

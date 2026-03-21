@@ -5,6 +5,10 @@
 
 include_directories(${GEN_INCLUDES_DIR_LIST})
 
+if(COMPILE_FOR_ANDROID)
+  option(APPMODE_LIBRARY_DINAMIC_FEATURE                        "Android NativeActivity shared library"                   ON )
+  option(APPMODE_LIBRARY_STATIC_FEATURE                         "Android static library"                                  OFF )
+endif()
 
 if(COMPILE_FOR_ESP32)
 
@@ -48,6 +52,16 @@ else()
                           COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}
                           COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:${CMAKE_PROJECT_NAME}> ${CMAKE_BINARY_DIR}/$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}>
                         )
+    endif()
+
+    if(COMPILE_FOR_ANDROID AND APPMODE_LIBRARY_DINAMIC_FEATURE)
+
+      set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+                            OUTPUT_NAME ${CMAKE_PROJECT_NAME}
+                            LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+      include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_AndroidPackage.cmake")
+
     endif()
 
   else()  

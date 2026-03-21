@@ -18,7 +18,7 @@ if(COMPILE_WITH_MSVC)
   # list(APPEND WARNING_TO_BOTH /wd4595)                                               # warning C4595: 'xxx': non-member operator new or delete functions may not be declared inline
   # list(APPEND WARNING_TO_BOTH /wd4996)                                               # warning C4996: 'xxx': was declared deprecated
   # list(APPEND WARNING_TO_BOTH /wd4624)                                               # warning C4624: 'xxx' destructor was implicitly defined as deleted
-  list(APPEND WARNING_TO_BOTH /wd5033)                                                               # warning C5033: 'register' is no longer a supported storage class (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_BOTH /wd5033)                                                 # warning C5033: 'register' is no longer a supported storage class (AGG header included by GEN sources)
   # list(APPEND WARNING_TO_BOTH /wd5030)                                               # warning C5030: attribute 'xxx' is not recognized
   # list(APPEND WARNING_TO_BOTH /wd4065)                                               # warning C4065: switch statement contains 'default' but no 'case' labels
   # list(APPEND WARNING_TO_BOTH /wd4995)                                               # warning C4995: 'xxx': name was marked as #pragma deprecated
@@ -40,12 +40,12 @@ endif()
 if(COMPILE_WITH_GCC)
 
   # list(APPEND WARNING_TO_BOTH -Wno-deprecated)                                       # warning: Eliminate warning of functions deprecated
-  # list(APPEND WARNING_TO_CPP -Wno-register)                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
-  # list(APPEND WARNING_TO_CPP -Wno-pointer-arith)
+  # list(APPEND WARNING_TO_CPP  -Wno-register)                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
+  # list(APPEND WARNING_TO_CPP  -Wno-pointer-arith)
 
   # list(APPEND WARNING_TO_BOTH -Wreturn-local-addr)                                   # warning: reference to local variable 'var' returned [-Wreturn-local-addr]
 
-  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # warning: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                           # warning: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
@@ -67,15 +67,17 @@ if(COMPILE_WITH_CLANG)
   # list(APPEND WARNING_TO_BOTH -Wno-reorder-ctor)
   # list(APPEND WARNING_TO_BOTH -Wno-ignored-attributes)
   # list(APPEND WARNING_TO_BOTH -Wno-cast-calling-convention)
-  # list(APPEND WARNING_TO_CPP -Wno-register)                                         # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
+  # list(APPEND WARNING_TO_CPP -Wno-register)                                          # warning: The use of the register keyword as storage class specifier has been deprecated in C++11 and removed in C++17
 
   # list(APPEND WARNING_TO_BOTH -Wno-writable-strings)
   # list(APPEND WARNING_TO_BOTH -Wno-delete-incomplete)
   # list(APPEND WARNING_TO_BOTH -Wno-comment)
   # list(APPEND WARNING_TO_BOTH -ferror-limit=1000)
 
-  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                             # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
-  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  #list(APPEND WARNING_TO_CPP  -Wno-deprecated-enum-float-conversion)                   # 
+  #list(APPEND WARNING_TO_CPP  -Wno-deprecated-enum-enum-conversion)                    #
+  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                           # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
@@ -109,9 +111,11 @@ if(COMPILE_WITH_CLANG_CL)
    
   # list(APPEND WARNING_TO_BOTH -Wno-microsoft-extra-qualification)
   # list(APPEND WARNING_TO_BOTH -Wno-cast-calling-convention)
-
-  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                             # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
-  list(APPEND WARNING_TO_CPP  -Wno-register)                                                        # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
+  
+  #list(APPEND WARNING_TO_CPP  -Wno-deprecated-enum-float-conversion)                    #           
+  #list(APPEND WARNING_TO_CPP  -Wno-deprecated-enum-enum-conversion)                     # 
+  list(APPEND WARNING_TO_CPP  -Wno-deprecated-register)                                 # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (AGG header included by GEN sources)
+  list(APPEND WARNING_TO_CPP  -Wno-register)                                            # error: ISO C++17 does not allow 'register' storage class specifier [-Wregister] (AGG header included by GEN sources)
 
 endif()
 
@@ -216,9 +220,9 @@ endmacro()
 # ZLib 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_ZLib
-     # /wd4131                                                                                          # warning C4131: uses old-style declarator
-     # /wd4127                                                                                          # warning C4127: conditional expression is constant
-     # /wd4245                                                                                          # warning C4245: conversion from 'int' to 'unsigned int', signed/unsigned mismatch
+     # /wd4131                                                                         # warning C4131: uses old-style declarator
+     # /wd4127                                                                         # warning C4127: conditional expression is constant
+     # /wd4245                                                                         # warning C4245: conversion from 'int' to 'unsigned int', signed/unsigned mismatch
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
@@ -227,13 +231,13 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_ZLib
      # -Wno-implicit-function-declaration
-     -Wno-deprecated-non-prototype                                                                    # warning: function definition without a prototype deprecated in C23
+     -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
-     # /wd4131                                                                                          # warning C4131: uses old-style declarator
-     # /wd4127                                                                                          # warning C4127: conditional expression is constant
-     # /wd4245                                                                                          # warning C4245: conversion signed/unsigned mismatch
+     # /wd4131                                                                         # warning C4131: uses old-style declarator
+     # /wd4127                                                                         # warning C4127: conditional expression is constant
+     # /wd4245                                                                         # warning C4245: conversion signed/unsigned mismatch
      # -Wno-implicit-function-declaration  
      -Wno-deprecated-non-prototype
    )
@@ -243,9 +247,9 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
 # AGG 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_AGG
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t' to 'xxx', possible loss of data
-     # /wd4305                                                                                          # warning C4305: truncation from 'double' to 'float'
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t' to 'xxx', possible loss of data
+     # /wd4305                                                                         # warning C4305: truncation from 'double' to 'float'
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_AGG
@@ -261,12 +265,12 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_AGG
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_AGG
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4305                                                                                          # warning C4305: truncation from 'double' to 'float'
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4305                                                                         # warning C4305: truncation from 'double' to 'float'
      # -Wno-conversion
      # -Wno-sign-compare
-     -Wno-deprecated-register                                                                           # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register]
+     -Wno-deprecated-register                                                          # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register]
    )
 
 
@@ -274,10 +278,10 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_AGG
 # FreeType 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_FreeType
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4312                                                                                          # warning C4312: type cast to greater size
-     # /wd4456                                                                                          # warning C4456: declaration of 'xxx' hides previous local declaration
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4312                                                                         # warning C4312: type cast to greater size
+     # /wd4456                                                                         # warning C4456: declaration of 'xxx' hides previous local declaration
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_FreeType
@@ -295,20 +299,20 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_FreeType
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_FreeType
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4312                                                                                          # warning C4312: type cast to greater size
-     # /wd4456                                                                                          # warning C4456: hides previous local declaration
-     # -Wno-implicit-fallthrough
-   )
-
-
-# --------------------------------------------------------------------
-# JPEGLib 
-
-set( GEN_ThirdPartyLibraries_Warnings_MSVC_JPEGLib
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4312                                                                         # warning C4312: type cast to greater size
+     # /wd4456                                                                         # warning C4456: hides previous local declaration
+     # -Wno-implicit-fallthrough                                                       
+   )                                                                                   
+                                                                                       
+                                                                                       
+# --------------------------------------------------------------------                 
+# JPEGLib                                                                              
+                                                                                       
+set( GEN_ThirdPartyLibraries_Warnings_MSVC_JPEGLib                                     
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
    )  
       
 set( GEN_ThirdPartyLibraries_Warnings_GCC_JPEGLib
@@ -324,8 +328,8 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_JPEGLib
    ) 
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_JPEGLib
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
      # -Wno-implicit-fallthrough
    )  
 
@@ -334,8 +338,8 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_JPEGLib
 # LibPNG 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_LibPNG
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
    )  
       
 set( GEN_ThirdPartyLibraries_Warnings_GCC_LibPNG
@@ -347,15 +351,15 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_LibPNG
      # -Wno-conversion
      # -Wno-sign-compare
      # -Wno-shorten-64-to-32
-     -Wno-tautological-constant-out-of-range-compare                                                    # png.c: comparison of constant with 'unsigned int' is always false (PNG_SIZE_MAX 64-bit vs 32-bit uint)
+     -Wno-tautological-constant-out-of-range-compare                                   # png.c: comparison of constant with 'unsigned int' is always false (PNG_SIZE_MAX 64-bit vs 32-bit uint)
    )  
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_LibPNG
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
      # -Wno-conversion
      # -Wno-sign-compare
-     -Wno-tautological-constant-out-of-range-compare                                                    # png.c: comparison of constant with 'unsigned int' is always false (PNG_SIZE_MAX 64-bit vs 32-bit uint)
+     -Wno-tautological-constant-out-of-range-compare                                   # png.c: comparison of constant with 'unsigned int' is always false (PNG_SIZE_MAX 64-bit vs 32-bit uint)
    )
 
 
@@ -363,9 +367,9 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_LibPNG
 # LUA 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_LUA
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4310                                                                                          # warning C4310: cast truncates constant value
-     # /wd4324                                                                                          # warning C4324: structure was padded due to alignment specifier
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4310                                                                         # warning C4310: cast truncates constant value
+     # /wd4324                                                                         # warning C4324: structure was padded due to alignment specifier
    )  
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_LUA
@@ -380,16 +384,16 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_LUA
      # -Wno-sign-compare
      # -Wno-implicit-fallthrough
      # -Wno-shorten-64-to-32
-     -Wno-string-plus-int                                                                               # warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+     -Wno-string-plus-int                                                              # warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_LUA
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4310                                                                                          # warning C4310: cast truncates constant value
-     # /wd4324                                                                                          # warning C4324: structure was padded due to alignment specifier
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4310                                                                         # warning C4310: cast truncates constant value
+     # /wd4324                                                                         # warning C4324: structure was padded due to alignment specifier
      # -Wno-implicit-fallthrough
      # -Wno-shorten-64-to-32
-     -Wno-string-plus-int                                                                               # warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
+     -Wno-string-plus-int                                                              # warning: adding 'int' to a string does not append to the string [-Wstring-plus-int]
    )
 
 
@@ -397,10 +401,10 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_LUA
 # DuckTape (Duktape) 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_DuckTape
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4334                                                                                          # warning C4334: result of 32-bit shift implicitly converted to 64 bits
-     # /wd4310                                                                                          # warning C4310: cast truncates constant value
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4334                                                                         # warning C4334: result of 32-bit shift implicitly converted to 64 bits
+     # /wd4310                                                                         # warning C4310: cast truncates constant value
    )
    
 set( GEN_ThirdPartyLibraries_Warnings_GCC_DuckTape
@@ -420,10 +424,10 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_DuckTape
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_DuckTape
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4334                                                                                          # warning C4334: result of 32-bit shift implicitly converted to 64 bits
-     # /wd4310                                                                                          # warning C4310: cast truncates constant value
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4334                                                                         # warning C4334: result of 32-bit shift implicitly converted to 64 bits
+     # /wd4310                                                                         # warning C4310: cast truncates constant value
      # -Wno-implicit-fallthrough
      # -Wno-shift-count-overflow
    )
@@ -433,12 +437,12 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_DuckTape
 # OpenAL 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_OpenAL
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4324                                                                                          # warning C4324: structure was padded due to alignment specifier
-     # /wd4456                                                                                          # warning C4456: declaration of 'xxx' hides previous local declaration
-     # /wd4457                                                                                          # warning C4457: declaration of 'xxx' hides function parameter
-     /wd4293                                                                                            # warning C4293: '>>': shift count negative or too big, undefined behavior
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4324                                                                         # warning C4324: structure was padded due to alignment specifier
+     # /wd4456                                                                         # warning C4456: declaration of 'xxx' hides previous local declaration
+     # /wd4457                                                                         # warning C4457: declaration of 'xxx' hides function parameter
+     /wd4293                                                                           # warning C4293: '>>': shift count negative or too big, undefined behavior
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_OpenAL
@@ -460,28 +464,29 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_OpenAL
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_OpenAL
-     # /wd4244                                                                                          # warning C4244: conversion, possible loss of data
-     # /wd4267                                                                                          # warning C4267: conversion from 'size_t', possible loss of data
-     # /wd4324                                                                                          # warning C4324: structure was padded due to alignment specifier
-     # /wd4456                                                                                          # warning C4456: hides previous local declaration
-     # /wd4457                                                                                          # warning C4457: hides function parameter
+     # /wd4244                                                                         # warning C4244: conversion, possible loss of data
+     # /wd4267                                                                         # warning C4267: conversion from 'size_t', possible loss of data
+     # /wd4324                                                                         # warning C4324: structure was padded due to alignment specifier
+     # /wd4456                                                                         # warning C4456: hides previous local declaration
+     # /wd4457                                                                         # warning C4457: hides function parameter
      # -Wno-unused-variable
      # -Wno-unused-parameter
      # -Wno-implicit-fallthrough
+     -Wno-invalid-offsetof
    )
 
 
 # --------------------------------------------------------------------
 # RPI_WS281X 
 
-set( GEN_ThirdPartyLibraries_Warnings_MSVC_RPI_WS281X )                                                 # (not used on Windows)
+set( GEN_ThirdPartyLibraries_Warnings_MSVC_RPI_WS281X )                                # (not used on Windows)
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_RPI_WS281X
      # -Wno-conversion
      # -Wno-sign-compare
      # -Wno-unused-variable
      # -Wno-unused-parameter
-     -Wno-array-bounds                                                                                  # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
+     -Wno-array-bounds                                                                 # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_RPI_WS281X
@@ -489,27 +494,27 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_RPI_WS281X
      # -Wno-sign-compare
      # -Wno-unused-variable
      # -Wno-unused-parameter
-     -Wno-array-bounds                                                                                  # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
+     -Wno-array-bounds                                                                 # warning: array index 1 is past the end of the array (channel[RPI_PWM_CHANNELS]) ws2811.c
    )
 
-set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_RPI_WS281X )                                             # (not used on Windows)
+set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_RPI_WS281X )                            # (not used on Windows)
 
 
 # --------------------------------------------------------------------
 # StackWalker 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_StackWalker
-     # /wd4100                                                                                          # warning C4100: unreferenced formal parameter
-     # /wd4706                                                                                          # warning C4706: assignment within conditional expression
+     # /wd4100                                                                         # warning C4100: unreferenced formal parameter
+     # /wd4706                                                                         # warning C4706: assignment within conditional expression
    )  
       
-set( GEN_ThirdPartyLibraries_Warnings_GCC_StackWalker )                                                 # (not used on Linux)
+set( GEN_ThirdPartyLibraries_Warnings_GCC_StackWalker )                                # (not used on Linux)
 
-set( GEN_ThirdPartyLibraries_Warnings_CLANG_StackWalker )                                               # (not used on Linux)
+set( GEN_ThirdPartyLibraries_Warnings_CLANG_StackWalker )                              # (not used on Linux)
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_StackWalker
-     # /wd4100                                                                                          # warning C4100: unreferenced formal parameter
-     # /wd4706                                                                                          # warning C4706: assignment within conditional expression
+     # /wd4100                                                                         # warning C4100: unreferenced formal parameter
+     # /wd4706                                                                         # warning C4706: assignment within conditional expression
      # -Wno-unused-parameter
    )  
 
@@ -518,15 +523,15 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_StackWalker
 # WinToast 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_WinToast
-     /wd4244                                                                                            # warning C4244: conversion from 'wchar_t' to 'char', possible loss of data
+     /wd4244                                                                           # warning C4244: conversion from 'wchar_t' to 'char', possible loss of data
    )
 
-set( GEN_ThirdPartyLibraries_Warnings_GCC_WinToast )                                                    # (not used on Linux)
+set( GEN_ThirdPartyLibraries_Warnings_GCC_WinToast )                                   # (not used on Linux)
 
-set( GEN_ThirdPartyLibraries_Warnings_CLANG_WinToast )                                                  # (not used on Linux)
+set( GEN_ThirdPartyLibraries_Warnings_CLANG_WinToast )                                 # (not used on Linux)
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_WinToast
-     /wd4244                                                                                            # warning C4244: conversion from 'wchar_t' to 'char', possible loss of data
+     /wd4244                                                                           # warning C4244: conversion from 'wchar_t' to 'char', possible loss of data
    )
 
 
@@ -534,8 +539,8 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_WinToast
 # GoogleTest 
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_GoogleTest
-     # /wd4389                                                                                          # warning C4389: '==': signed/unsigned mismatch
-     # /wd4100                                                                                          # warning C4100: unreferenced formal parameter
+     # /wd4389                                                                         # warning C4389: '==': signed/unsigned mismatch
+     # /wd4100                                                                         # warning C4100: unreferenced formal parameter
    
    )     
 
@@ -550,8 +555,8 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_GoogleTest
    )  
       
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_GoogleTest
-     # /wd4389                                                                                          # warning C4389: '==': signed/unsigned mismatch
-     # /wd4100                                                                                          # warning C4100: unreferenced formal parameter
+     # /wd4389                                                                         # warning C4389: '==': signed/unsigned mismatch
+     # /wd4100                                                                         # warning C4100: unreferenced formal parameter
      # -Wno-conversion
      # -Wno-sign-compare
    )
@@ -567,10 +572,10 @@ set( GEN_ThirdPartyLibraries_Warnings_MSVC_SQLite )
 set( GEN_ThirdPartyLibraries_Warnings_GCC_SQLite )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_SQLite
-     -Wno-implicit-const-int-float-conversion                                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]
+     -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_SQLite
-     -Wno-implicit-const-int-float-conversion                                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]
+     -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]
    )
 

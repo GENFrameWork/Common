@@ -24,7 +24,11 @@ cd "%DIR%"
  
 %PRINTF% "[#CMake#]\n"  >> %OUTFILE% 
 %PRINTF% "Generate CMake      %%-16s ... " "%~2" 
-cmake -G "Ninja" -DTARGET=%TARGET% -DDEBUG_EXTCFG=%DEBUG_EXTCFG% -DMEMORY_EXTCFG=%MEMORY_EXTCFG% -DTRACE_EXTCFG=%TRACE_EXTCFG% -DFEEDBACK_EXTCFG=%FEEDBACK_EXTCFG% ../..  >> %OUTFILE% 
+set "GEN_CMAKE_ARGS=-DTARGET=%TARGET% -DDEBUG_EXTCFG=%DEBUG_EXTCFG% -DMEMORY_EXTCFG=%MEMORY_EXTCFG% -DTRACE_EXTCFG=%TRACE_EXTCFG% -DFEEDBACK_EXTCFG=%FEEDBACK_EXTCFG%"
+if /I "%TARGET%"=="ANDROID" (
+  set "GEN_CMAKE_ARGS=%GEN_CMAKE_ARGS% -DCMAKE_SYSTEM_NAME=Android -DANDROID_ABI=%ANDROID_ABI% -DANDROID_PLATFORM=android-24 -DANDROID_STL=c++_shared -DCMAKE_TOOLCHAIN_FILE=..\..\..\..\..\..\ThirdPartyLibraries\android-ndk\build\cmake\android.toolchain.cmake"
+)
+cmake -G "Ninja" %GEN_CMAKE_ARGS% ../..  >> %OUTFILE% 
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
 ) else (
@@ -34,7 +38,11 @@ if %ERRORLEVEL% equ 0 (
 
 %PRINTF% "[#Compile#]\n"  >> %OUTFILE% 
 %PRINTF% "Compilate project   %%-16s ... " "%~2" 
-ninja  >> %OUTFILE%
+if /I "%TARGET%"=="ANDROID" (
+  ninja %~2_apk >> %OUTFILE%
+) else (
+  ninja >> %OUTFILE%
+)
 if %ERRORLEVEL% equ 0 (
     %PRINTF% "[Ok]\n"
 ) else (
@@ -57,6 +65,3 @@ if exist "%~2tests.exe" (
 %PRINTF% " \n" 
 
 cd "%OLDPATH%"
-
-
-
