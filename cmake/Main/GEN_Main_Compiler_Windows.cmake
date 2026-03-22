@@ -67,7 +67,7 @@ else()
  #
  # 
  #   set(${CompilerFlag} "${${CompilerFlag}}" CACHE STRING "msvc compiler flags"   FORCE)
- #   message(STATUS "[GEN MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
+ #   message(STATUS "[ GEN MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
  #
  # endforeach()
  

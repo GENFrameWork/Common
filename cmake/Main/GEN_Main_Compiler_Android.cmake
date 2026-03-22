@@ -45,7 +45,7 @@ endif()
 
 if(NOT EXISTS "${GEN_ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake")
   message(FATAL_ERROR
-    "[GEN Android] NDK not found. Checked root: ${GEN_ANDROID_NDK_ROOT}. "
+    "[ GEN Android] NDK not found. Checked root: ${GEN_ANDROID_NDK_ROOT}. "
     "Expected ThirdPartyLibraries/android-ndk/build/cmake/android.toolchain.cmake "
     "or a valid CMAKE_TOOLCHAIN_FILE passed before project().")
 endif()
@@ -58,10 +58,21 @@ if(NOT DEFINED ANDROID_PLATFORM OR "${ANDROID_PLATFORM}" STREQUAL "")
   set(ANDROID_PLATFORM android-24)
 endif()
 
+# ANDROID_PLATFORM controls the minimum native Android API level only.
+# APK min/target SDK values are resolved separately by the Android package
+# module so targetSdkVersion can move independently from the native floor.
+if(NOT DEFINED GEN_ANDROID_MIN_SDK OR "${GEN_ANDROID_MIN_SDK}" STREQUAL "")
+  string(REGEX REPLACE "^android-" "" GEN_ANDROID_MIN_SDK "${ANDROID_PLATFORM}")
+endif()
+
+if(NOT DEFINED GEN_ANDROID_TARGET_SDK OR "${GEN_ANDROID_TARGET_SDK}" STREQUAL "")
+  set(GEN_ANDROID_TARGET_SDK 35)
+endif()
+
 file(GLOB _GEN_ANDROID_NDK_PREBUILT_DIRS "${GEN_ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/*")
 list(LENGTH _GEN_ANDROID_NDK_PREBUILT_DIRS _GEN_ANDROID_NDK_PREBUILT_DIRS_COUNT)
 if(_GEN_ANDROID_NDK_PREBUILT_DIRS_COUNT EQUAL 0)
-  message(FATAL_ERROR "[GEN Android] Could not find an LLVM prebuilt toolchain inside ${GEN_ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt")
+  message(FATAL_ERROR "[ GEN Android] Could not find an LLVM prebuilt toolchain inside ${GEN_ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt")
 endif()
 list(GET _GEN_ANDROID_NDK_PREBUILT_DIRS 0 GEN_ANDROID_NDK_PREBUILT_DIR)
 

@@ -335,7 +335,7 @@ if(SND_FEATURE)
   set(_GEN_OPENAL_ANDROID_ABI               "")
 
   if(NOT EXISTS "${_GEN_OPENAL_TEMPLATES_DIR}/config.h.in")
-    message(FATAL_ERROR "[GEN OpenAL] OpenAL Soft 1.24.3 templates were not found in ${_GEN_OPENAL_TEMPLATES_DIR}. Replace ThirdPartyLibraries/openal-soft with OpenAL Soft 1.24.3 before configuring.")
+    message(FATAL_ERROR "[ GEN OpenAL] OpenAL Soft 1.24.3 templates were not found in ${_GEN_OPENAL_TEMPLATES_DIR}. Replace ThirdPartyLibraries/openal-soft with OpenAL Soft 1.24.3 before configuring.")
   endif()
 
   set(ALSOFT_FORCE_ALIGN "")
@@ -512,7 +512,7 @@ if(SND_FEATURE)
   endif()
 
   if("${_GEN_OPENAL_GENERATED_PLATFORM_DIR}" STREQUAL "")
-    message(FATAL_ERROR "[GEN OpenAL] Unsupported platform selection for OpenAL Soft 1.24.3")
+    message(FATAL_ERROR "[ GEN OpenAL] Unsupported platform selection for OpenAL Soft 1.24.3")
   endif()
 
   file(MAKE_DIRECTORY "${_GEN_OPENAL_GENERATED_PLATFORM_DIR}")

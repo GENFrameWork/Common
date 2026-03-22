@@ -249,11 +249,11 @@ if(APPFLOW_GRAPHICS_FEATURE)
   
   if(APPFLOW_GRAPHICS_NOTCONSOLE_FEATURE)
       
-      message(STATUS "[GEN APP Graphics Mode]")
+      message(STATUS "[ GEN APP Graphics Mode ]")
       
     else()
 
-      message(STATUS "[GEN APP Console + Graphics Mode]")
+      message(STATUS "[ GEN APP Console + Graphics Mode ]")
   
   endif()
 
@@ -261,7 +261,7 @@ else()
 
   if(APPFLOW_GRAPHICS_FEATURE)    
 
-    message(STATUS "[GEN APP Console Mode]")
+    message(STATUS "[ GEN APP Console Mode ]")
 
   endif()
 
