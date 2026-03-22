@@ -53,7 +53,7 @@ else()
 
 endif()
 
-message(STATUS "[GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBUG_CTRL_MSG}]")  
+message(STATUS "[ GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBUG_CTRL_MSG} ]")  
 
 unset(DEBUG_CTRL_FEATURE CACHE)
 
@@ -93,11 +93,11 @@ if(MEMORY_CONTROL_FEATURE)
   add_definitions(-DXMEMORY_CONTROL_ACTIVE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
   
-  message(STATUS "[GEN Memory Control: Active specified ${MEMORY_CONTROL_MSG}]")  
+  message(STATUS "[ GEN Memory Control: Active specified ${MEMORY_CONTROL_MSG} ]")  
   
 else()  
 
-  message(STATUS "[GEN Memory Control: Deactive specified ${MEMORY_CONTROL_MSG}]")  
+  message(STATUS "[ GEN Memory Control: Deactive specified ${MEMORY_CONTROL_MSG} ]")  
  
 endif()
 
@@ -141,17 +141,17 @@ endif()
 
 if(XTRACE_NOINTERNET_FEATURE)
 
-  message(STATUS "[GEN Trace Control: Active without Internet specified ${TRACE_CONTROL_MSG}]")  
+  message(STATUS "[ GEN Trace Control: Active without Internet specified ${TRACE_CONTROL_MSG} ]")  
  
 else()
 
   if(XTRACE_FEATURE)
 
-    message(STATUS "[GEN Trace Control: Active specified ${TRACE_CONTROL_MSG}]")  
+    message(STATUS "[ GEN Trace Control: Active specified ${TRACE_CONTROL_MSG} ]")  
  
   else()
   
-    message(STATUS "[GEN Trace Control: Deactive specified ${TRACE_CONTROL_MSG}]")  
+    message(STATUS "[ GEN Trace Control: Deactive specified ${TRACE_CONTROL_MSG} ]")  
    
   endif()
 
@@ -214,11 +214,11 @@ if(XFEEDBACK_CONTROL_FEATURE)
   add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
   
-  message(STATUS "[GEN Feedback Control: Active specified ${FEEDBACK_CONTROL_MSG}]")  
+  message(STATUS "[ GEN Feedback Control: Active specified ${FEEDBACK_CONTROL_MSG} ]")  
 
 else()
 
-  message(STATUS "[GEN Feedback Control: Deactive specified ${FEEDBACK_CONTROL_MSG}]")  
+  message(STATUS "[ GEN Feedback Control: Deactive specified ${FEEDBACK_CONTROL_MSG} ]")  
 
 endif()
 

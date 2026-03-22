@@ -62,15 +62,15 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   if(CCACHE_PROGRAM)
 
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
-    message(STATUS "[GEN Found CCACHE]")
+    message(STATUS "[ GEN Found CCACHE ]")
 
   endif()
 
-  message(STATUS "[GEN Target for compile: ${TARGET}]")
+  message(STATUS "[ GEN Target for compile: ${TARGET} ]")
 
   if("${TARGET}" STREQUAL "")
 
-    message(STATUS "[GEN No Target for compile]")
+    message(STATUS "[ GEN No Target for compile ]")
 
   endif()
 
@@ -83,7 +83,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      ON )
 
-    message(STATUS "[GEN Compile for platform Android]")
+    message(STATUS "[ GEN Compile for platform Android ]")
 
   endif()
 
@@ -95,7 +95,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   
     option(COMPILE_ON_WINDOWS                                     "Compile on Windows"                                      ON )
 
-    message(STATUS "[GEN Using Windows to compile]")
+    message(STATUS "[ GEN Using Windows to compile ]")
 
     if(("${TARGET}" STREQUAL "INTEL32") OR ("${TARGET}" STREQUAL "INTEL64"))
 
@@ -108,7 +108,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
         option(COMPILE_FOR_WINDOWS_INTEL_64                       "Compile to Windows Intel 64 Bits"                        ON )
 
-        message(STATUS "[GEN Compile for platform Windows INTEL 64 Bits]")
+        message(STATUS "[ GEN Compile for platform Windows INTEL 64 Bits ]")
 
       else()
 
@@ -116,7 +116,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
           option(COMPILE_FOR_WINDOWS_INTEL_32                     "Compile to Windows Intel 32 Bits"                        ON )
 
-          message(STATUS "[GEN Compile for platform Windows INTEL 32 Bits]")
+          message(STATUS "[ GEN Compile for platform Windows INTEL 32 Bits ]")
 
         endif()
 
@@ -132,7 +132,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_STM32                                    "Compile to STM32"                                        ON )
 
-      message(STATUS "[GEN Compile for platform STM32]")
+      message(STATUS "[ GEN Compile for platform STM32 ]")
 
     endif()
   
@@ -144,7 +144,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_ESP32                                    "Compile to ESP32"                                        ON )
 
-      message(STATUS "[GEN Compile for platform ESP32]")
+      message(STATUS "[ GEN Compile for platform ESP32 ]")
  
     endif()
 
@@ -159,7 +159,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     option(COMPILE_ON_LINUX                                       "Compile on Linux"                                        ON )  
   
-    message(STATUS "[GEN Using Linux to compile]") 
+    message(STATUS "[ GEN Using Linux to compile ]") 
 
     option(COMPILE_FOR_LINUX                                      "Compile to Linux General"                                ON )  
 
@@ -169,7 +169,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_LINUX_INTEL_64                           "Compile to Linux INTEL 64 Bits"                          ON )
 
-      message(STATUS "[GEN Compile for platform Linux INTEL 64 Bits]")
+      message(STATUS "[ GEN Compile for platform Linux INTEL 64 Bits ]")
 
     endif()
 
@@ -179,7 +179,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_LINUX_ARM_RPI                            "Compile to Linux Rapsberry Pi"                           ON )
 
-      message(STATUS "[GEN Compile for platform Linux Raspberry Pi 32 Bits]")
+      message(STATUS "[ GEN Compile for platform Linux Raspberry Pi 32 Bits ]")
 
     endif()
 
@@ -189,7 +189,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_LINUX_ARM_RPI_64                         "Compile to Linux Rapsberry Pi 64"                        ON )
 
-      message(STATUS "[GEN Compile for platform Linux Raspberry Pi 64 Bits]")
+      message(STATUS "[ GEN Compile for platform Linux Raspberry Pi 64 Bits ]")
 
     endif()   
 
@@ -199,7 +199,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_LINUX_ARM                                "Compile to Linux ARM"                                    ON )
 
-      message(STATUS "[GEN Compile for platform Linux ARM]")
+      message(STATUS "[ GEN Compile for platform Linux ARM ]")
 
     endif()
 
@@ -209,7 +209,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       option(COMPILE_FOR_LINUX_ARM_64                             "Compile to Linux ARM 64"                                 ON )
 
-      message(STATUS "[GEN Compile for platform Linux ARM 64 Bits]")
+      message(STATUS "[ GEN Compile for platform Linux ARM 64 Bits ]")
 
     endif()
 
@@ -225,7 +225,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     if(NOT _CLANG OR NOT _CLANGXX)
 
-      message(FATAL_ERROR "[GEN Selected but clang/clang++ not found]")
+      message(FATAL_ERROR "[ GEN Selected but clang/clang++ not found ]")
       
       unset(USE_CLANG_COMPILER_FEATURE CACHE)
       option(USE_CLANG_COMPILER_FEATURE                            "Use Clang Compiler"                                     OFF )
@@ -284,25 +284,25 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
     add_definitions(-DCOMPILER_CLANG_CL)
     option(COMPILE_WITH_CLANG_CL                                  "Compile with CLang (interface MSVC)"                     ON )
-    message(STATUS "[GEN Select for compile: CLang (interface MSVC)]")
+    message(STATUS "[ GEN Select for compile: CLang (interface MSVC) ]")
 
   elseif(COMPILER_C_NAME STREQUAL "clang" OR COMPILER_CXX_NAME STREQUAL "clang" OR COMPILER_C_NAME STREQUAL "clang++" OR COMPILER_CXX_NAME STREQUAL "clang++")
 
     add_definitions(-DCOMPILER_CLANG)
     option(COMPILE_WITH_CLANG                                     "Compile with CLang (front-end of LLVM)"                  ON )
-    message(STATUS "[GEN Select for compile: CLang (front-end of LLVM)]")
+    message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ]")
 
   elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
     add_definitions(-DCOMPILER_MSVC)
     option(COMPILE_WITH_MSVC                                      "Compile with Microsoft Compiler (MSVC)"                  ON )
-    message(STATUS "[GEN Select for compile: Microsoft Compiler (MSVC)]")
+    message(STATUS "[ GEN Select for compile: Microsoft Compiler (MSVC) ]")
 
   elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
     add_definitions(-DCOMPILER_GCC)
     option(COMPILE_WITH_GCC                                       "Compile with GNU Compiler Collection (GCC)"              ON )
-    message(STATUS "[GEN Select for compile: GNU Compiler Collection (GCC)]")
+    message(STATUS "[ GEN Select for compile: GNU Compiler Collection (GCC) ]")
 
   endif()
 

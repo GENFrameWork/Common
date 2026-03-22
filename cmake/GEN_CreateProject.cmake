@@ -60,7 +60,7 @@ else()
                             OUTPUT_NAME ${CMAKE_PROJECT_NAME}
                             LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-      include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_AndroidPackage.cmake")
+      include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Android_BuildPackage.cmake")
 
     endif()
 

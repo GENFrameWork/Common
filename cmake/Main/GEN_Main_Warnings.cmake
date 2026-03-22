@@ -129,7 +129,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_TO_CPP_STR}")
 set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   ${WARNING_TO_BOTH_STR}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${WARNING_TO_BOTH_STR}")
 
-message(STATUS "[GEN Warnings de-activated C + CPP + BOTH: ${WARNING_TO_C_STR} - ${WARNING_TO_CPP_STR} - ${WARNING_TO_BOTH_STR}]")
+message(STATUS "[ GEN Warnings de-activated C + CPP + BOTH: ${WARNING_TO_C_STR} - ${WARNING_TO_CPP_STR} - ${WARNING_TO_BOTH_STR} ]")
 
 
 # --------------------------------------------------------------------
@@ -186,7 +186,7 @@ macro(GEN_ThirdPartyLibraries_SuppressWarnings LIB_NAME)
     endforeach()
 
 
-    message(STATUS "[GEN ThirdParty ${LIB_NAME} warnings suppressed: ${_GEN_TPLIBRARIES_FLAGS_STR}]")
+    message(STATUS "[ GEN ThirdParty ${LIB_NAME} warnings suppressed: ${_GEN_TPLIBRARIES_FLAGS_STR} ]")
 
   endif()
 
