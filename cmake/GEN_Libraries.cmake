@@ -242,6 +242,8 @@ if(GOOGLETEST_FEATURE)
 endif()
 
 
+
+
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${GEN_SO_THIRDPARTY_LIBRARYS})
 
 string(REPLACE ";" ", " _GEN_THIRDPARTY_LIBRARYS "${GEN_THIRDPARTY_LIBRARYS}")
@@ -250,9 +252,3 @@ string(REPLACE ";" ", " _GEN_SO_THIRDPARTY_LIBRARYS "${GEN_SO_THIRDPARTY_LIBRARY
 message(STATUS "[ GEN ThirdParty libraries in source : ${_GEN_THIRDPARTY_LIBRARYS} ]")    
 message(STATUS "[ GEN ThirdParty libraries in binary : ${_GEN_SO_THIRDPARTY_LIBRARYS} ]")
 
-message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-
-
-option(GEN_DETECT_PLATFORM_COMPILER                           "Detect platform compiler"                                  OFF )
-unset(GEN_DETECT_PLATFORM_COMPILER CACHE)
- 

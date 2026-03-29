@@ -6,8 +6,10 @@
 include_directories(${GEN_INCLUDES_DIR_LIST})
 
 if(COMPILE_FOR_ANDROID)
+  
   option(APPMODE_LIBRARY_DINAMIC_FEATURE                        "Android NativeActivity shared library"                   ON )
   option(APPMODE_LIBRARY_STATIC_FEATURE                         "Android static library"                                  OFF )
+  
 endif()
 
 if(COMPILE_FOR_ESP32)
