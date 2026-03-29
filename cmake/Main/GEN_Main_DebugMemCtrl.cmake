@@ -55,8 +55,6 @@ endif()
 
 message(STATUS "[ GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBUG_CTRL_MSG} ]")  
 
-unset(DEBUG_CTRL_FEATURE CACHE)
-
 
 # --------------------------------------------------------------------
 # Memory control 
@@ -100,8 +98,6 @@ else()
   message(STATUS "[ GEN Memory Control: Deactive specified ${MEMORY_CONTROL_MSG} ]")  
  
 endif()
-
-unset(MEMORY_CONTROL_FEATURE CACHE)
 
 
 # --------------------------------------------------------------------
@@ -176,17 +172,15 @@ if(XTRACE_FEATURE)
   
     option(DIO_FEATURE                                          "Data Input/Output"                                       ON )
     option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            ON )
-    option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
+   #option(DIO_WEBCLIENT_FEATURE                                "Web Client"                                              ON )
     
   endif()
 
 endif()  
- 
 
 
 # --------------------------------------------------------------------
 # Feedback control 
-
 
 set(FEEDBACK_CONTROL_MSG "by External Config") 
 
@@ -222,14 +216,4 @@ else()
 
 endif()
 
-
-
-# --------------------------------------------------------------------
-# Special
-
-if(ANONYMOUS_MODE_FEATURE)
-  
-  add_definitions(-DANONYMOUS_MODE)
-
-endif()
 
