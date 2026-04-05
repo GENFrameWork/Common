@@ -4,33 +4,48 @@
 # --------------------------------------------------------------------
 
 
+message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+
 # --------------------------------------------------------------------
 # Compile Selection
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Platform-Compiler.cmake") 
 
+
 # --------------------------------------------------------------------
 # Dependencies for source 
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Dependencies.cmake") 
+
   
 # --------------------------------------------------------------------
 # Warnings control
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Warnings.cmake") 
 
+
 # --------------------------------------------------------------------
 # Set Directories
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_SetDirectories.cmake")
+
 
 # --------------------------------------------------------------------
 # Set Enviroment
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Environment.cmake")
 
+
 # -------------------------------------------------------------------- 
 # Debug management and memory control
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_DebugMemCtrl.cmake") 
 
+
 # --------------------------------------------------------------------
 # Macros for Singletons
 include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_SingletonMacros.cmake") 
+
+
+# --------------------------------------------------------------------
+# Create Coverage
+include("${GEN_DIRECTORY}/common/cmake/Main/GEN_Main_CoverageCreateInfo.cmake")  
+
 
 
 # --------------------------------------------------------------------

@@ -1,0 +1,23 @@
+ARG IMAGEBASE
+FROM ${IMAGEBASE:-debian:13.3-slim}
+
+ARG TARGET=INTEL64
+ARG TARGET_LOWERCASE=intel64
+ARG COMPILED_MODE=debug
+ENV TARGET=${TARGET}
+ENV TARGET_LOWERCASE=${TARGET_LOWERCASE}
+ENV COMPILED_MODE=${COMPILED_MODE}
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends @DOCKER_PACKAGES_LINE@ && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+ARG APPLICATION
+COPY bin/${COMPILED_MODE}/${TARGET_LOWERCASE}/${APPLICATION} .
+#COPY src/epics/assets/.env .
+
+# Comando por defecto al arrancar el contenedor
+CMD ["sh", "-c", "./${APPLICATION}"]

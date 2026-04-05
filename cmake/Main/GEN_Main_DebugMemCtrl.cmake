@@ -18,9 +18,10 @@ if("${DEBUG_EXTCFG}" STREQUAL "DEBUG")
     
 else()
   
-  if("${DEBUG_EXTCFG}" STREQUAL "NOTDEBUG")
+  if("${DEBUG_EXTCFG}" STREQUAL "RELEASE")
   
     unset(DEBUG_CTRL_FEATURE CACHE)
+    unset(DEBUG_FEATURE CACHE)
 
   else()
       
@@ -37,7 +38,7 @@ else()
 endif()
 
 
-if(DEBUG_CTRL_FEATURE)
+if(DEBUG_CTRL_FEATURE AND DEBUG_FEATURE)
 
   # add_definitions(-DGEN_DEBUG)
 
@@ -59,43 +60,44 @@ message(STATUS "[ GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBU
 # --------------------------------------------------------------------
 # Memory control 
 
-set(MEMORY_CONTROL_MSG "by External Config") 
+set(MEMORY_CTRL_MSG "by External Config") 
 
 if("${MEMORY_EXTCFG}" STREQUAL "MEMCTRL")
 
-  option(MEMORY_CONTROL_FEATURE  "Memory Mode Ctrl"  ON)
+  option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
     
 else()
   
   if("${MEMORY_EXTCFG}" STREQUAL "NOTMEMCTRL")
   
-    unset(MEMORY_CONTROL_FEATURE CACHE)
+    unset(MEMORY_CTRL_FEATURE CACHE)
 
   else()
       
     if(XMEMORY_CONTROL_FEATURE)
         
-      option(MEMORY_CONTROL_FEATURE  "Memory Mode Ctrl"  ON)
+      option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
       
     endif()
 
-   set(MEMORY_CONTROL_MSG "by Proyect") 
+   set(MEMORY_CTRL_MSG "by Proyect") 
 
   endif()
   
 endif()
 
 
-if(MEMORY_CONTROL_FEATURE)
+if(MEMORY_CTRL_FEATURE AND XMEMORY_CONTROL_FEATURE)
 
   add_definitions(-DXMEMORY_CONTROL_ACTIVE)
+
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
   
-  message(STATUS "[ GEN Memory Control: Active specified ${MEMORY_CONTROL_MSG} ]")  
+  message(STATUS "[ GEN Memory Control: Active specified ${MEMORY_CTRL_MSG} ]")  
   
 else()  
 
-  message(STATUS "[ GEN Memory Control: Deactive specified ${MEMORY_CONTROL_MSG} ]")  
+  message(STATUS "[ GEN Memory Control: Deactive specified ${MEMORY_CTRL_MSG} ]")  
  
 endif()
 
@@ -103,12 +105,11 @@ endif()
 # --------------------------------------------------------------------
 # Trace control 
 
-set(TRACE_CONTROL_MSG "by External Config") 
+set(TRACE_CTRL_MSG "by External Config") 
 
 if("${TRACE_EXTCFG}" STREQUAL "TRACE")
 
   option(XTRACE_FEATURE                                         "XTrace"                                                  ON )  
-  unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
     
 else()
 
@@ -122,11 +123,11 @@ else()
     if("${TRACE_EXTCFG}" STREQUAL "NOTTRACE")
   
       unset(XTRACE_FEATURE             CACHE)
-      unset(XTRACE_NOINTERNET_FEATURE  CACHE)   
-      
-    else()
-      
-      set(TRACE_CONTROL_MSG "by Proyect") 
+      unset(XTRACE_NOINTERNET_FEATURE  CACHE)     
+           
+    else()      
+            
+      set(TRACE_CTRL_MSG "by Proyect") 
          
     endif()
   
@@ -137,17 +138,17 @@ endif()
 
 if(XTRACE_NOINTERNET_FEATURE)
 
-  message(STATUS "[ GEN Trace Control: Active without Internet specified ${TRACE_CONTROL_MSG} ]")  
+  message(STATUS "[ GEN Trace Control: Active without Internet specified ${TRACE_CTRL_MSG} ]")  
  
 else()
 
   if(XTRACE_FEATURE)
 
-    message(STATUS "[ GEN Trace Control: Active specified ${TRACE_CONTROL_MSG} ]")  
+    message(STATUS "[ GEN Trace Control: Active specified ${TRACE_CTRL_MSG} ]")  
  
   else()
   
-    message(STATUS "[ GEN Trace Control: Deactive specified ${TRACE_CONTROL_MSG} ]")  
+    message(STATUS "[ GEN Trace Control: Deactive specified ${TRACE_CTRL_MSG} ]")  
    
   endif()
 
@@ -182,37 +183,45 @@ endif()
 # --------------------------------------------------------------------
 # Feedback control 
 
-set(FEEDBACK_CONTROL_MSG "by External Config") 
+set(FEEDBACK_CTRL_MSG "by External Config") 
 
 if("${FEEDBACK_EXTCFG}" STREQUAL "FEEDBACK")
 
-  option(XFEEDBACK_CONTROL_FEATURE                              "XFeedback Control"                                       ON )               
+  option(XFEEDBACK_CTRL_FEATURE  "XFeedback Ctrl" ON )     
+  option(XFEEDBACK_CONTROL_FEATURE                           "XFeedback Control"                                  ON )               
     
 else()
 
   if("${FEEDBACK_EXTCFG}" STREQUAL "NOTFEEDBACK")
   
-    unset(XFEEDBACK_CONTROL_FEATURE CACHE)                 
-  
+    unset(XFEEDBACK_CTRL_FEATURE CACHE)                 
+    unset(XFEEDBACK_CONTROL_FEATURE CACHE)
+
   else()
-           
-    set(FEEDBACK_CONTROL_MSG "by Proyect") 
+              
+    if(XFEEDBACK_CONTROL_FEATURE)
+
+      option(XFEEDBACK_CTRL_FEATURE  "XFeedback Ctrl" ON ) 
+
+    endif()
+
+    set(FEEDBACK_CTRL_MSG "by Proyect") 
     
   endif()
   
 endif()
 
 
-if(XFEEDBACK_CONTROL_FEATURE)
+if(XFEEDBACK_CTRL_FEATURE AND XFEEDBACK_CONTROL_FEATURE)
 
   add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
   
-  message(STATUS "[ GEN Feedback Control: Active specified ${FEEDBACK_CONTROL_MSG} ]")  
+  message(STATUS "[ GEN Feedback Control: Active specified ${FEEDBACK_CTRL_MSG} ]")  
 
 else()
 
-  message(STATUS "[ GEN Feedback Control: Deactive specified ${FEEDBACK_CONTROL_MSG} ]")  
+  message(STATUS "[ GEN Feedback Control: Deactive specified ${FEEDBACK_CTRL_MSG} ]")  
 
 endif()
 

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Install dependencies (cross-platform ARM 32) (PC host)
+# Install dependencies (cross-platform ARM32) (PC host)
 
 dpkg --add-architecture armhf
 apt-get update

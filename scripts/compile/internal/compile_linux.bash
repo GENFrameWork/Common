@@ -1,63 +1,97 @@
 #!/bin/bash
 
-DIR="$1/Platforms/$SO_PATH/$PLATFORM_PATH"
-OLDPATH=$(pwd)
+# $1 directory         ../../../Examples/Base/NotAppExample/Plaforms/Linux
+# $2 /$TARGET_LOWERCASE
+# $3 [application]
 
-if [ ! -d "$1/Platforms/$SO_PATH" ]; then
-  mkdir $1/Platforms/$SO_PATH;
+DIR="$1/$2"
+OLDPATH=$(pwd)
+COMPILED_MODE=""
+copylib=0
+
+
+if [[ "$DEBUG_EXTERNAL_CFG" == "DEBUG" || "$DEBUG_EXTERNAL_CFG" == "NONE" ]]; then
+  COMPILED_MODE="debug"
+fi  
+
+
+if [ "$DEBUG_EXTERNAL_CFG" == "RELEASE" ]; then
+  COMPILED_MODE="release"
+fi  
+
+
+DIR="$DIR/$COMPILED_MODE"
+  
+if [ "$STAGE" == "CMAKE" ]; then  
+  if [ -d "$DIR" ]; then  
+    rm $DIR -R;   
+  fi
 fi
- 
-if [ -d "$DIR" ]; then 
-  rm $DIR -R; 
-fi
+
 
 if [ ! -d "$DIR" ]; then
-  mkdir $DIR;
-fi
-
-if [[ "$OUTFILE" == /* ]]; then
-  OUTFILE2=$OUTFILE
-else
-  OUTFILE2="../"$OUTFILE
+  mkdir -p  $DIR;
 fi
 
 cd $DIR
 
-printf "\n\n[%s]\n\n" $2 >> "$OUTFILE2" 2>&1
+printf "\n\n[#APP_NAME %-10s %-10s %s#]\n" $TARGET $DEBUG_EXTERNAL_CFG $3  >> "$OUTFILE" 2>&1 
+printf " _____________________________________________________________________________________________________________________________________________________________________________________\n\n"  $3  >> "$OUTFILE" 2>&1 
+ 
 
-printf "[#CMake#]\n"  >> "$OUTFILE2" 2>&1
-printf "Generate CMake      %-16s ... " $2 
-cmake -G "Ninja" -DTARGET=$TARGET -DDEBUG_EXTCFG=$DEBUG_EXTCFG -DMEMORY_EXTCFG=$MEMORY_EXTCFG -DTRACE_EXTCFG=$TRACE_EXTCFG -DFEEDBACK_EXTCFG=$FEEDBACK_EXTCFG ../..  >> "$OUTFILE2" 2>&1
-if [ $? -eq 0 ]; then
-    printf "[Ok]\n" 
-else
-    printf "[Error!]\n" 
+
+if [ "$STAGE" == "CMAKE" ]; then
+    
+  printf "%-10s %-10s Generate CMake           %-22s ... " $TARGET $DEBUG_EXTERNAL_CFG $3 
+  printf "[#CMake %s#]\n" $3  >> "$OUTFILE" 2>&1   
+  cmake -G "Ninja" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DTARGET=$TARGET -DUSE_CLANG_EXTCFG=$USE_CLANG_EXTCFG -DCOVERAGE_CREATEINFO_EXTERNAL_CFG=$COVERAGE_CREATEINFO_EXTERNAL_CFG -DDEBUG_EXTCFG=$DEBUG_EXTCFG -DMEMORY_EXTCFG=$MEMORY_EXTCFG -DTRACE_EXTCFG=$TRACE_EXTCFG -DFEEDBACK_EXTCFG=$FEEDBACK_EXTCFG ../../..  >> "$OUTFILE" 2>&1
+  if [ $? -eq 0 ]; then
+      printf "[Ok]\n" 
+  else
+      printf "[Error!]\n" 
+  fi 
 fi
 
 
-printf "[#Compilate#]\n"  >> "$OUTFILE2" 2>&1
-printf "Compilate project   %-16s ... " $2
-ninja -j8  >> "$OUTFILE2" 2>&1
-if [ $? -eq 0 ]; then    
+
+if [ "$STAGE" == "COMPILE" ]; then
+
+  printf "%-10s %-10s Compilate project        %-22s ... " $TARGET $DEBUG_EXTERNAL_CFG $3
+  printf "[#Compiled %s#]\n" $3  >> "$OUTFILE" 2>&1 
+  ninja  >> "$OUTFILE" 2>&1 
+  if [ $? -eq 0 ]; then    
     printf "[Ok]\n" 
-else
+   else
     printf "[Error!]\n" 
+  fi
+   
 fi
 
 
-if [[ "$TARGET" == "INTEL32" || "$TARGET" == "INTEL64" ]]; then
-  if [ -e "$2tests" ]; then
-    printf "[#Tests#]\n"  >> "$OUTFILE" 2>&1
-    printf "Test project        %-16s ... " $2
-    ./$2tests  >> "$OUTFILE2" 2>&1
+
+if [ "$STAGE" == "TEST" ]; then
+
+  if [[ "$3" == *_unittests && "$TARGET" == "INTEL64" ]]; then
+   
+    printf "%-10s %-10s Test project             %-22s ... " $TARGET $DEBUG_EXTERNAL_CFG $3
+    printf "[#Tests %s#]\n" $3  >> "$OUTFILE" 2>&1   
+      
+    ./$3  >> "$OUTFILE" 2>&1 
     if [ $? -eq 0 ]; then    
         printf "[Ok]\n" 
     else
         printf "[Error!]\n" 
     fi
+    
   fi  
+  
 fi
+
+
+
+printf "\n\n" >> "$OUTFILE" 2>&1 
 
 cd $OLDPATH
 
-printf "\n" 
+
+

@@ -6,12 +6,17 @@
 
 # --------------------------------------------------------------------
 # Create proyect 
-include("${GEN_DIRECTORY}/Common/cmake/GEN_CreateProject.cmake")
+include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_CreateProject.cmake")
 
 
 # --------------------------------------------------------------------
 # Add Libraries
-include("${GEN_DIRECTORY}/Common/cmake/GEN_Libraries.cmake") 
+include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Libraries.cmake") 
+
+
+# --------------------------------------------------------------------
+# Generated Coverage
+include("${GEN_DIRECTORY}/common/cmake/Main/GEN_Main_CoverageGenerate.cmake") 
 
 
 message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
