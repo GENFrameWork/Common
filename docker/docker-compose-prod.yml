@@ -8,11 +8,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
-      args:       
+      dockerfile: Common/docker/dockerfile_prod_notappexample
+      args:
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./notappexample
@@ -26,11 +26,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_appbaseexample
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appbaseexample
@@ -44,52 +44,33 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_memctrlexample
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./memctrlexample
  
  
-  canvas2Ddisplay:
-    container_name: canvas2Ddisplay
-    image: gen_prod:canvas2Ddisplay
+  canvas2ddisplay:
+    container_name: canvas2ddisplay
+    image: gen_prod:canvas2ddisplay
     tty: true
     networks:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_canvas2ddisplay
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
-    command: ./canvas2Ddisplay
- 
- 
-  loglib:
-    container_name: loglib
-    image: gen_prod:loglib
-    tty: true
-    networks:
-      - example_app_net
-    build:
-      context: ../../
-      dockerfile: Common/docker/dockerfile_prod
-      args:       
-        TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
-        APPPATH: ${APPPATH:-}
-        APPNAME: ${APPNAME:-}
-    command: ./loglib
- 
- 
+    command: ./canvas2ddisplay
+   
   binconnpro:
     container_name: binconnpro
     image: gen_prod:binconnpro
@@ -98,11 +79,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_binconnpro
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./binconnpro
@@ -115,11 +96,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_inibase
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./inibase    
@@ -133,11 +114,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_netconn
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netconn
@@ -151,11 +132,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_databases
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./databases
@@ -169,11 +150,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_miniwebserver
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./miniwebserver
@@ -187,11 +168,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_scriptsexample
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./scriptsexample
@@ -205,29 +186,29 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_netcapture
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netcapture
  
  
-  canvas2D:
-    container_name: canvas2D
-    image: gen_prod:canvas2D
+  canvas2d:
+    container_name: canvas2d
+    image: gen_prod:canvas2d
     tty: true
     networks:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_canvas2d
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./canvas2D
@@ -241,11 +222,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_ui_options
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_options
@@ -259,11 +240,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_ui_message
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_message
@@ -277,11 +258,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_devtestsconsole
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsconsole
@@ -295,47 +276,47 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_devtestsdevices
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsdevices
  
  
-  devtestscanvas2D:
-    container_name: devtestscanvas2D
-    image: gen_prod:devtestscanvas2D
+  devtestscanvas2d:
+    container_name: devtestscanvas2d
+    image: gen_prod:devtestscanvas2d
     tty: true
     networks:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_devtestscanvas2d
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestscanvas2D
     
     
-  xutils_unit:
-    container_name: xutils_unit
-    image: gen_prod:xutils_unit
+  xutils_unittests:
+    container_name: xutils_unittest
+    image: gen_prod:xutils_unittest
     tty: true
     networks:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_xutils_unittest
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./xutils_unit
@@ -349,11 +330,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_appupdatecreator
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appupdatecreator
@@ -367,11 +348,11 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod
+      dockerfile: Common/docker/dockerfile_prod_translatescan
       args:       
+        IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_IMG: ${TARGET_IMG:-}
-        IMAGEBASE: ${IMAGEBASE:-}
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./translatescan

@@ -47,16 +47,95 @@ endfunction()
 # List of packages to install (default APT names)
 set(DOCKER_PACKAGES bash)
 
-list(APPEND DOCKER_PACKAGES libstdc++6)
-list(APPEND DOCKER_PACKAGES libgcc-s1)
 
-
-# hiredis
-ListContainsSubValue(ISFOUND GEN_COMPILED_THIRDPARTYLIBRARIES "AGG")
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "stdc++")
 if(ISFOUND)
-  
-  list(APPEND DOCKER_PACKAGES libhiredis1.1.0=1.2.0-6+b3)
+  list(APPEND DOCKER_PACKAGES libstdc++6)
+endif()
 
+ListContainsSubValue(ISFOUND1 GEN_SO_THIRDPARTY_LIBRARYS "pthread")
+ListContainsSubValue(ISFOUND2 GEN_SO_THIRDPARTY_LIBRARYS "rt")
+ListContainsSubValue(ISFOUND3 GEN_SO_THIRDPARTY_LIBRARYS "dl")
+ListContainsSubValue(ISFOUND4 GEN_SO_THIRDPARTY_LIBRARYS "m")
+if(ISFOUND1 OR ISFOUND2 OR ISFOUND3 OR ISFOUND4)
+  list(APPEND DOCKER_PACKAGES libc6)
+endif()
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "atomic")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libatomic1)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "asound")  
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libasound2t64)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "udev")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libudev1)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "bluetooth")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libbluetooth3)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "iw")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libiw30t64)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "pcap")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libpcap0.8t64)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "mysqlclient")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libmariadb3)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "pq")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libpq5)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "X11")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libx11-6)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "Xext")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libxext6)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "Xrandr")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libxrandr2)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "Xxf86vm")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libxxf86vm1)
+endif()
+
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "dbus-1")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libdbus-1-3)
 endif()
 
 
@@ -73,7 +152,7 @@ string(REPLACE ";" "${LINEFEED}" DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
 set(DOCKER_PACKAGES_LINE "${DOCKER_PACKAGES_JOINED}")
 
 
-set(OUT_DIR "${GEN_DIRECTORY}/Common/docker")
+set(OUT_DIR "${PATHLISTAPP}../../../Common/docker")
 
 set(DOCKERFILE_OUTPUT "${OUT_DIR}/dockerfile_prod_${CMAKE_PROJECT_NAME}")
 

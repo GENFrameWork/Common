@@ -19,9 +19,7 @@ if docker build \
     -t "$IMAGE_COMPILE_NAME" \
     -f "$GEN_PATH/Common/docker/$DOCKER_FILE_BUILD" \
     "$GEN_PATH"
-then
-    echo "Build Ok!"
-
+then   
     if docker run -it --rm \
         --name "$CONTAINER_COMPILE_NAME" \
         -e IN_CONTAINER=1 \
@@ -38,13 +36,14 @@ then
         -e APPLIST_COMPILE="$APPLIST_COMPILE" \
         -e SO_PATH="$SO_PATH" \
         -e DOCKERDOMAIN="$DOCKERDOMAIN" \
+        -e SCRIPTHEADER="$SCRIPTHEADER" \
         --tmpfs /build:rw,noexec,nosuid,size=16g \
         -v "$BIND_MOUNT_GEN" \
         -v "$BIND_MOUNT_CCACHE" \
         "$IMAGE_COMPILE_NAME" \
         "$@"
     then
-      echo "Run Ok!"
+      echo ""
     else
       rc=$?
       echo "Error Run. Code: $rc"

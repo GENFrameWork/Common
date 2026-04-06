@@ -75,7 +75,7 @@ source ./defaultenv.bash
 
 SO_PATH="Linux"
 FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE="${PATHLISTAPP}output.txt"
+OUTFILE="${PATHLISTAPP}../../../outfile.txt"
 
 export SO_PATH FILELISTAPP OUTFILE
 
@@ -264,31 +264,26 @@ if [[ ${#modes[@]} -eq 0 ]]; then
 fi
 
 
+
 if [[ "${IN_CONTAINER:-0}" == "1" ]]; then
-  indocker=false
+  indocker=false  
 fi
 
-source ./defaultenv.bash
-
-SO_PATH="Linux"
-FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE="${PATHLISTAPP}../../../outfile.txt"
-
-export SO_PATH FILELISTAPP OUTFILE
+if [ -z "$SCRIPTHEADER" ]; then
+  export SCRIPTHEADER=false
+fi
 
 
-# Remove File output.txt if it exists
-#if [ -f "$OUTFILE" ]; then
-#  printf "Removing outfile ...\n"
-#  rm -f $OUTFILE
-#fi
+if [[ "$SCRIPTHEADER" = false ]]; then
 
-
-if [ "$indocker" = false ]; then  
-
-  
   echo -------------------------------------------------------------
   echo "Start process ..." 
+  
+  if [ -f "$OUTFILE" ]; then
+    printf "Removing outfile ...\n"
+    rm -f $OUTFILE
+  fi  
+  
   date
   echo "Stages         : ${stages[*]}"
   echo "Modes          : ${modes[*]}"
@@ -309,11 +304,18 @@ if [ "$indocker" = false ]; then
     echo "Image Base     : Compilation Docker with $IMAGEBASE"            >> "$OUTFILE" 2>&1   
   fi
   echo "Applications   : ${applications[*]}"                              >> "$OUTFILE" 2>&1   
+  echo ------------------------------------------------------------- 
+    
+fi  
+
+SCRIPTHEADER=true
+export SCRIPTHEADER
+ 
+if [ "$indocker" = false ]; then  
 
   for s in "${stages[@]}"; do
      
     export STAGE=$s 
-    echo ------------------------------------------------------------- 
     
     for p in "${platforms[@]}"; do  
     
@@ -330,22 +332,11 @@ if [ "$indocker" = false ]; then
     
   done
   
-  END_TIME=$(date +%s)
-  ELAPSED_TIME=$((END_TIME - START_TIME))
-  HOURS=$((ELAPSED_TIME / 3600))
-  MINUTES=$(((ELAPSED_TIME % 3600) / 60 ))
-  SECONDS=$((ELAPSED_TIME % 60))
-
-  echo " "
-  echo -------------------------------------------------------------
-  printf "End process.\nProcessing time: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"
-  echo -------------------------------------------------------------
-
-  echo " "                                                                                  >> "$OUTFILE" 2>&1   
-  echo -------------------------------------------------------------                        >> "$OUTFILE" 2>&1   
-  printf "End process.\nProcessing time: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"   >> "$OUTFILE" 2>&1   
-  echo -------------------------------------------------------------                        >> "$OUTFILE" 2>&1   
-
+  if [[ "${IN_CONTAINER:-0}" == "0" ]]; then  
+    SCRIPTHEADER=false
+    export SCRIPTHEADER
+  fi
+ 
 else 
     
   PATHLISTAPP="${DOCKERDOMAIN}"
@@ -385,6 +376,32 @@ else
     source ./internal/compile_docker.bash "${ARGS_END[@]}"
     
   done 
+  
+  PATHLISTAPP="$(pwd)/"  
+  OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+  export PATHLISTAPP FILELISTAPP OUTFILE
+  
+  SCRIPTHEADER=false
+  export SCRIPTHEADER
 
 fi  
 
+if [[ "$SCRIPTHEADER" = false ]]; then
+
+  END_TIME=$(date +%s)
+  ELAPSED_TIME=$((END_TIME - START_TIME))
+  HOURS=$((ELAPSED_TIME / 3600))
+  MINUTES=$(((ELAPSED_TIME % 3600) / 60 ))
+  SECONDS=$((ELAPSED_TIME % 60))
+
+  echo " "
+  echo -------------------------------------------------------------
+  printf "End process.\nProcessing time: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"
+  echo -------------------------------------------------------------
+
+  echo " "                                                                                  >> "$OUTFILE" 2>&1   
+  echo -------------------------------------------------------------                        >> "$OUTFILE" 2>&1   
+  printf "End process.\nProcessing time: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"   >> "$OUTFILE" 2>&1   
+  echo -------------------------------------------------------------                        >> "$OUTFILE" 2>&1   
+  
+fi  
