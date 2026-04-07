@@ -75,7 +75,7 @@ source ./defaultenv.bash
 
 SO_PATH="Linux"
 FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+OUTFILE="../../../outfile.txt"
 
 export SO_PATH FILELISTAPP OUTFILE
 
@@ -263,8 +263,6 @@ if [[ ${#modes[@]} -eq 0 ]]; then
 
 fi
 
-
-
 if [[ "${IN_CONTAINER:-0}" == "1" ]]; then
   indocker=false  
 fi
@@ -275,24 +273,20 @@ fi
 
 
 if [[ "$SCRIPTHEADER" = false ]]; then
-
-  echo -------------------------------------------------------------
-  echo "Start process ..." 
   
   if [ -f "$OUTFILE" ]; then
-    printf "Removing outfile ...\n"
+    printf "\nRemoving outfile ...\n\n"
     rm -f $OUTFILE
-  fi  
+  fi 
   
+  echo -------------------------------------------------------------
+  echo "Start process ..."   
   date
   echo "Stages         : ${stages[*]}"
   echo "Modes          : ${modes[*]}"
   echo "Plataforms     : ${platforms[*]}" 
-  if [[ "${IN_CONTAINER:-0}" == "1" ]]; then  
-    echo "Image Base     : Compilation Docker with $IMAGEBASE"  
-  fi
   echo "Applications   : ${applications[*]}"
-
+  
   echo " " > "$OUTFILE" 2>&1   
   echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1   
   echo "Start process ..."                                                >> "$OUTFILE" 2>&1   
@@ -300,22 +294,30 @@ if [[ "$SCRIPTHEADER" = false ]]; then
   echo "Stages         : ${stages[*]}"                                    >> "$OUTFILE" 2>&1   
   echo "Modes          : ${modes[*]}"                                     >> "$OUTFILE" 2>&1   
   echo "Plataforms     : ${platforms[*]}"                                 >> "$OUTFILE" 2>&1   
-  if [[ "${IN_CONTAINER:-0}" == "1" ]]; then  
-    echo "Image Base     : Compilation Docker with $IMAGEBASE"            >> "$OUTFILE" 2>&1   
-  fi
-  echo "Applications   : ${applications[*]}"                              >> "$OUTFILE" 2>&1   
-  echo ------------------------------------------------------------- 
-    
-fi  
+  echo "Applications   : ${applications[*]}"                              >> "$OUTFILE" 2>&1 
+
+fi 
+
 
 SCRIPTHEADER=true
 export SCRIPTHEADER
+
  
 if [ "$indocker" = false ]; then  
+
+  if [[ "${IN_CONTAINER:-0}" == "0" ]]; then    
+    
+    echo -------------------------------------------------------------          
+    echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1   
+    
+  fi  
+
 
   for s in "${stages[@]}"; do
      
     export STAGE=$s 
+    
+    printf "\n[%s]\n" $s
     
     for p in "${platforms[@]}"; do  
     
@@ -341,8 +343,15 @@ else
     
   PATHLISTAPP="${DOCKERDOMAIN}"
   FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-  OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+  OUTFILE="../../../outfile.txt"
   export PATHLISTAPP FILELISTAPP OUTFILE
+  
+  echo "Image Base     : Compilation Docker with $IMAGEBASE"   
+  echo "Image Base     : Compilation Docker with $IMAGEBASE"              >> "$OUTFILE" 2>&1                 
+  
+  echo -------------------------------------------------------------          
+  echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1   
+  
   
   ARGS=("$@")
   ARGS_NEW=()
@@ -373,12 +382,12 @@ else
     ARGS_END=("${ARGS_NEW[@]}")
     ARGS_END+=("$p")
     
-    source ./internal/compile_docker.bash "${ARGS_END[@]}"
+    source ./internal/compile_docker.bash "${ARGS_END[@]}" 
     
   done 
   
   PATHLISTAPP="$(pwd)/"  
-  OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+  OUTFILE="../../../outfile.txt"
   export PATHLISTAPP FILELISTAPP OUTFILE
   
   SCRIPTHEADER=false

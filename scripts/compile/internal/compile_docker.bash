@@ -11,6 +11,8 @@ GEN_PATH=../../..
 BIND_MOUNT_GEN=../../$GEN_PATH/Projects:/Projects
 BIND_MOUNT_CCACHE=/root/.cache/:/root/.cache/
 
+echo "" 
+
 if docker build \
     --build-arg TARGET="$TARGET" \
     --build-arg IMAGEBASE="$IMAGEBASE" \
@@ -19,7 +21,8 @@ if docker build \
     -t "$IMAGE_COMPILE_NAME" \
     -f "$GEN_PATH/Common/docker/$DOCKER_FILE_BUILD" \
     "$GEN_PATH"
-then   
+then    
+    echo ""  
     if docker run -it --rm \
         --name "$CONTAINER_COMPILE_NAME" \
         -e IN_CONTAINER=1 \
