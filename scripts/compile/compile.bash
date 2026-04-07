@@ -75,7 +75,7 @@ source ./defaultenv.bash
 
 SO_PATH="Linux"
 FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE="../../../outfile.txt"
+OUTFILE="${PATHLISTAPP}../../../outfile.txt"
 
 export SO_PATH FILELISTAPP OUTFILE
 
@@ -343,8 +343,8 @@ else
     
   PATHLISTAPP="${DOCKERDOMAIN}"
   FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-  OUTFILE="../../../outfile.txt"
-  export PATHLISTAPP FILELISTAPP OUTFILE
+  #OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+  export PATHLISTAPP FILELISTAPP #OUTFILE
   
   echo "Image Base     : Compilation Docker with $IMAGEBASE"   
   echo "Image Base     : Compilation Docker with $IMAGEBASE"              >> "$OUTFILE" 2>&1                 
@@ -386,9 +386,9 @@ else
     
   done 
   
-  PATHLISTAPP="$(pwd)/"  
-  OUTFILE="../../../outfile.txt"
-  export PATHLISTAPP FILELISTAPP OUTFILE
+  #PATHLISTAPP="$(pwd)/"  
+  #OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+  #export PATHLISTAPP FILELISTAPP OUTFILE
   
   SCRIPTHEADER=false
   export SCRIPTHEADER
