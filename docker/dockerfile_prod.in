@@ -23,9 +23,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-ARG APPLICATION
-COPY ${APPPATH}/Platforms/Linux/${TARGET_LOWERCASE}/${DEBUG_EXTERNAL_CFG}/${APPLICATION} .
+COPY ${APPPATH}/Platforms/Linux/${TARGET_LOWERCASE}/${DEBUG_EXTERNAL_CFG}/${APPNAME} .
 COPY ${APPPATH}/assets .
 
-# Comando por defecto al arrancar el contenedor
-CMD ["sh", "-c", "./${APPLICATION}"]
+CMD ["sh", "-c", "./${APPNAME}"]

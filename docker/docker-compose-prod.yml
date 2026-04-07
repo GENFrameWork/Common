@@ -12,7 +12,8 @@ services:
       args:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}   
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./notappexample
@@ -31,6 +32,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appbaseexample
@@ -49,6 +51,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./memctrlexample
@@ -67,6 +70,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./canvas2ddisplay
@@ -83,7 +87,8 @@ services:
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./binconnpro
@@ -101,6 +106,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./inibase    
@@ -119,6 +125,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netconn
@@ -137,6 +144,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./databases
@@ -155,6 +163,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./miniwebserver
@@ -173,6 +182,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./scriptsexample
@@ -191,6 +201,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netcapture
@@ -209,9 +220,10 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
-    command: ./canvas2D
+    command: ./canvas2d
  
  
   ui_options:
@@ -227,6 +239,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_options
@@ -245,6 +258,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_message
@@ -263,6 +277,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsconsole
@@ -281,6 +296,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsdevices
@@ -299,6 +315,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestscanvas2D
@@ -317,6 +334,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./xutils_unit
@@ -335,6 +353,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appupdatecreator
@@ -353,6 +372,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
+        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./translatescan

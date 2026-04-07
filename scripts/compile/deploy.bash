@@ -74,41 +74,35 @@ FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
 
 export SO_PATH FILELISTAPP 
 
+set -euo pipefail
 
-# Application params
-if [ ${#application_params[@]} -gt 0 ]; then
- 
-  applications="${application_params[*]}"
-  export APPLIST_COMPILE="${applications[*]}"
-   
-else
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # saltar líneas vacías o solo espacios
+  [[ -z "${line//[[:space:]]/}" ]] && continue
 
-  set -euo pipefail
-
-  while IFS= read -r line || [[ -n "$line" ]]; do
-    # saltar líneas vacías o solo espacios
-    [[ -z "${line//[[:space:]]/}" ]] && continue
-
-    # Extrae lo que hay entre comillas: "a" "b"
-    if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
-      param1="${BASH_REMATCH[1]}"
-      param2="${BASH_REMATCH[2]}"
-      
-      applications_path+=("$param1")
-      applications+=("$param2")
-      
-    else
-      echo "Línea con formato inválido (se ignora): $line" >&2
-    fi
+  # Extrae lo que hay entre comillas: "a" "b"
+  if [[ "$line" =~ ^[[:space:]]*\"([^\"]*)\"[[:space:]]+\"([^\"]*)\"[[:space:]]*$ ]]; then
+    param1="${BASH_REMATCH[1]}"
+    param2="${BASH_REMATCH[2]}"
     
-  done < "$FILELISTAPP"
+    applications_path+=("$param1")
+    applications+=("$param2")
   
-  set +euo pipefail
+  else
+    echo "Línea con formato inválido (se ignora): $line" >&2
+  fi
   
+done < "$FILELISTAPP"
+
+set +euo pipefail
+  
+  
+# Application params
+if [ ${#application_params[@]} -gt 0 ]; then  
+  export APPLIST_COMPILE="${application_params[*]}"
+else 
   export APPLIST_COMPILE="${applications[*]}"
-
 fi
-
 
 # Variation params
 if [[ ${#variation_params[@]} -gt 0 ]]; then
@@ -167,7 +161,7 @@ fi
 
 if [[ ${#modes[@]} -eq 0 ]]; then
 
-  modes+=("DEBUG")
+  #modes+=("DEBUG")
   modes+=("RELEASE")
 
 fi
@@ -177,37 +171,56 @@ echo -------------------------------------------------------------
 echo "Modes          : ${modes[*]}"
 echo "Plataforms     : ${platforms[*]}" 
 echo "Image Base     : Compilation Docker with $IMAGEBASE"  
-echo "Applications   : ${applications[*]}"
+echo "Applications   : ${APPLIST_COMPILE}"
 echo -------------------------------------------------------------
      
 for p in "${platforms[@]}"; do  
 
-  export TARGET=$p
+  export TARGET=$p 
 
   for m in "${modes[@]}"; do
     
-    export DEBUG_EXTERNAL_CFG=$m             
+    export DEBUG_EXTERNAL_CFG=${m,,}
 
-    for app in "$APPLIST_COMPILE"; do
+    if [ ${#application_params[@]} -gt 0 ]; then  
+
+      for app in "${application_params[@]}"; do
         
+        index=0    
+        
+        for a in "${applications[@]}"; do  
+                                                  
+          if [[ "$app" == "$a" ]]; then
+          
+            export APPPATH="${applications_path[$index]}"
+            export APPNAME=$a
+                                                   
+            source ./internal/deploy_app.bash $APPNAME
+        
+          fi     
+
+          ((index=index+1))  
+           
+        done  
+      
+      done    
+      
+    else  
+    
       index=0    
         
       for a in "${applications[@]}"; do  
+                                                           
+        export APPPATH="${applications_path[$index]}"
+        export APPNAME=$a
+                                    
+        source ./internal/deploy_app.bash $APPNAME
                 
-        if [[ "$app" == "$a" ]]; then
-          
-          export APPPATH="${applications_path[$index]}"
-          export APPNAME=$a
-      
-          source ./internal/deploy_app.bash
-        
-        fi     
-
         ((index=index+1))  
            
-      done  
-      
-    done    
+      done   
+    
+    fi      
    
   done
   
