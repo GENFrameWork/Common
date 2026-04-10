@@ -68,7 +68,8 @@ source ./defaultenv.bash
 
 SO_PATH="Linux"
 FILELISTAPP="${LISTAPP}"
-OUTFILE="${PATHLISTAPP}/../../../output.txt"
+#OUTFILE="${PATHLISTAPP}/../../../output.txt"
+OUTFILE=""$(realpath "${PATHLISTAPP}../../../outfile.txt")
 
 export SO_PATH FILELISTAPP OUTFILE
 

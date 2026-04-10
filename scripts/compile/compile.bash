@@ -75,7 +75,8 @@ source ./defaultenv.bash
 
 SO_PATH="Linux"
 FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+OUTFILE=""$(realpath "${PATHLISTAPP}../../../outfile.txt")
+
 
 export SO_PATH FILELISTAPP OUTFILE
 
@@ -244,9 +245,7 @@ fi
 if [[ ${#platforms[@]} -eq 0 ]]; then
 
   platforms+=("INTEL64")
- #platforms+=("ARM32")
   platforms+=("ARM64")
- #platforms+=("RPI32")
   platforms+=("RPI64")
   
   allplatforms=true
@@ -343,8 +342,8 @@ else
     
   PATHLISTAPP="${DOCKERDOMAIN}"
   FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-  #OUTFILE="${PATHLISTAPP}../../../outfile.txt"
-  export PATHLISTAPP FILELISTAPP #OUTFILE
+ 
+  export PATHLISTAPP FILELISTAPP
   
   echo "Image Base     : Compilation Docker with $IMAGEBASE"   
   echo "Image Base     : Compilation Docker with $IMAGEBASE"              >> "$OUTFILE" 2>&1                 
@@ -385,10 +384,6 @@ else
     source ./internal/compile_docker.bash "${ARGS_END[@]}" 
     
   done 
-  
-  #PATHLISTAPP="$(pwd)/"  
-  #OUTFILE="${PATHLISTAPP}../../../outfile.txt"
-  #export PATHLISTAPP FILELISTAPP OUTFILE
   
   SCRIPTHEADER=false
   export SCRIPTHEADER
