@@ -6,15 +6,20 @@
 
 # --------------------------------------------------------------------
 # Create proyect 
-include("${GEN_DIRECTORY}/Common/cmake/GEN_CreateProject.cmake")
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_CreateProject.cmake")
 
 
 # --------------------------------------------------------------------
 # Add Libraries
-include("${GEN_DIRECTORY}/Common/cmake/GEN_Libraries.cmake") 
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Libraries.cmake") 
 
 
-message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+# --------------------------------------------------------------------
+# Generated Coverage
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_CoverageGenerate.cmake") 
+
+
+message(STATUS "[GEN]-------------------------------------------------------------------------------------------------------------------------------------")
 
 unset(DEBUG_CTRL_FEATURE CACHE)
 unset(MEMORY_CONTROL_FEATURE CACHE)

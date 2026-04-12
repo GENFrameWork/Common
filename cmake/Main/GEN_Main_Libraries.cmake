@@ -242,6 +242,7 @@ if(GOOGLETEST_FEATURE)
 endif()
 
 
+include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_LibraryProvisioning.cmake")   
 
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PUBLIC ${GEN_SO_THIRDPARTY_LIBRARYS})

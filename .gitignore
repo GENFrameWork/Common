@@ -28,12 +28,9 @@ syntax: glob
 
 
 # Files compilated
-/**/Platforms/.vs
-/**/Platforms/out
-/**/Platforms/Windows
-/**/Platforms/Linux
-/**/Platforms/Android
-/**/Platforms/ESP32
-/**/Platforms/STM32/EWARM/DataIOStream
-/**/Platforms/STM32/EWARM/TestDataIO
-Output.txt
+/**/CMake/.vs
+/**/CMake/.vscode
+/**/CMake/out
+/**/CMake/Build
+/output.txt
+/outfile.txt

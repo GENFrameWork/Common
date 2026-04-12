@@ -627,7 +627,7 @@ if(NOT DEFINED _GEN_ANDROID_BUILD_PACKAGE_FUNCTIONS_DEFINED)
     _gen_android_relativize_path("${GENAPK_NDK_ROOT}" "${GENAPK_OUTPUT_DIR}" GENAPK_NDK_ROOT)
     _gen_android_relativize_path("${GENAPK_SDK_ROOT}" "${GENAPK_OUTPUT_DIR}" GENAPK_SDK_ROOT)
 
-    set(_GEN_ANDROID_BUILD_SCRIPT "${GENAPK_FRAMEWORK_ROOT}/Common/cmake/Main/GEN_Main_Android_BuildPackage.cmake")
+    set(_GEN_ANDROID_BUILD_SCRIPT "${GENAPK_FRAMEWORK_ROOT}/Common/CMake/Main/GEN_Main_Android_BuildPackage.cmake")
     _gen_android_to_cmake_path("${_GEN_ANDROID_BUILD_SCRIPT}" _GEN_ANDROID_BUILD_SCRIPT)
 
     if(NOT EXISTS "${_GEN_ANDROID_BUILD_SCRIPT}")

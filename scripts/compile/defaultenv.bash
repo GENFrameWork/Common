@@ -11,6 +11,11 @@ if [ -z "$DEBUG_EXTCFG" ]; then
 fi
 
 
+if [ -z "$USE_CLANG_EXTCFG" ]; then
+  export USE_CLANG_EXTCFG=NONE
+fi
+
+
 if [ -z "$MEMORY_EXTCFG" ]; then
   export MEMORY_EXTCFG=NONE
 fi
@@ -26,15 +31,34 @@ if [ -z "$FEEDBACK_EXTCFG" ]; then
 fi
 
 
+if [ -z "$COVERAGE_CREATEINFO_EXTERNAL_CFG" ]; then
+    export COVERAGE_CREATEINFO_EXTERNAL_CFG=NONE
+fi
+
+
 if [ -z "$IMAGEBASE" ]; then
   export IMAGEBASE=debian
 fi
 
 
 if [ -z "$PATHLISTAPP" ]; then
-  export PATHLISTAPP=""
+  export PATHLISTAPP="$(pwd)/"
 fi
 
+
+if [ -z "$LISTAPP" ]; then
+  export LISTAPP="listapp.txt"
+fi
+
+
+if [ -z "$APPLIST_COMPILE" ]; then
+  export APPLIST_COMPILE=""
+fi
+
+
+if [ -z "$DOCKERDOMAIN" ]; then
+  export DOCKERDOMAIN=/Projects/GEN_FrameWork/Common/Scripts/compile/
+fi
 
 #-------------------------------------------------------------------------------------------
 

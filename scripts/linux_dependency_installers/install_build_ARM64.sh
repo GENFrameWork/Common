@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Install dependencies (cross-platform ARM 64) (PC host)
+# Install dependencies (cross-platform ARM64) (PC host)
 
 dpkg --add-architecture arm64
 apt-get update

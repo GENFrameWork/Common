@@ -22,6 +22,7 @@
 
 # COMPILE_ON_WINDOWS              "Compile on Windows"
 # COMPILE_ON_LINUX                "Compile on Linux"
+# COMPILE_ON_WSL_LINUX            "Compile on WSL Linux"
 
 # COMPILE_FOR_WINDOWS             "Compile to Windows General"
 # COMPILE_FOR_WINDOWS_INTEL_32    "Compile to Windows PC 32 Bits"
@@ -29,7 +30,6 @@
 
 # COMPILE_FOR_LINUX               "Compile to Linux General"
 # COMPILE_FOR_LINUX_INTEL_64      "Compile to Linux INTEL 64"
-
 # COMPILE_FOR_LINUX_ARM           "Compile to Linux ARM"
 # COMPILE_FOR_LINUX_ARM_64        "Compile to Linux ARM 64"
 # COMPILE_FOR_LINUX_ARM_RPI       "Compile to Linux ARM Rapsberry Pi"
@@ -51,8 +51,7 @@
 
 if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
-  message(STATUS "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-
+  
   option(GEN_DETECT_PLATFORM_COMPILER                             "Detect Platform Compiler"                                ON )
 
   # --- Cache Compiler ------------------------------------------------
@@ -86,8 +85,9 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     message(STATUS "[ GEN Compile for platform Android ]")
 
   endif()
+  
 
-
+  
   # --- Compile in Windows Platform ------------------------------------
 
 
@@ -158,6 +158,22 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     add_definitions(-DLINUX) 
 
     option(COMPILE_ON_LINUX                                       "Compile on Linux"                                        ON )  
+
+    
+    # --- Use Linux with WSL ---------------------------------------
+  
+    file(READ "/proc/version" PROC_VERSION_CONTENT)
+
+    if(PROC_VERSION_CONTENT MATCHES "Microsoft" OR PROC_VERSION_CONTENT MATCHES "WSL")
+
+      option(COMPILE_ON_WSL_LINUX                                     "Compile on WSL Linux"                                    ON )  
+
+    else()
+
+      unset(COMPILE_ON_WSL_LINUX CACHE)
+
+    endif()
+
   
     message(STATUS "[ GEN Using Linux to compile ]") 
 
@@ -218,7 +234,35 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   # --- CLang compiler -------------------------------------------------
 
-  if(USE_CLANG_COMPILER_FEATURE)
+
+  set(USE_CLANG_CTRL_MSG "by External Config") 
+
+  if("${USE_CLANG_EXTCFG}" STREQUAL "CLANG")
+
+    option(USE_CLANG_CTRL_FEATURE  "Use CLang compiler Ctrl"  ON)
+    
+  else()
+  
+    if("${USE_CLANG_EXTCFG}" STREQUAL "NOTCLANG")
+  
+      unset(USE_CLANG_CTRL_FEATURE     CACHE)
+      unset(USE_CLANG_COMPILER_FEATURE CACHE)
+      
+    else()
+      
+      if(USE_CLANG_COMPILER_FEATURE)
+        
+        option(USE_CLANG__CTRL_FEATURE  "Use CLang compiler Ctrl"  ON)
+      
+      endif()
+
+    set(USE_CLANG_CTRL_MSG "by Proyect") 
+
+    endif()
+  
+  endif()
+  
+  if(USE_CLANG_CTRL_FEATURE)  
 
     find_program(_CLANG clang)
     find_program(_CLANGXX clang++)
@@ -240,35 +284,35 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   if(COMPILE_FOR_WINDOWS)
     
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Windows.cmake") 
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Windows.cmake") 
      
   endif()
 
 
   if(COMPILE_FOR_LINUX)
  
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Linux.cmake")   
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Linux.cmake")   
   
   endif()
 
  
   if(COMPILE_FOR_ANDROID)      
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Android.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Android.cmake")           
 
   endif()   
 
 
   if(COMPILE_FOR_STM32)
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_STM32.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_STM32.cmake")           
 
   endif()
 
 
   if(COMPILE_FOR_ESP32)
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_ESP32.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_ESP32.cmake")           
 
   endif()
 
@@ -277,20 +321,20 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   # --- Type of compile ------------------------------------------------
 
   
-  get_filename_component(COMPILER_C_NAME   "${CMAKE_C_COMPILER}"    NAME_WE)
+  get_filename_component(COMPILER_C_NAME   "${CMAKE_C_COMPILER}"   NAME_WE)
   get_filename_component(COMPILER_CXX_NAME "${CMAKE_CXX_COMPILER}" NAME_WE)
 
   if(COMPILER_C_NAME STREQUAL "clang-cl" OR COMPILER_CXX_NAME STREQUAL "clang-cl")
 
     add_definitions(-DCOMPILER_CLANG_CL)
     option(COMPILE_WITH_CLANG_CL                                  "Compile with CLang (interface MSVC)"                     ON )
-    message(STATUS "[ GEN Select for compile: CLang (interface MSVC) ]")
+    message(STATUS "[ GEN Select for compile: CLang CLI (interface MSVC) ${USE_CLANG_CTRL_MSG} ]")
 
   elseif(COMPILER_C_NAME STREQUAL "clang" OR COMPILER_CXX_NAME STREQUAL "clang" OR COMPILER_C_NAME STREQUAL "clang++" OR COMPILER_CXX_NAME STREQUAL "clang++")
 
     add_definitions(-DCOMPILER_CLANG)
     option(COMPILE_WITH_CLANG                                     "Compile with CLang (front-end of LLVM)"                  ON )
-    message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ]")
+    message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ${USE_CLANG_CTRL_MSG} ]")
 
   elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
