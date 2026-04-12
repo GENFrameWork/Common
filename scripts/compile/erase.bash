@@ -19,6 +19,7 @@ platforms=()
 applications=()
 applications_path=()
 
+indocker=false
 allplatforms=false
 allmodes=false
 
@@ -67,8 +68,7 @@ fi
 source ./defaultenv.bash
 
 SO_PATH="Linux"
-FILELISTAPP="${LISTAPP}"
-#OUTFILE="${PATHLISTAPP}/../../../output.txt"
+FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
 OUTFILE=""$(realpath "${PATHLISTAPP}../../../outfile.txt")
 
 export SO_PATH FILELISTAPP OUTFILE
@@ -103,6 +103,8 @@ else
     fi
     
   done < "$FILELISTAPP"
+  
+  set +euo pipefail
   
   export APPLIST_COMPILE="${applications[*]}"
 
@@ -142,7 +144,11 @@ if [[ ${#variation_params[@]} -gt 0 ]]; then
     if [ "$v" == "RPI64" ]; then
       platforms+=("$v")
     fi
-
+        
+    if [[ "$v" == "DOCKER" ]]; then
+      indocker=true
+    fi
+    
   done
 
 fi
@@ -172,25 +178,27 @@ fi
 
 
 echo -------------------------------------------------------------
-echo "Modes        : ${modes[*]}"
-echo "Plataforms   : ${platforms[*]}"
-echo "Applications : ${applications[*]}"
-echo
-
 
 if [ -f "$OUTFILE" ]; then
   printf "Removing output.txt\n"
   rm -f "$OUTFILE"
 fi
 
+echo "Modes        : ${modes[*]}"
+echo "Plataforms   : ${platforms[*]}"
+echo "Applications : ${applications[*]}"
+echo
 
-indice=0
 
-for a in "${applications[@]}"; do  
+if [ "$indocker" = false ]; then  
+
+  indice=0
+
+  for a in "${applications[@]}"; do  
   
   printf "Erase build : %-20s [ " $a    
   
-  directory="${applications_path[$indice]}/Platforms"     
+  directory="${applications_path[$indice]}/CMake"     
  
   if [ -d "$directory/.vs" ]; then
     printf ".vs "
@@ -202,7 +210,7 @@ for a in "${applications[@]}"; do
     sudo rm -rf "$directory/.vscode"
   fi  
   
-  directory="$directory/$SO_PATH" 
+  directory="$directory/Build/$SO_PATH" 
     
   if [ "$allplatforms" = true ]; then  
      
@@ -249,7 +257,28 @@ for a in "${applications[@]}"; do
   
   indice=$((indice + 1))
   
-done   
+done 
+
+else  
+
+  printf "Stop all containers         ... "
+  docker stop $(docker ps -aq)            >> "$OUTFILE" 2>&1 
+  if [ $? -eq 0 ]; then    
+    printf "[Ok]\n" 
+  else
+    printf "[Error!]\n" 
+  fi  
+  
+  
+  printf "Erase all images/containers ... "
+  docker system prune -a --volumes -f     >> "$OUTFILE" 2>&1 
+  if [ $? -eq 0 ]; then    
+    printf "[Ok]\n" 
+  else
+    printf "[Error!]\n" 
+  fi  
+  
+fi
 
 echo -------------------------------------------------------------
 

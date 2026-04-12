@@ -8,7 +8,7 @@ ARG DOCKERDOMAIN
 ENV DOCKERDOMAIN=${DOCKERDOMAIN}
 
 WORKDIR /install
-COPY Common/scripts/linux_dependency_installers/ ./
+COPY Common/Scripts/linux_dependency_installers/ ./
 
 RUN set -eux; \
     chmod +x "/install/install_build_$TARGET.sh"; \
@@ -19,3 +19,5 @@ WORKDIR ${DOCKERDOMAIN}
 
 ENTRYPOINT ["./compile.bash"]
 CMD []
+
+#CMD ["bash"]

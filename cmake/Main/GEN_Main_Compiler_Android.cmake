@@ -43,10 +43,10 @@ if("${GEN_ANDROID_NDK_ROOT}" STREQUAL "")
   endif()
 endif()
 
-if(NOT EXISTS "${GEN_ANDROID_NDK_ROOT}/build/cmake/android.toolchain.cmake")
+if(NOT EXISTS "${GEN_ANDROID_NDK_ROOT}/build/CMake/android.toolchain.cmake")
   message(FATAL_ERROR
     "[ GEN Android] NDK not found. Checked root: ${GEN_ANDROID_NDK_ROOT}. "
-    "Expected ThirdPartyLibraries/android-ndk/build/cmake/android.toolchain.cmake "
+    "Expected ThirdPartyLibraries/android-ndk/build/CMake/android.toolchain.cmake "
     "or a valid CMAKE_TOOLCHAIN_FILE passed before project().")
 endif()
 

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 applications=()
 applications_path=()
 index=0
@@ -37,7 +36,7 @@ for app in "$@"; do
             
     if [[ "$app" == "$a" ]]; then
       
-      source ./internal/compile_linux.bash "${applications_path[$index]}/Platforms/${SO_PATH}" $TARGET_LOWERCASE $app  
+      source ./internal/compile_linux.bash "${applications_path[$index]}/CMake/Build/${SO_PATH}" $TARGET_LOWERCASE $app  
     
     fi     
 

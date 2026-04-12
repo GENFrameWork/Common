@@ -151,26 +151,21 @@ fi
 if [[ ${#platforms[@]} -eq 0 ]]; then
 
   platforms+=("INTEL64")
- #platforms+=("ARM32")
- #platforms+=("ARM64")
- #platforms+=("RPI32")
- #platforms+=("RPI64")
-
+ 
 fi
 
 
 if [[ ${#modes[@]} -eq 0 ]]; then
 
-  #modes+=("DEBUG")
   modes+=("RELEASE")
-
+  
 fi
 
 
 echo -------------------------------------------------------------
 echo "Modes          : ${modes[*]}"
 echo "Plataforms     : ${platforms[*]}" 
-echo "Image Base     : Compilation Docker with $IMAGEBASE"  
+echo "Image Base     : $IMAGEBASE"  
 echo "Applications   : ${APPLIST_COMPILE}"
 echo -------------------------------------------------------------
      
@@ -180,7 +175,8 @@ for p in "${platforms[@]}"; do
 
   for m in "${modes[@]}"; do
     
-    export DEBUG_EXTERNAL_CFG=${m,,}
+    export DEBUG_EXTERNAL_CFG=$m
+       
 
     if [ ${#application_params[@]} -gt 0 ]; then  
 

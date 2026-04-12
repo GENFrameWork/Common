@@ -40,15 +40,15 @@ if(COVERAGE_CREATEINFO_CTRL_FEATURE)
   
     message(STATUS "[ GEN COVERAGE Create info enabled for GCC compiler ${COVERAGE_CREATEINFO_CTRL_MSG} ]")
 
-    add_compile_options(--coverage -O0 -g)
+    add_compile_options(--coverage -O0 -g)    
     add_link_options(--coverage)
     
     elseif(COMPILE_WITH_CLANG OR COMPILE_WITH_CLANG_CL)
          
           message(STATUS "[ GEN COVERAGE Create info enabled for Clang compiler ${COVERAGE_CREATEINFO_CTRL_MSG} }")
 
-          add_compile_options(-fprofile-instr-generate -fcoverage-mapping -O0 -g)
-          add_link_options(-fprofile-instr-generate)
+          #add_compile_options(-fprofile-instr-generate -fcoverage-mapping -O0 -g)          
+          #add_link_options(-fprofile-instr-generate)
         
         else()      
       

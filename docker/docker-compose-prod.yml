@@ -8,12 +8,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_notappexample
+      dockerfile: Common/Docker/dockerfile_prod_notappexample
       args:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}   
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}           
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./notappexample
@@ -27,12 +27,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_appbaseexample
+      dockerfile: Common/Docker/dockerfile_prod_appbaseexample
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
-        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}                
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appbaseexample
@@ -46,12 +46,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_memctrlexample
+      dockerfile: Common/Docker/dockerfile_prod_memctrlexample
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./memctrlexample
@@ -65,12 +65,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_canvas2ddisplay
+      dockerfile: Common/Docker/dockerfile_prod_canvas2ddisplay
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./canvas2ddisplay
@@ -83,12 +83,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_binconnpro
+      dockerfile: Common/Docker/dockerfile_prod_binconnpro
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./binconnpro
@@ -101,12 +101,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_inibase
+      dockerfile: Common/Docker/dockerfile_prod_inibase
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./inibase    
@@ -120,12 +120,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_netconn
+      dockerfile: Common/Docker/dockerfile_prod_netconn
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netconn
@@ -139,12 +139,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_databases
+      dockerfile: Common/Docker/dockerfile_prod_databases
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./databases
@@ -158,12 +158,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_miniwebserver
+      dockerfile: Common/Docker/dockerfile_prod_miniwebserver
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./miniwebserver
@@ -177,12 +177,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_scriptsexample
+      dockerfile: Common/Docker/dockerfile_prod_scriptsexample
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-release}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./scriptsexample
@@ -196,12 +196,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_netcapture
+      dockerfile: Common/Docker/dockerfile_prod_netcapture
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./netcapture
@@ -215,12 +215,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_canvas2d
+      dockerfile: Common/Docker/dockerfile_prod_canvas2d
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./canvas2d
@@ -234,12 +234,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_ui_options
+      dockerfile: Common/Docker/dockerfile_prod_ui_options
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_options
@@ -253,12 +253,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_ui_message
+      dockerfile: Common/Docker/dockerfile_prod_ui_message
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./ui_message
@@ -272,12 +272,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_devtestsconsole
+      dockerfile: Common/Docker/dockerfile_prod_devtestsconsole
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsconsole
@@ -291,12 +291,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_devtestsdevices
+      dockerfile: Common/Docker/dockerfile_prod_devtestsdevices
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestsdevices
@@ -310,12 +310,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_devtestscanvas2d
+      dockerfile: Common/Docker/dockerfile_prod_devtestscanvas2d
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./devtestscanvas2D
@@ -329,12 +329,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_xutils_unittest
+      dockerfile: Common/Docker/dockerfile_prod_xutils_unittest
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./xutils_unit
@@ -348,12 +348,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_appupdatecreator
+      dockerfile: Common/Docker/dockerfile_prod_appupdatecreator
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./appupdatecreator
@@ -367,12 +367,12 @@ services:
       - example_app_net
     build:
       context: ../../
-      dockerfile: Common/docker/dockerfile_prod_translatescan
+      dockerfile: Common/Docker/dockerfile_prod_translatescan
       args:       
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        DEBUG_EXTERNAL_CFG: ${DEBUG_EXTERNAL_CFG:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./translatescan

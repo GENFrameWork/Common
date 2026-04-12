@@ -32,7 +32,7 @@ if(COVERAGE_GENERATESHOWINFO_FEATURE)
     set(MODE_COMPILE "debug")    
   endif()
 
-  set(PLATFORMS_SYSTEM_NAME "Platforms/${CMAKE_SYSTEM_NAME}")
+  set(PLATFORMS_SYSTEM_NAME "CMake/Build/${CMAKE_SYSTEM_NAME}")
 
   set(GEN_DIR_BIN_ABSOLUTE                      "${CMAKE_BINARY_DIR}")    
 
@@ -100,7 +100,7 @@ if(COVERAGE_GENERATESHOWINFO_FEATURE)
       
                        #COMMAND ${CMAKE_COMMAND} -E echo "Running application briefly to generate .gcda files... "
                        #COMMAND timeout 30s script -q -c "\"${GEN_DIR_BIN_ABSOLUTE}/${CMAKE_PROJECT_NAME}\"" /dev/null                          
-                       #COMMAND bash "${GEN_DIR_ABSOLUTE}/common/scripts/compile/epics_run_app_short.bash" "${GEN_DIR_BIN_ABSOLUTE}/${CMAKE_PROJECT_NAME}"
+                       #COMMAND bash "${GEN_DIR_ABSOLUTE}/Common/Scripts/compile/epics_run_app_short.bash" "${GEN_DIR_BIN_ABSOLUTE}/${CMAKE_PROJECT_NAME}"
 
                         COMMAND ${CMAKE_CTEST_COMMAND} || true
 

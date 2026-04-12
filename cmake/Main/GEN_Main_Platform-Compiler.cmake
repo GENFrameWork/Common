@@ -284,35 +284,35 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   if(COMPILE_FOR_WINDOWS)
     
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Windows.cmake") 
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Windows.cmake") 
      
   endif()
 
 
   if(COMPILE_FOR_LINUX)
  
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Linux.cmake")   
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Linux.cmake")   
   
   endif()
 
  
   if(COMPILE_FOR_ANDROID)      
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_Android.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Android.cmake")           
 
   endif()   
 
 
   if(COMPILE_FOR_STM32)
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_STM32.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_STM32.cmake")           
 
   endif()
 
 
   if(COMPILE_FOR_ESP32)
 
-    include("${GEN_DIRECTORY}/Common/cmake/Main/GEN_Main_Compiler_ESP32.cmake")           
+    include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_ESP32.cmake")           
 
   endif()
 

@@ -8,7 +8,7 @@ set(IDF_PATH "${GEN_DIRECTORY}/ThirdPartyLibraries/esp-idf" CACHE INTERNAL "Set 
 
 set(ENV{IDF_PATH} "${IDF_PATH}")
 
-include("${IDF_PATH}/tools/cmake/project.cmake")
+include("${IDF_PATH}/tools/CMake/project.cmake")
 
 idf_build_set_property(COMPILE_DEFINITIONS "-DLOG_LOCAL_LEVEL=ESP_LOG_INFO" APPEND)
 idf_build_set_property(COMPILE_OPTIONS -std=c++17)

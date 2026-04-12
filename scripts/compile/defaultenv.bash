@@ -56,8 +56,9 @@ if [ -z "$APPLIST_COMPILE" ]; then
 fi
 
 
-export DOCKERDOMAIN=/Projects/GEN_FrameWork/Common/scripts/compile/
-
+if [ -z "$DOCKERDOMAIN" ]; then
+  export DOCKERDOMAIN=/Projects/GEN_FrameWork/Common/Scripts/compile/
+fi
 
 #-------------------------------------------------------------------------------------------
 

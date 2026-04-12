@@ -74,9 +74,18 @@ fi
 source ./defaultenv.bash
 
 SO_PATH="Linux"
-FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
-OUTFILE=""$(realpath "${PATHLISTAPP}../../../outfile.txt")
 
+
+if [[ "${IN_CONTAINER:-0}" == "1" ]]; then
+
+  PATHLISTAPP="${DOCKERDOMAIN}"
+  FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
+  OUTFILE="${PATHLISTAPP}../../../outfile.txt"
+else
+  FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
+  #OUTFILE="$(realpath \"${PATHLISTAPP}../../../outfile.txt\")"
+  OUTFILE="${PATHLISTAPP}../../../outfile.txt" 
+fi  
 
 export SO_PATH FILELISTAPP OUTFILE
 
@@ -305,12 +314,11 @@ export SCRIPTHEADER
 if [ "$indocker" = false ]; then  
 
   if [[ "${IN_CONTAINER:-0}" == "0" ]]; then    
-    
+        
     echo -------------------------------------------------------------          
     echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1   
     
   fi  
-
 
   for s in "${stages[@]}"; do
      
@@ -339,19 +347,19 @@ if [ "$indocker" = false ]; then
   fi
  
 else 
-    
-  PATHLISTAPP="${DOCKERDOMAIN}"
-  FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
- 
-  export PATHLISTAPP FILELISTAPP
-  
+
   echo "Image Base     : Compilation Docker with $IMAGEBASE"   
   echo "Image Base     : Compilation Docker with $IMAGEBASE"              >> "$OUTFILE" 2>&1                 
   
   echo -------------------------------------------------------------          
-  echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1   
-  
-  
+  echo -------------------------------------------------------------      >> "$OUTFILE" 2>&1    
+
+
+  # PATHLISTAPP="${DOCKERDOMAIN}"
+  # FILELISTAPP="${PATHLISTAPP}${LISTAPP}"
+ 
+  # export PATHLISTAPP FILELISTAPP  
+ 
   ARGS=("$@")
   ARGS_NEW=()
   ARGS_END=()
