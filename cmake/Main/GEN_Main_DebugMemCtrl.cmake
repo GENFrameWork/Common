@@ -169,7 +169,7 @@ if(XTRACE_FEATURE)
 
   endif()
  
-  if((COMPILE_FOR_WINDOWS) OR (COMPILE_FOR_LINUX) OR (COMPILE_FOR_ANDROID))
+  if(COMPILE_FOR_WINDOWS OR COMPILE_FOR_LINUX OR COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
   
     option(DIO_FEATURE                                          "Data Input/Output"                                       ON )
     option(DIO_DNSRESOLVER_FEATURE                              "DNS Resolver"                                            ON )

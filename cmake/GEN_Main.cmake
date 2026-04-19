@@ -72,7 +72,7 @@ endif()
 
 
 # -------------------------------------------------------------------- 
-if(COMPILE_FOR_ANDROID)      
+if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)      
 
   include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Sources_Android.cmake")           
 

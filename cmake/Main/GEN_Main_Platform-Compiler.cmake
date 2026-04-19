@@ -35,7 +35,8 @@
 # COMPILE_FOR_LINUX_ARM_RPI       "Compile to Linux ARM Rapsberry Pi"
 # COMPILE_FOR_LINUX_ARM_RPI_64    "Compile to Linux ARM Rapsberry Pi 64"  
 
-# COMPILE_FOR_ANDROID             "Compile to Android General"
+# COMPILE_FOR_ANDROID32           "Compile to Android 32"
+# COMPILE_FOR_ANDROID64           "Compile to Android 64"
 
 # COMPILE_FOR_STM32               "Compile to STM32 General"
 
@@ -76,16 +77,28 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   # --- Compile in Android Platform ------------------------------------
 
-  if(("${TARGET}" STREQUAL "ANDROID") OR (CMAKE_SYSTEM_NAME STREQUAL "Android"))
+  if("${TARGET}" STREQUAL "ANDROID32")
 
     add_definitions(-DANDROID)
+    add_definitions(-DANDROID32)
+    
+    option(COMPILE_FOR_ANDROID32                                 "Compile to Android 32"                                    ON )
 
-    option(COMPILE_FOR_ANDROID                                  "Compile to Android"                                      ON )
-
-    message(STATUS "[ GEN Compile for platform Android ]")
-
+    message(STATUS "[ GEN Compile for platform Android 32]")
+            
   endif()
   
+  
+  if("${TARGET}" STREQUAL "ANDROID64")
+
+    add_definitions(-DANDROID)
+    add_definitions(-DANDROID64)
+    
+    option(COMPILE_FOR_ANDROID64                                  "Compile to Android 64"                                   ON )
+
+    message(STATUS "[ GEN Compile for platform Android 64]")
+
+  endif()
 
   
   # --- Compile in Windows Platform ------------------------------------
@@ -153,7 +166,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   # --- Compile in Linux Platform ---------------------------------------
 
-  if((${CMAKE_SYSTEM_NAME} MATCHES "Linux") AND NOT COMPILE_FOR_ANDROID)
+  if((${CMAKE_SYSTEM_NAME} MATCHES "Linux") AND NOT COMPILE_FOR_ANDROID32 AND NOT COMPILE_FOR_ANDROID64)
 
     add_definitions(-DLINUX) 
 
@@ -296,7 +309,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   endif()
 
  
-  if(COMPILE_FOR_ANDROID)      
+  if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)      
 
     include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Android.cmake")           
 

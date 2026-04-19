@@ -211,7 +211,7 @@ endif()
 # ----------------------------------------
 # Android
   
-if(COMPILE_FOR_ANDROID)
+if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)   
 
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS android)
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS log)

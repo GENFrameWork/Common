@@ -273,7 +273,7 @@ endif()
 
 
 
-if(COMPILE_FOR_ANDROID)
+if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)   
  
   list(APPEND GEN_INCLUDES_DIR_LIST "/usr/include/dbus-1.0")  
   

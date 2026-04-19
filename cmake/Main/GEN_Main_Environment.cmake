@@ -5,7 +5,7 @@
 # specifically focusing on Android NDK/SDK location within ThirdPartyLibraries.
 #-----------------------------------------------------------------------------
 
-if(ANDROID)
+if(ANDROID32 OR ANDROID64)
 
   # Forzamos a que la ruta sea absoluta desde el principio
   get_filename_component(GEN_THIRDPARTY_LIBRARIES_DIR "${GEN_DIRECTORY}/ThirdPartyLibraries" ABSOLUTE)

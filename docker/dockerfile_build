@@ -13,10 +13,12 @@ COPY Common/Scripts/linux_dependency_installers/ ./
 RUN set -eux; \
     chmod +x "/install/install_build_$TARGET.sh"; \
     "/install/install_build_$TARGET.sh"; \
+    apt-get install python3 -y; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /install
 
 WORKDIR ${DOCKERDOMAIN}
 
+#ENTRYPOINT ["python3", "./compile.py"]
 ENTRYPOINT ["./compile.bash"]
 CMD []
 

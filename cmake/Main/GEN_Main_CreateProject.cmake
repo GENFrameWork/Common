@@ -5,7 +5,7 @@
 
 include_directories(${GEN_INCLUDES_DIR_LIST})
 
-if(COMPILE_FOR_ANDROID)
+if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)   
   
   option(APPMODE_LIBRARY_DINAMIC_FEATURE                        "Android NativeActivity shared library"                   ON )
   option(APPMODE_LIBRARY_STATIC_FEATURE                         "Android static library"                                  OFF )
@@ -56,7 +56,7 @@ else()
                         )
     endif()
 
-    if(COMPILE_FOR_ANDROID AND APPMODE_LIBRARY_DINAMIC_FEATURE)
+    if((COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64) AND APPMODE_LIBRARY_DINAMIC_FEATURE)
 
       set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
                             OUTPUT_NAME ${CMAKE_PROJECT_NAME}

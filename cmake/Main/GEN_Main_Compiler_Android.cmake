@@ -22,6 +22,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(GEN_ANDROID_NDK_ROOT "")
 
+set(CMAKE_SYSTEM_NAME Android)
+set(ANDROID_PLATFORM android-24)
+set(ANDROID_STL c++_shared)
+
 # 1) Prefer the toolchain file that was actually passed to CMake.
 if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT "${CMAKE_TOOLCHAIN_FILE}" STREQUAL "" AND EXISTS "${CMAKE_TOOLCHAIN_FILE}")
   get_filename_component(_GEN_ANDROID_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_FILE}" DIRECTORY)
@@ -49,6 +53,21 @@ if(NOT EXISTS "${GEN_ANDROID_NDK_ROOT}/build/CMake/android.toolchain.cmake")
     "Expected ThirdPartyLibraries/android-ndk/build/CMake/android.toolchain.cmake "
     "or a valid CMAKE_TOOLCHAIN_FILE passed before project().")
 endif()
+
+
+if(ANDROID32)
+
+  set(ANDROID_ABI armeabi-v7a)
+
+endif()
+
+
+if(ANDROID64)
+
+  set(ANDROID_ABI arm64-v8a)
+  
+endif()
+
 
 if(NOT DEFINED ANDROID_ABI OR "${ANDROID_ABI}" STREQUAL "")
   set(ANDROID_ABI arm64-v8a)

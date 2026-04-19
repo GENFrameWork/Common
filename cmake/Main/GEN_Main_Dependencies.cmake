@@ -50,7 +50,7 @@ if(COMPILE_FOR_LINUX)
 endif()
 
  
-if(COMPILE_FOR_ANDROID)
+if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)   
 
   option(XFILE_FEATURE                                          "XFile"                                                   ON )
   option(XTRANSLATION_FEATURE                                   "Translation"                                             ON )
