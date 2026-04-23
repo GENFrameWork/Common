@@ -7,6 +7,8 @@ import os
 import json
 import re
 import shutil
+import subprocess
+import tempfile
 import sys
 import time
 from pathlib import Path
@@ -44,6 +46,7 @@ MEMORY_VALUES = {'MEMCTRL', 'NOTMEMCTRL'}
 TRACE_VALUES = {'TRACE', 'TRACENOTINTER', 'NOTTRACE'}
 FEEDBACK_VALUES = {'FEEDBACK', 'NOTFEEDBACK'}
 COVERAGE_VALUES = {'COVER', 'NOTCOVER'}
+CMAKE_CREATEDOCKERFILE_VALUES = {'CREATEDOCKERFILE', 'NOTCREATEDOCKERFILE'}
 
 
 def supported_platform_values() -> tuple[str, ...]:
@@ -97,6 +100,8 @@ def configure_from_variations(
             settings['FEEDBACK_EXTCFG'] = value
         if value in COVERAGE_VALUES:
             settings['COVERAGE_CREATEINFO_EXTERNAL_CFG'] = value
+        if value in CMAKE_CREATEDOCKERFILE_VALUES:
+            settings['CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG'] = value
         if value == 'DOCKER':
             indocker = True
 
@@ -212,6 +217,80 @@ def read_compile_status_file(status_file: Path) -> tuple[list[str], list[str]]:
         warnings = []
     return [str(item) for item in errors], [str(item) for item in warnings]
 
+
+
+def load_vs_environment_for_platform(
+    script_directory: Path,
+    platform_name: str,
+    settings: dict[str, str],
+) -> dict[str, str]:
+    if os.name != 'nt':
+        return {}
+
+    compiler_name = 'CLANG' if settings.get('USE_CLANG_EXTCFG', '').upper() == 'CLANG' else 'MSC'
+    vsvarall_script = script_directory / 'internal' / 'vsvarall.py'
+    if not vsvarall_script.exists():
+        raise FileNotFoundError(f'vsvarall.py not found: {vsvarall_script}')
+
+    temp_fd, temp_json_path = tempfile.mkstemp(prefix='vsenv_', suffix='.json')
+    os.close(temp_fd)
+
+    try:
+        command = [
+            sys.executable,
+            str(vsvarall_script),
+            '--target', platform_name,
+            '--compiler', compiler_name,
+            '--output-json', temp_json_path,
+        ]
+        completed = subprocess.run(
+            command,
+            cwd=script_directory,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace',
+        )
+        if completed.returncode != 0:
+            detail = completed.stderr.strip() or completed.stdout.strip()
+            raise RuntimeError(f'vsvarall.py failed for {platform_name}: {detail}')
+
+        temp_json = Path(temp_json_path)
+        if not temp_json.exists():
+            raise RuntimeError(f'vsvarall.py did not create output file: {temp_json}')
+
+        return json.loads(temp_json.read_text(encoding='utf-8'))
+    finally:
+        temp_json = Path(temp_json_path)
+        if temp_json.exists():
+            temp_json.unlink()
+
+
+
+def build_android_cmake_arguments(common_root: Path, target: str) -> list[str]:
+    repo_root = common_root.parent
+    android_ndk_root = repo_root / 'ThirdPartyLibraries' / 'android-ndk'
+    toolchain_file = android_ndk_root / 'build' / 'CMake' / 'android.toolchain.cmake'
+
+    if not toolchain_file.exists():
+        raise FileNotFoundError(f'Android toolchain file not found: {toolchain_file}')
+
+    abi_by_target = {
+        'ANDROID32': 'armeabi-v7a',
+        'ANDROID64': 'arm64-v8a',
+    }
+
+    android_abi = abi_by_target[target]
+
+    return [
+        f'-DCMAKE_TOOLCHAIN_FILE={toolchain_file}',
+        f'-DANDROID_NDK={android_ndk_root}',
+        f'-DANDROID_ABI={android_abi}',
+        '-DANDROID_PLATFORM=android-24',
+        '-DANDROID_STL=c++_shared',
+    ]
+
 def run_compile_stage(
     stage: str,
     target: str,
@@ -220,6 +299,8 @@ def run_compile_stage(
     so_path: str,
     settings: dict[str, str],
     outfile: Path,
+    common_root: Path,
+    base_environment: dict[str, str] | None = None,
 ) -> tuple[int, int]:
     target_lower = platform_lower(target)
     compiled_mode = compiled_mode_from_debug(debug_value)
@@ -228,7 +309,7 @@ def run_compile_stage(
         shutil.rmtree(build_dir)
     build_dir.mkdir(parents=True, exist_ok=True)
 
-    effective_environment = os.environ.copy()
+    effective_environment = dict(base_environment) if base_environment is not None else os.environ.copy()
     effective_environment.update(settings)
     effective_environment['TARGET'] = target
     effective_environment['TARGET_LOWERCASE'] = target_lower
@@ -250,7 +331,12 @@ def run_compile_stage(
         command = [
             'cmake',
             '-G', 'Ninja',
+            '-Wno-deprecated',
             '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON',
+        ]
+        if target in {'ANDROID32', 'ANDROID64'}:
+            command.extend(build_android_cmake_arguments(common_root, target))
+        command.extend([
             f'-DTARGET={target}',
             f'-DUSE_CLANG_EXTCFG={effective_environment["USE_CLANG_EXTCFG"]}',
             f'-DCOVERAGE_CREATEINFO_EXTERNAL_CFG={effective_environment["COVERAGE_CREATEINFO_EXTERNAL_CFG"]}',
@@ -259,8 +345,9 @@ def run_compile_stage(
             f'-DTRACE_EXTCFG={effective_environment["TRACE_EXTCFG"]}',
             f'-DFEEDBACK_EXTCFG={effective_environment["FEEDBACK_EXTCFG"]}',
             f'-DPATHLISTAPP={settings["PATHLISTAPP"]}',
+            f'-DCMAKE_CREATEDOCKERFILE_EXTERNAL_CFG={effective_environment["CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG"]}',            
             '../../../..',
-        ]
+        ])
         action_text = 'Generate CMake'
     elif stage == 'COMPILE':
         command = ['ninja']
@@ -341,6 +428,7 @@ def run_docker_compile(script_directory: Path, common_root: Path, platform_name:
         '-e', f'APPLIST_COMPILE={settings.get("APPLIST_COMPILE", "")}',
         '-e', f'COMPILE_STATUS_FILE={container_status_file}',
         '-e', 'SO_PATH=Linux',
+        '-e', f'CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG={settings["CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG"]}',            
         '-e', f'DOCKERDOMAIN={settings["DOCKERDOMAIN"]}',
         '-e', 'SCRIPTHEADER=true',
         '--tmpfs', '/build:rw,noexec,nosuid,size=16g',
@@ -410,6 +498,7 @@ def main(argv: list[str] | None = None) -> int:
         error_items: list[str] = []
         warning_items: list[str] = []
         docker_failed = False
+        platform_environments: dict[str, dict[str, str]] = {}
         if not indocker:
             if not in_container:
                 print('-------------------------------------------------------------')
@@ -422,13 +511,22 @@ def main(argv: list[str] | None = None) -> int:
                 for platform_name in platforms:
                     if cancellation_requested():
                         return cancellation_exit_code()
+
+                    platform_environment = None
+                    if os.name == 'nt':
+                        platform_environment = platform_environments.get(platform_name)
+                        if platform_environment is None:
+                            platform_environment = os.environ.copy()
+                            platform_environment.update(load_vs_environment_for_platform(script_directory, platform_name, settings))
+                            platform_environments[platform_name] = platform_environment
+
                     for mode_name in modes:
                         if cancellation_requested():
                             return cancellation_exit_code()
                         for entry in selected_entries:
                             if cancellation_requested():
                                 return cancellation_exit_code()
-                            returncode, warning_count = run_compile_stage(stage, platform_name, mode_name, entry, so_path, settings, outfile)
+                            returncode, warning_count = run_compile_stage(stage, platform_name, mode_name, entry, so_path, settings, outfile, common_root, platform_environment)
                             if stage == 'COMPILE' and warning_count > 0:
                                 warning_items.append(f'{platform_name}_{mode_name}_{entry.name}({warning_count})')
                             if returncode != 0:

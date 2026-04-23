@@ -142,30 +142,62 @@ endif()
 # --------------------------------------------------------------------
 
 
-set(LINEFEED " \\
-")  # end of library
+set(CMAKE_CREATEDOCKERFILE_CTRL_MSG "by External Config") 
+      
+if("${CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG}" STREQUAL "CREATEDOCKERFILE")
 
-
-string(REPLACE ";" "${LINEFEED}" DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
-
-#string (JOIN " " DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
-set(DOCKER_PACKAGES_LINE "${DOCKER_PACKAGES_JOINED}")
-
-if(NOT DEFINED PATHLISTAPP OR "${PATHLISTAPP}" STREQUAL "")
-  set(OUT_DIR "${GEN_DIRECTORY}/Common/Docker")
+  option(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE  "Create Dockerfile Ctrl"  ON)
+    
 else()
-  set(OUT_DIR "${PATHLISTAPP}../../Docker")
-endif()  
+  
+  if("${CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG}" STREQUAL "NOTCREATEDOCKERFILE")
+  
+    unset(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE CACHE)
 
-set(DOCKERFILE_OUTPUT "${OUT_DIR}/dockerfile_prod_${CMAKE_PROJECT_NAME}")
+  else()
+      
+    if(CMAKE_CREATEDOCKERFILE_FEATURE)
+        
+      option(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE  "Create Dockerfile Ctrl"  ON)
+      
+    endif()
 
-message(STATUS "[ GEN dockerfile + provisioning generated at: dockerfile_prod_${CMAKE_PROJECT_NAME} ]")
+   set(CMAKE_CREATEDOCKERFILE_CTRL_MSG "by Proyect") 
 
-configure_file( "${OUT_DIR}/dockerfile_prod.in"
-                "${DOCKERFILE_OUTPUT}"
-                @ONLY)
+  endif()
+  
+endif()
 
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES ${DOCKERFILE_OUTPUT})
+
+
+if(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE)
+
+  set(LINEFEED " \\
+  ")  # end of library
+
+
+  string(REPLACE ";" "${LINEFEED}" DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
+
+  #string (JOIN " " DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
+  set(DOCKER_PACKAGES_LINE "${DOCKER_PACKAGES_JOINED}")
+
+  if(NOT DEFINED PATHLISTAPP OR "${PATHLISTAPP}" STREQUAL "")
+    set(OUT_DIR "${GEN_DIRECTORY}/Common/Docker")
+  else()
+    set(OUT_DIR "${PATHLISTAPP}../../Docker")
+  endif()  
+
+  set(DOCKERFILE_OUTPUT "${OUT_DIR}/dockerfile_prod_${CMAKE_PROJECT_NAME}")
+
+  message(STATUS "[ GEN dockerfile + provisioning generated at: dockerfile_prod_${CMAKE_PROJECT_NAME} ]")
+
+  configure_file( "${OUT_DIR}/dockerfile_prod.in"
+                  "${DOCKERFILE_OUTPUT}"
+                  @ONLY)
+
+  set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_CLEAN_FILES ${DOCKERFILE_OUTPUT})
+  
+endif()
 
 
 # --------------------------------------------------------------------

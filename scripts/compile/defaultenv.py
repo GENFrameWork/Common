@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Mapping
 
@@ -40,6 +41,7 @@ def build_default_settings(current_directory: Path, environment: Mapping[str, st
         'PATHLISTAPP': environment.get('PATHLISTAPP') or f'{current_directory}/',
         'LISTAPP': environment.get('LISTAPP') or 'listapp.txt',
         'APPLIST_COMPILE': environment.get('APPLIST_COMPILE') or '',
+        'CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG': environment.get('CMAKE_CREATEDOCKERFILE_EXTERNAL_CFG') or ('NOTCREATEDOCKERFILE' if os.name == 'nt' else 'CREATEDOCKERFILE'),
         'DOCKERDOMAIN': environment.get('DOCKERDOMAIN') or '/Projects/GEN_FrameWork/Common/Scripts/compile/',
         'SCRIPTHEADER': environment.get('SCRIPTHEADER') or 'false',
         'IN_CONTAINER': environment.get('IN_CONTAINER') or '0',

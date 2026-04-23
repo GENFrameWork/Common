@@ -277,6 +277,8 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   
   if(USE_CLANG_CTRL_FEATURE)  
 
+    message(STATUS "  ---- use CLANG")
+
     find_program(_CLANG clang)
     find_program(_CLANGXX clang++)
 
