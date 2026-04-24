@@ -404,11 +404,11 @@ def run_docker_compile(script_directory: Path, common_root: Path, platform_name:
         print(f'Error Build. Code: {build_returncode}')
         return build_returncode, [], []
 
-    host_status_file = script_directory / f'.compile_docker_status_{platform_name.lower()}.json'
+    host_status_file = script_directory / f'internal/.compile_docker_status_{platform_name.lower()}.json'
     if host_status_file.exists():
         host_status_file.unlink()
 
-    container_status_file = Path(settings['DOCKERDOMAIN']) / f'.compile_docker_status_{platform_name.lower()}.json'
+    container_status_file = Path(settings['DOCKERDOMAIN']) / f'internal/.compile_docker_status_{platform_name.lower()}.json'
 
     run_command_list = [
         'docker', 'run', '-it', '--rm',

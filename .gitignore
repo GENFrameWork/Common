@@ -32,9 +32,8 @@ syntax: glob
 /**/CMake/.vscode
 /**/CMake/out
 /**/CMake/Build
-# Python cache
 __pycache__/
-*.py[cod]
+/.compile_docker_status*
 /output.txt
 /outfile.txt
 /linux_outfile.log
