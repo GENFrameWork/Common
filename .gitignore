@@ -32,5 +32,10 @@ syntax: glob
 /**/CMake/.vscode
 /**/CMake/out
 /**/CMake/Build
+# Python cache
+__pycache__/
+*.py[cod]
 /output.txt
 /outfile.txt
+/linux_outfile.log
+/windows_outfile.log

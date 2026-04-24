@@ -169,6 +169,12 @@ else()
 endif()
 
 
+if(NOT DEFINED PATHLISTAPP OR "${PATHLISTAPP}" STREQUAL "")
+  set(OUT_DIR "${GEN_DIRECTORY}/Common/Docker")
+else()
+  set(OUT_DIR "${PATHLISTAPP}../../Docker")
+endif()  
+
 
 if(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE)
 
@@ -180,12 +186,6 @@ if(CMAKE_CREATEDOCKERFILE_CTRL_FEATURE)
 
   #string (JOIN " " DOCKER_PACKAGES_JOINED "${DOCKER_PACKAGES}")
   set(DOCKER_PACKAGES_LINE "${DOCKER_PACKAGES_JOINED}")
-
-  if(NOT DEFINED PATHLISTAPP OR "${PATHLISTAPP}" STREQUAL "")
-    set(OUT_DIR "${GEN_DIRECTORY}/Common/Docker")
-  else()
-    set(OUT_DIR "${PATHLISTAPP}../../Docker")
-  endif()  
 
   set(DOCKERFILE_OUTPUT "${OUT_DIR}/dockerfile_prod_${CMAKE_PROJECT_NAME}")
 

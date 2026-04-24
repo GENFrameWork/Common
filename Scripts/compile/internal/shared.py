@@ -19,7 +19,7 @@ from typing import Mapping, Sequence
 APP_PATTERN = re.compile(r'^[a-z0-9_-]+$')
 UPPER_PATTERN = re.compile(r'^[A-Z0-9]+$')
 VARIABLE_PATTERN = re.compile(r'^([A-Z0-9]+)=(.*)$')
-LISTAPP_PATTERN = re.compile(r'^\s*"([^"]*)"\s+"([^"]*)"\s*$')
+LISTAPP_PATTERN = re.compile(r'^\s*"([^"]*)"\s+"([^"]*)"(?:\s+"([^"]*)")?\s*$')
 
 
 @dataclass(slots=True)
@@ -27,6 +27,10 @@ class AppEntry:
     relative_path: str
     name: str
     absolute_path: Path
+    targets: tuple[str, ...] = ()
+
+    def supports_target(self, target: str) -> bool:
+        return not self.targets or target.upper() in self.targets
 
 
 @dataclass(slots=True)
@@ -231,6 +235,18 @@ def current_so_path(in_container: bool) -> str:
     return 'Windows' if platform.system().lower().startswith('win') else 'Linux'
 
 
+def parse_listapp_targets(targets_text: str | None) -> tuple[str, ...]:
+    if not targets_text:
+        return ()
+    targets: list[str] = []
+    for value in re.split(r'[\s,;]+', targets_text.strip().upper()):
+        if not value or value in {'ALL', '*'}:
+            return ()
+        if value not in targets:
+            targets.append(value)
+    return tuple(targets)
+
+
 def load_listapp(file_path: Path) -> list[AppEntry]:
     entries: list[AppEntry] = []
     for raw_line in file_path.read_text(encoding='utf-8').splitlines():
@@ -240,9 +256,14 @@ def load_listapp(file_path: Path) -> list[AppEntry]:
         if not match:
             print(f'Line with invalid format (ignored): {raw_line}', file=sys.stderr)
             continue
-        relative_path, name = match.groups()
+        relative_path, name, targets_text = match.groups()
         absolute_path = (file_path.parent / relative_path).resolve()
-        entries.append(AppEntry(relative_path=relative_path, name=name, absolute_path=absolute_path))
+        entries.append(AppEntry(
+            relative_path=relative_path,
+            name=name,
+            absolute_path=absolute_path,
+            targets=parse_listapp_targets(targets_text),
+        ))
     return entries
 
 
@@ -259,7 +280,8 @@ def select_app_entries(entries: Sequence[AppEntry], requested_names: Sequence[st
 def compute_tool_paths(pathlistapp_value: str, listapp_name: str, in_container: bool, dockerdomain: str) -> tuple[Path, Path, Path]:
     pathlistapp = Path(dockerdomain if in_container else pathlistapp_value)
     filelistapp = pathlistapp / listapp_name
-    outfile = (pathlistapp / '..' / '..' / '..' / 'outfile.txt').resolve()
+    outfile_name = 'windows_outfile.log' if os.name == 'nt' else 'linux_outfile.log'
+    outfile = (pathlistapp / '..' / '..' / '..' / outfile_name).resolve()
     return pathlistapp, filelistapp, outfile
 
 
