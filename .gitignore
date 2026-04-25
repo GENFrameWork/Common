@@ -33,7 +33,7 @@ syntax: glob
 /**/CMake/out
 /**/CMake/Build
 __pycache__/
-/.compile_docker_status*
+Scripts/compile/internal/.compile_docker_status*.json
 /output.txt
 /outfile.txt
 /linux_outfile.log
