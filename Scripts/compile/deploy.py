@@ -90,9 +90,8 @@ def main(argv: list[str] | None = None) -> int:
             for mode_name in modes:
                 if cancellation_requested():
                     return cancellation_exit_code()
-                environment['DEBUG_EXTERNAL_CFG'] = mode_name
                 environment['DEBUG_EXTCFG'] = mode_name
-                environment['COMPILED_MODE'] = 'release' if mode_name == 'RELEASE' else 'debug'
+                environment['COMPILED_MODE'] = 'RELEASE' if mode_name == 'RELEASE' else 'DEBUG'
                 for entry in selected_entries:
                     if cancellation_requested():
                         return cancellation_exit_code()

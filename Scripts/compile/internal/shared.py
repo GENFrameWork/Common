@@ -290,7 +290,7 @@ def platform_lower(target: str) -> str:
 
 
 def compiled_mode_from_debug(debug_value: str) -> str:
-    return 'release' if debug_value == 'RELEASE' else 'debug'
+    return 'RELEASE' if debug_value == 'RELEASE' else 'DEBUG'
 
 
 def write_log_line(outfile: Path, line: str = '') -> None:

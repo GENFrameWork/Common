@@ -55,7 +55,7 @@ else()
 
 endif()
 
-message(STATUS "[ GEN Debug info: ${CMAKE_BUILD_TYPE} ${DEBUG_CTRL_MSG} ]")  
+message(STATUS "[ GEN Mode application in ${CMAKE_BUILD_TYPE} ${DEBUG_CTRL_MSG} ]")  
 
 
 # --------------------------------------------------------------------
@@ -68,7 +68,7 @@ if("${MEMORY_EXTCFG}" STREQUAL "MEMCTRL")
   if(DEBUG_CTRL_FEATURE)  
     option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
   else()
-    set(MEMORY_CTRL_MSG "because debug is enabled") 
+    set(MEMORY_CTRL_MSG "because debug mode is disabled")         
   endif()
     
 else()
@@ -85,7 +85,7 @@ else()
         option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
         set(MEMORY_CTRL_MSG "by Proyect")         
       else()    
-        set(MEMORY_CTRL_MSG "because debug is enabled")         
+        set(MEMORY_CTRL_MSG "because debug mode is disabled")         
       endif()
       
     endif()

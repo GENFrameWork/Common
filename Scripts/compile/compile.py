@@ -313,8 +313,7 @@ def run_compile_stage(
     effective_environment.update(settings)
     effective_environment['TARGET'] = target
     effective_environment['TARGET_LOWERCASE'] = target_lower
-    effective_environment['DEBUG_EXTERNAL_CFG'] = debug_value
-    effective_environment['DEBUG_EXTCFG'] = settings['DEBUG_EXTCFG']
+    effective_environment['DEBUG_EXTCFG'] = debug_value    
     effective_environment['APPNAME'] = app_entry.name
 
     if outfile.exists():
@@ -415,7 +414,6 @@ def run_docker_compile(script_directory: Path, common_root: Path, platform_name:
         '--name', container_name,
         '-e', 'IN_CONTAINER=1',
         '-e', f'TARGET={platform_name}',
-        '-e', f'DEBUG_EXTERNAL_CFG={settings.get("DEBUG_EXTERNAL_CFG", "NONE")}',
         '-e', f'DEBUG_EXTCFG={settings.get("DEBUG_EXTCFG", "NONE")}',
         '-e', f'USE_CLANG_EXTCFG={settings["USE_CLANG_EXTCFG"]}',
         '-e', f'MEMORY_EXTCFG={settings["MEMORY_EXTCFG"]}',
