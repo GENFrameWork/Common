@@ -669,6 +669,16 @@ if(NOT DEFINED _GEN_ANDROID_BUILD_PACKAGE_FUNCTIONS_DEFINED)
     if(NOT TARGET "${_GEN_ANDROID_APK_TARGET}")
       add_custom_target("${_GEN_ANDROID_APK_TARGET}" DEPENDS "${GENAPK_TARGET_NAME}")
     endif()
+
+    # ------------------------------------------------------------------
+    # Stable alias target "android_apk" so that CMakePresets.json can
+    # reference a fixed, project-independent target name. Builds the
+    # per-project "<PROJECT_NAME>_apk" target above, and is added to ALL
+    # so that "Build All" / F7 generates the APK automatically.
+    # ------------------------------------------------------------------
+    if(NOT TARGET "android_apk")
+      add_custom_target("android_apk" ALL DEPENDS "${_GEN_ANDROID_APK_TARGET}")
+    endif()
   endfunction()
 
   function(gen_android_add_apk_target)

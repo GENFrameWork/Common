@@ -38,7 +38,8 @@ else()
 endif()
 
 
-if(DEBUG_CTRL_FEATURE AND DEBUG_FEATURE)
+#if(DEBUG_CTRL_FEATURE AND DEBUG_FEATURE)
+if(DEBUG_CTRL_FEATURE)
 
   # add_definitions(-DGEN_DEBUG)
 
@@ -54,7 +55,7 @@ else()
 
 endif()
 
-message(STATUS "[ GEN Setting build type to ${CMAKE_BUILD_TYPE} specified ${DEBUG_CTRL_MSG} ]")  
+message(STATUS "[ GEN Mode application in ${CMAKE_BUILD_TYPE} ${DEBUG_CTRL_MSG} ]")  
 
 
 # --------------------------------------------------------------------
@@ -64,7 +65,11 @@ set(MEMORY_CTRL_MSG "by External Config")
 
 if("${MEMORY_EXTCFG}" STREQUAL "MEMCTRL")
 
-  option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
+  if(DEBUG_CTRL_FEATURE)  
+    option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
+  else()
+    set(MEMORY_CTRL_MSG "because debug mode is disabled")         
+  endif()
     
 else()
   
@@ -76,28 +81,32 @@ else()
       
     if(XMEMORY_CONTROL_FEATURE)
         
-      option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
+      if(DEBUG_CTRL_FEATURE)        
+        option(MEMORY_CTRL_FEATURE  "Memory Mode Ctrl"  ON)
+        set(MEMORY_CTRL_MSG "by Proyect")         
+      else()    
+        set(MEMORY_CTRL_MSG "because debug mode is disabled")         
+      endif()
       
     endif()
-
-   set(MEMORY_CTRL_MSG "by Proyect") 
 
   endif()
   
 endif()
 
 
-if(MEMORY_CTRL_FEATURE AND XMEMORY_CONTROL_FEATURE)
+#if(MEMORY_CTRL_FEATURE AND XMEMORY_CONTROL_FEATURE)
+if(MEMORY_CTRL_FEATURE)
 
   add_definitions(-DXMEMORY_CONTROL_ACTIVE)
 
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XMemory_Control.cpp")
   
-  message(STATUS "[ GEN Memory Control: Active specified ${MEMORY_CTRL_MSG} ]")  
+  message(STATUS "[ GEN Memory Control: Active ${MEMORY_CTRL_MSG} ]")  
   
 else()  
 
-  message(STATUS "[ GEN Memory Control: Deactive specified ${MEMORY_CTRL_MSG} ]")  
+  message(STATUS "[ GEN Memory Control: Deactive ${MEMORY_CTRL_MSG} ]")  
  
 endif()
 
@@ -144,11 +153,11 @@ else()
 
   if(XTRACE_FEATURE)
 
-    message(STATUS "[ GEN Trace Control: Active specified ${TRACE_CTRL_MSG} ]")  
+    message(STATUS "[ GEN Trace Control: Active ${TRACE_CTRL_MSG} ]")  
  
   else()
   
-    message(STATUS "[ GEN Trace Control: Deactive specified ${TRACE_CTRL_MSG} ]")  
+    message(STATUS "[ GEN Trace Control: Deactive ${TRACE_CTRL_MSG} ]")  
    
   endif()
 
@@ -212,16 +221,17 @@ else()
 endif()
 
 
-if(XFEEDBACK_CTRL_FEATURE AND XFEEDBACK_CONTROL_FEATURE)
+#if(XFEEDBACK_CTRL_FEATURE AND XFEEDBACK_CONTROL_FEATURE)
+if(XFEEDBACK_CTRL_FEATURE)
 
   add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_XUTILS}/XFeedback_Control.cpp")
   
-  message(STATUS "[ GEN Feedback Control: Active specified ${FEEDBACK_CTRL_MSG} ]")  
+  message(STATUS "[ GEN Feedback Control: Active ${FEEDBACK_CTRL_MSG} ]")  
 
 else()
 
-  message(STATUS "[ GEN Feedback Control: Deactive specified ${FEEDBACK_CTRL_MSG} ]")  
+  message(STATUS "[ GEN Feedback Control: Deactive ${FEEDBACK_CTRL_MSG} ]")  
 
 endif()
 

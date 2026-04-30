@@ -182,7 +182,7 @@ services:
         IMAGEBASE: ${IMAGEBASE:-}       
         TARGET: ${TARGET:-}
         TARGET_LOWERCASE: ${TARGET_LOWERCASE:-}        
-        COMPILED_MODE: ${COMPILED_MODE:-release}        
+        COMPILED_MODE: ${COMPILED_MODE:-RELEASE}        
         APPPATH: ${APPPATH:-}
         APPNAME: ${APPNAME:-}
     command: ./scriptsexample

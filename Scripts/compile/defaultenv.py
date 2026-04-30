@@ -30,8 +30,7 @@ def build_default_settings(current_directory: Path, environment: Mapping[str, st
     target = environment.get('TARGET') or 'INTEL64'
     settings = {
         'TARGET': target,
-        'DEBUG_EXTCFG': environment.get('DEBUG_EXTCFG') or 'NONE',
-        'DEBUG_EXTERNAL_CFG': environment.get('DEBUG_EXTERNAL_CFG') or 'NONE',
+        'DEBUG_EXTCFG': environment.get('DEBUG_EXTCFG') or 'NONE',        
         'USE_CLANG_EXTCFG': environment.get('USE_CLANG_EXTCFG') or 'NONE',
         'MEMORY_EXTCFG': environment.get('MEMORY_EXTCFG') or 'NONE',
         'TRACE_EXTCFG': environment.get('TRACE_EXTCFG') or 'NONE',
