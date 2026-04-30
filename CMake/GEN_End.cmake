@@ -19,7 +19,7 @@ include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Libraries.cmake")
 include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_CoverageGenerate.cmake") 
 
 
-message(STATUS "[GEN]-------------------------------------------------------------------------------------------------------------------------------------")
+message(STATUS "[GEN]-------------------------------------------------------------------------------------------------------------------------------------[GEN]")
 
 unset(DEBUG_CTRL_FEATURE CACHE)
 unset(MEMORY_CONTROL_FEATURE CACHE)
