@@ -265,7 +265,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
       
       if(USE_CLANG_COMPILER_FEATURE)
         
-        option(USE_CLANG__CTRL_FEATURE  "Use CLang compiler Ctrl"  ON)
+        option(USE_CLANG_CTRL_FEATURE  "Use CLang compiler Ctrl"  ON)
       
       endif()
 
@@ -276,9 +276,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   endif()
   
   if(USE_CLANG_CTRL_FEATURE)  
-
-    message(STATUS "  ---- use CLANG")
-
+    
     find_program(_CLANG clang)
     find_program(_CLANGXX clang++)
 
