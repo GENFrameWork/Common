@@ -592,3 +592,4 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_SQLite
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_SQLite
      -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]
    )
+
