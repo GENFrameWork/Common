@@ -8,9 +8,7 @@
 # Helper: gen_filter_supported_compiler_flags
 #
 # Filters a list of warning flags returning in <output_var> ONLY those
-# that the real compiler accepts. Each flag is tested with
-# check_c_compiler_flag or check_cxx_compiler_flag depending on the
-# language.
+# that the real compiler accepts.
 #
 # Usage:
 #   gen_filter_supported_compiler_flags(<output_var> <C|CXX> <flag1> [flag2...])
@@ -25,31 +23,66 @@
 #
 # Implementation notes:
 #
-# - check_c_compiler_flag invokes the REAL compiler (it does not rely
-#   on a cached version variable), so it is robust against
-#   set(CMAKE_C_COMPILER ... FORCE) being applied after project().
+# - This helper does NOT use CMake's check_c_compiler_flag /
+#   check_cxx_compiler_flag because internally those rely on
+#   try_compile, which invokes the full toolchain (preprocessor +
+#   compiler + assembler) and may need the cross-compile sysroot to
+#   resolve basic headers. In containers where the ARM sysroot is
+#   incomplete, try_compile fails even when the flag IS supported,
+#   producing false negatives on cross-compile builds.
 #
-# - By default check_c_compiler_flag tries to COMPILE + LINK a minimal
-#   test program. In cross-compile builds (ARM64, RPI64, ...) the link
-#   step may fail even when the flag IS supported by the compiler. To
-#   prevent that, we force try_compile to STATIC_LIBRARY (compile only,
-#   no link) for the duration of the check, and restore the previous
-#   value afterwards.
+# - Instead, this helper invokes the real compiler in preprocess-only
+#   mode (-E) reading from /dev/null (or NUL on Windows). -E does not
+#   compile, link or require sysroot, so it works identically in
+#   native and cross-compile setups.
 #
-# - Each flag is cached independently (per flag and per language), so
-#   subsequent reconfigures are instantaneous.
+# - Per-compiler behavior:
+#     * Clang/AppleClang: accepts unknown -Wno-* silently by default,
+#       so we add -Werror=unknown-warning-option to force a non-zero
+#       exit code on unsupported flags.
+#     * GCC: rejects unknown -W* flags directly with non-zero exit;
+#       silently ignores unknown -Wno-* flags (which is harmless for
+#       our use case: the suppressor for a warning that doesn't exist
+#       has no effect).
+#     * MSVC / clang-cl: this helper only filters GNU-style flags
+#       (starting with '-'). For MSVC-style /wd flags use them
+#       unconditionally (they have always been part of the cl.exe
+#       interface and don't need feature detection).
+#
+# - Each flag result is cached in CMakeCache as
+#   GEN_HAS_<LANG>_FLAG_<sanitized_flag_name>, so subsequent
+#   reconfigures are instantaneous.
 # --------------------------------------------------------------------
-
-include(CheckCCompilerFlag)
-include(CheckCXXCompilerFlag)
 
 function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
 
-  # Force "compile only" mode so that the check works also in
-  # cross-compile setups (ARM, RPI, ...). Save previous value to
-  # restore it before returning.
-  set(_gen_prev_target_type "${CMAKE_TRY_COMPILE_TARGET_TYPE}")
-  set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+  # Pick the right compiler binary, language tag and compiler ID
+  if("${LANG}" STREQUAL "C")
+    set(_gen_compiler    "${CMAKE_C_COMPILER}")
+    set(_gen_compiler_id "${CMAKE_C_COMPILER_ID}")
+    set(_gen_xlang       "c")
+  elseif("${LANG}" STREQUAL "CXX")
+    set(_gen_compiler    "${CMAKE_CXX_COMPILER}")
+    set(_gen_compiler_id "${CMAKE_CXX_COMPILER_ID}")
+    set(_gen_xlang       "c++")
+  else()
+    message(FATAL_ERROR
+      "gen_filter_supported_compiler_flags: LANG must be 'C' or 'CXX', got '${LANG}'")
+  endif()
+
+  # Empty input file used as stdin replacement (portable across hosts)
+  if(WIN32)
+    set(_gen_null_input "NUL")
+  else()
+    set(_gen_null_input "/dev/null")
+  endif()
+
+  # Extra flags needed to make Clang fail on unknown warning options.
+  # GCC and others rely on their default behavior.
+  set(_gen_extra_flags "")
+  if(_gen_compiler_id MATCHES "^(Clang|AppleClang)$")
+    list(APPEND _gen_extra_flags "-Werror=unknown-warning-option")
+  endif()
 
   set(_supported_flags "")
 
@@ -58,15 +91,29 @@ function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
     # Build a unique cache variable name for this flag and language
     string(MAKE_C_IDENTIFIER "GEN_HAS_${LANG}_FLAG_${_flag}" _cache_var)
 
-    if("${LANG}" STREQUAL "C")
-      check_c_compiler_flag("${_flag}" ${_cache_var})
-    elseif("${LANG}" STREQUAL "CXX")
-      check_cxx_compiler_flag("${_flag}" ${_cache_var})
-    else()
-      # Restore before raising the fatal error
-      set(CMAKE_TRY_COMPILE_TARGET_TYPE "${_gen_prev_target_type}")
-      message(FATAL_ERROR
-        "gen_filter_supported_compiler_flags: LANG must be 'C' or 'CXX', got '${LANG}'")
+    if(NOT DEFINED ${_cache_var})
+
+      message(STATUS "Performing Test ${_cache_var}")
+
+      execute_process(
+        COMMAND
+          "${_gen_compiler}" -E "-x${_gen_xlang}"
+          ${_gen_extra_flags}
+          "${_flag}"
+          "${_gen_null_input}"
+        RESULT_VARIABLE _gen_exit_code
+        OUTPUT_QUIET
+        ERROR_QUIET
+      )
+
+      if(_gen_exit_code EQUAL 0)
+        set(${_cache_var} TRUE  CACHE INTERNAL "Compiler supports ${_flag}")
+        message(STATUS "Performing Test ${_cache_var} - Success")
+      else()
+        set(${_cache_var} FALSE CACHE INTERNAL "Compiler supports ${_flag}")
+        message(STATUS "Performing Test ${_cache_var} - Failed")
+      endif()
+
     endif()
 
     if(${${_cache_var}})
@@ -74,9 +121,6 @@ function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
     endif()
 
   endforeach()
-
-  # Restore the previous value of CMAKE_TRY_COMPILE_TARGET_TYPE
-  set(CMAKE_TRY_COMPILE_TARGET_TYPE "${_gen_prev_target_type}")
 
   set(${OUTPUT_VAR} "${_supported_flags}" PARENT_SCOPE)
 
