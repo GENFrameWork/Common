@@ -119,6 +119,8 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
       if("${TARGET}" STREQUAL "INTEL64")
 
+        add_definitions(-DHW_INTEL64)
+
         option(COMPILE_FOR_WINDOWS_INTEL_64                       "Compile to Windows Intel 64 Bits"                        ON )
 
         message(STATUS "[ GEN Compile for platform Windows INTEL 64 Bits ]")
@@ -126,6 +128,8 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
       else()
 
         if("${TARGET}" STREQUAL "INTEL32")
+
+          add_definitions(-DHW_INTEL32)
 
           option(COMPILE_FOR_WINDOWS_INTEL_32                     "Compile to Windows Intel 32 Bits"                        ON )
 
@@ -195,6 +199,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     if("${TARGET}" STREQUAL "INTEL64") 
  
       add_definitions(-DHW_INTEL)    
+      add_definitions(-DHW_INTEL64)
 
       option(COMPILE_FOR_LINUX_INTEL_64                           "Compile to Linux INTEL 64 Bits"                          ON )
 
@@ -205,6 +210,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     if("${TARGET}" STREQUAL "RPI32")
 
       add_definitions(-DHW_RASPBERRYPI) 
+      add_definitions(-DHW_RASPBERRYPI32)
 
       option(COMPILE_FOR_LINUX_ARM_RPI                            "Compile to Linux Rapsberry Pi"                           ON )
 
@@ -215,6 +221,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     if("${TARGET}" STREQUAL "RPI64")
 
       add_definitions(-DHW_RASPBERRYPI)   
+      add_definitions(-DHW_RASPBERRYPI64)
 
       option(COMPILE_FOR_LINUX_ARM_RPI_64                         "Compile to Linux Rapsberry Pi 64"                        ON )
 
@@ -225,6 +232,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     if("${TARGET}" STREQUAL "ARM")
 
       add_definitions(-DHW_ARM) 
+      add_definitions(-DHW_ARM32)
 
       option(COMPILE_FOR_LINUX_ARM                                "Compile to Linux ARM"                                    ON )
 
@@ -235,6 +243,7 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     if("${TARGET}" STREQUAL "ARM64")
 
       add_definitions(-DHW_ARM) 
+      add_definitions(-DHW_ARM64)
 
       option(COMPILE_FOR_LINUX_ARM_64                             "Compile to Linux ARM 64"                                 ON )
 

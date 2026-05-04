@@ -5,6 +5,85 @@
 
 
 # --------------------------------------------------------------------
+# Helper: gen_filter_supported_compiler_flags
+#
+# Filters a list of warning flags returning in <output_var> ONLY those
+# that the real compiler accepts. Each flag is tested with
+# check_c_compiler_flag or check_cxx_compiler_flag depending on the
+# language.
+#
+# Usage:
+#   gen_filter_supported_compiler_flags(<output_var> <C|CXX> <flag1> [flag2...])
+#
+# Examples:
+#   gen_filter_supported_compiler_flags(SAFE_FLAGS C
+#       -Wno-deprecated-non-prototype
+#       -Wno-implicit-function-declaration)
+#
+#   gen_filter_supported_compiler_flags(SAFE_FLAGS CXX
+#       -Wno-deprecated-coroutine)
+#
+# Implementation notes:
+#
+# - check_c_compiler_flag invokes the REAL compiler (it does not rely
+#   on a cached version variable), so it is robust against
+#   set(CMAKE_C_COMPILER ... FORCE) being applied after project().
+#
+# - By default check_c_compiler_flag tries to COMPILE + LINK a minimal
+#   test program. In cross-compile builds (ARM64, RPI64, ...) the link
+#   step may fail even when the flag IS supported by the compiler. To
+#   prevent that, we force try_compile to STATIC_LIBRARY (compile only,
+#   no link) for the duration of the check, and restore the previous
+#   value afterwards.
+#
+# - Each flag is cached independently (per flag and per language), so
+#   subsequent reconfigures are instantaneous.
+# --------------------------------------------------------------------
+
+include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
+
+function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
+
+  # Force "compile only" mode so that the check works also in
+  # cross-compile setups (ARM, RPI, ...). Save previous value to
+  # restore it before returning.
+  set(_gen_prev_target_type "${CMAKE_TRY_COMPILE_TARGET_TYPE}")
+  set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
+  set(_supported_flags "")
+
+  foreach(_flag IN LISTS ARGN)
+
+    # Build a unique cache variable name for this flag and language
+    string(MAKE_C_IDENTIFIER "GEN_HAS_${LANG}_FLAG_${_flag}" _cache_var)
+
+    if("${LANG}" STREQUAL "C")
+      check_c_compiler_flag("${_flag}" ${_cache_var})
+    elseif("${LANG}" STREQUAL "CXX")
+      check_cxx_compiler_flag("${_flag}" ${_cache_var})
+    else()
+      # Restore before raising the fatal error
+      set(CMAKE_TRY_COMPILE_TARGET_TYPE "${_gen_prev_target_type}")
+      message(FATAL_ERROR
+        "gen_filter_supported_compiler_flags: LANG must be 'C' or 'CXX', got '${LANG}'")
+    endif()
+
+    if(${${_cache_var}})
+      list(APPEND _supported_flags "${_flag}")
+    endif()
+
+  endforeach()
+
+  # Restore the previous value of CMAKE_TRY_COMPILE_TARGET_TYPE
+  set(CMAKE_TRY_COMPILE_TARGET_TYPE "${_gen_prev_target_type}")
+
+  set(${OUTPUT_VAR} "${_supported_flags}" PARENT_SCOPE)
+
+endfunction()
+
+
+# --------------------------------------------------------------------
 # Global warnings applied to ALL sources (GEN framework code)
 
 
@@ -229,9 +308,16 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
      # -Wno-implicit-function-declaration
    )
 
+# Filter the flags supported by the real C compiler (zlib is C code).
+# Each listed flag is applied only if the active compiler accepts it.
+# To suppress new warnings for zlib in the future, extend this list.
+gen_filter_supported_compiler_flags(_GEN_ZLib_CLANG_SAFE_FLAGS C
+    -Wno-deprecated-non-prototype                                                      # warning: function definition without a prototype deprecated in C23 (CLang 15+)
+  )
+
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_ZLib
      # -Wno-implicit-function-declaration
-     -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23
+     ${_GEN_ZLib_CLANG_SAFE_FLAGS}
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
@@ -239,7 +325,7 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
      # /wd4127                                                                         # warning C4127: conditional expression is constant
      # /wd4245                                                                         # warning C4245: conversion signed/unsigned mismatch
      # -Wno-implicit-function-declaration  
-     -Wno-deprecated-non-prototype
+     ${_GEN_ZLib_CLANG_SAFE_FLAGS}
    )
 
 
