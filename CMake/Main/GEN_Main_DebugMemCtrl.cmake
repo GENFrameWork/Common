@@ -38,17 +38,17 @@ else()
 endif()
 
 
-#if(DEBUG_CTRL_FEATURE AND DEBUG_FEATURE)
+
 if(DEBUG_CTRL_FEATURE)
 
-  # add_definitions(-DGEN_DEBUG)
+  add_definitions(-DDEBUG_ACTIVE)
 
   set(CMAKE_BUILD_TYPE Debug            CACHE STRING "Choose the type of build."  FORCE)
   set(CMAKE_CONFIGURATION_TYPES Debug   CACHE STRING "Choose the type of build."  FORCE)
     
 else()
 
-  add_definitions(-DGEN_NODEBUG)
+  unset(DEBUG_ACTIVE CACHE)
   
   set(CMAKE_BUILD_TYPE Release          CACHE STRING "Choose the type of build."  FORCE)
   set(CMAKE_CONFIGURATION_TYPES Release CACHE STRING "Choose the type of build."  FORCE)
@@ -94,8 +94,6 @@ else()
   
 endif()
 
-
-#if(MEMORY_CTRL_FEATURE AND XMEMORY_CONTROL_FEATURE)
 if(MEMORY_CTRL_FEATURE)
 
   add_definitions(-DXMEMORY_CONTROL_ACTIVE)
@@ -221,7 +219,6 @@ else()
 endif()
 
 
-#if(XFEEDBACK_CTRL_FEATURE AND XFEEDBACK_CONTROL_FEATURE)
 if(XFEEDBACK_CTRL_FEATURE)
 
   add_definitions(-DXFEEDBACK_CONTROL_ACTIVE)

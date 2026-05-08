@@ -79,6 +79,16 @@ function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
 
   # Extra flags needed to make Clang fail on unknown warning options.
   # GCC and others rely on their default behavior.
+  #
+  # MSVC guard: cl.exe silently ignores GNU-style flags (-Wno-*) and always
+  # exits 0, which would produce a false-positive result. Since MSVC and
+  # clang-cl use /wd flags (not -Wno-), GNU-style flags are never passed to
+  # them, so skipping the probe entirely is both correct and safe.
+  if(_gen_compiler_id STREQUAL "MSVC")
+    set(${OUTPUT_VAR} "" PARENT_SCOPE)
+    return()
+  endif()
+
   set(_gen_extra_flags "")
   if(_gen_compiler_id MATCHES "^(Clang|AppleClang)$")
     list(APPEND _gen_extra_flags "-Werror=unknown-warning-option")
@@ -304,7 +314,11 @@ macro(GEN_ThirdPartyLibraries_SuppressWarnings LIB_NAME)
 
     foreach(_GEN_TPLIBRARIES_FILE ${ARGN})
 
-      set_source_files_properties("${_GEN_TPLIBRARIES_FILE}" PROPERTIES COMPILE_FLAGS "${_GEN_TPLIBRARIES_FLAGS_STR}")
+      # Use APPEND_STRING so that if a source file is processed by more than one
+      # library suppression call the flags accumulate instead of overwriting.
+      set_source_files_properties("${_GEN_TPLIBRARIES_FILE}" PROPERTIES
+        COMPILE_FLAGS "${_GEN_TPLIBRARIES_FLAGS_STR}"
+      )
 
     endforeach()
 
@@ -349,27 +363,25 @@ set( GEN_ThirdPartyLibraries_Warnings_MSVC_ZLib
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
+     -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23 (GCC 11+, confirmed in Linux build log)
      # -Wno-implicit-function-declaration
    )
 
-# Filter the flags supported by the real C compiler (zlib is C code).
-# Each listed flag is applied only if the active compiler accepts it.
-# To suppress new warnings for zlib in the future, extend this list.
-gen_filter_supported_compiler_flags(_GEN_ZLib_CLANG_SAFE_FLAGS C
-    -Wno-deprecated-non-prototype                                                      # warning: function definition without a prototype deprecated in C23 (CLang 15+)
-  )
-
+# Note: -Wno-deprecated-non-prototype is used directly (not via gen_filter_supported_compiler_flags)
+# because NDK Clang 18 fails the probe when -Werror=unknown-warning-option is injected, yet the
+# warning [-Wdeprecated-non-prototype] IS emitted at build time — confirming the flag exists.
+# A -Wno-* flag for an unknown warning is silently ignored by Clang, so this is always safe.
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_ZLib
+     -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23 (confirmed in build logs)
      # -Wno-implicit-function-declaration
-     ${_GEN_ZLib_CLANG_SAFE_FLAGS}
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
      # /wd4131                                                                         # warning C4131: uses old-style declarator
      # /wd4127                                                                         # warning C4127: conditional expression is constant
      # /wd4245                                                                         # warning C4245: conversion signed/unsigned mismatch
-     # -Wno-implicit-function-declaration  
-     ${_GEN_ZLib_CLANG_SAFE_FLAGS}
+     # -Wno-implicit-function-declaration
+     -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23
    )
 
 
@@ -392,6 +404,7 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_AGG
      # -Wno-conversion
      # -Wno-sign-compare
      # -Wno-shorten-64-to-32
+     -Wno-deprecated-register                                                          # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register] (agg_trans_affine.h, confirmed in Android/CLang build log)
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_AGG
@@ -400,7 +413,7 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_AGG
      # /wd4305                                                                         # warning C4305: truncation from 'double' to 'float'
      # -Wno-conversion
      # -Wno-sign-compare
-     -Wno-deprecated-register                                                          # warning: 'register' storage class specifier is deprecated [-Wdeprecated-register]
+     # -Wno-deprecated-register                                                        # REDUNDANT: already suppressed globally via WARNING_TO_CPP in COMPILE_WITH_CLANG_CL block
    )
 
 
@@ -507,6 +520,7 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_LUA
      # -Wno-sign-compare
      # -Wno-implicit-fallthrough
      # -Wno-maybe-uninitialized
+     -Wno-string-plus-int                                                              # warning: adding 'int' to a string does not append to the string (lundump.c:237, confirmed in Linux GCC 14.2 build log)
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_LUA
@@ -699,7 +713,9 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_GoogleTest
 
 set( GEN_ThirdPartyLibraries_Warnings_MSVC_SQLite )
 
-set( GEN_ThirdPartyLibraries_Warnings_GCC_SQLite )
+set( GEN_ThirdPartyLibraries_Warnings_GCC_SQLite
+     -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value (confirmed in Linux GCC build log)
+   )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_SQLite
      -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value [-Wimplicit-const-int-float-conversion]

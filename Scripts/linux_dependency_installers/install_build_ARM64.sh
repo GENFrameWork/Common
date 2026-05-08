@@ -28,6 +28,8 @@ echo "Cross Compiler ARM64"
 apt-get install crossbuild-essential-arm64 -y
 echo "Clang (for USE_CLANG_COMPILER_FEATURE)"
 apt-get install clang -y
+apt-get install libclang-rt-dev -y
+apt-get install libclang-rt-19-dev:arm64 -y
 echo "-----------------------------------------------------------------------"
 echo "System"
 apt-get install cpuid:arm64 -y
