@@ -6,6 +6,12 @@
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 
+# /utf-8 sets both source and execution charset to UTF-8.
+# Required for MSVC and clang-cl from fmt v11 onwards (bundled in
+# openal-soft): fmt/base.h has a static_assert that fails without it.
+# Safe to apply globally: only affects string literal encoding.
+add_compile_options(/utf-8)
+
 set(CMAKE_RC_COMPILER rc.exe CACHE FILEPATH "" FORCE)
   
 if(USE_CLANG_CTRL_FEATURE)
