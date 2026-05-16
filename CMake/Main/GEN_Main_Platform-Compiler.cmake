@@ -307,6 +307,31 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   if(COMPILE_FOR_WINDOWS)
     
     include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Windows.cmake") 
+
+    # ----------------------------------------------------------------
+    # clang-cl correction for Windows + USE_CLANG_CTRL_FEATURE:
+    #
+    # GEN_Main_Compiler_Windows.cmake switches CMAKE_C_COMPILER to
+    # clang-cl via FORCE when USE_CLANG_CTRL_FEATURE is ON.
+    # CMake does NOT re-evaluate CMAKE_C_COMPILER_ID after a FORCE
+    # override — it is fixed at the initial probe (cl.exe → "MSVC").
+    # The "Type of compile" block below therefore cannot detect clang-cl
+    # via CMAKE_C_COMPILER_ID and would fall into the MSVC branch.
+    #
+    # We correct this here, before the detection block runs, so that
+    # COMPILE_WITH_CLANG_CL is active and the detection block is
+    # skipped via the NOT COMPILE_WITH_CLANG_CL guard below.
+    # ----------------------------------------------------------------
+    if(USE_CLANG_CTRL_FEATURE)
+
+      unset(COMPILE_WITH_MSVC     CACHE)
+      unset(COMPILE_WITH_CLANG_CL CACHE)
+
+      add_definitions(-DCOMPILER_CLANG_CL)
+      option(COMPILE_WITH_CLANG_CL                                "Compile with CLang (interface MSVC)"                     ON )
+      message(STATUS "[ GEN Select for compile: CLang CLI (interface MSVC) ${USE_CLANG_CTRL_MSG} ]")
+
+    endif()
      
   endif()
 
@@ -342,34 +367,55 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   # --- Type of compile ------------------------------------------------
 
-  
-  get_filename_component(COMPILER_C_NAME   "${CMAKE_C_COMPILER}"   NAME_WE)
-  get_filename_component(COMPILER_CXX_NAME "${CMAKE_CXX_COMPILER}" NAME_WE)
+  # Detection is based on CMAKE_C_COMPILER_ID (set by CMake after probing
+  # the real compiler) rather than the binary filename. This handles all
+  # compiler aliases reliably, including Android NDK toolchain compilers
+  # whose binaries are named e.g. "armv7a-linux-androideabi24-clang" and
+  # would not match a simple STREQUAL "clang" check.
+  #
+  # For Clang we also check CMAKE_C_COMPILER_FRONTEND_VARIANT to tell apart:
+  #   - MSVC frontend  -> clang-cl  (Windows, /wd flags)
+  #   - GNU frontend   -> clang     (Linux, Mac, Android NDK, -Wno flags)
+  #
+  # EXCEPTION: Windows + USE_CLANG_CTRL_FEATURE.
+  # In that case CMAKE_C_COMPILER was switched to clang-cl via FORCE after
+  # CMake already probed and fixed CMAKE_C_COMPILER_ID as "MSVC". The
+  # "Compilers Setup" block above detected this and already set
+  # COMPILE_WITH_CLANG_CL, so we skip this block entirely to avoid the
+  # MSVC elseif overwriting the result with COMPILE_WITH_MSVC.
 
-  if(COMPILER_C_NAME STREQUAL "clang-cl" OR COMPILER_CXX_NAME STREQUAL "clang-cl")
+  if(NOT COMPILE_WITH_CLANG_CL)
 
-    add_definitions(-DCOMPILER_CLANG_CL)
-    option(COMPILE_WITH_CLANG_CL                                  "Compile with CLang (interface MSVC)"                     ON )
-    message(STATUS "[ GEN Select for compile: CLang CLI (interface MSVC) ${USE_CLANG_CTRL_MSG} ]")
+    if(CMAKE_C_COMPILER_ID MATCHES "^(Clang|AppleClang)$" OR CMAKE_CXX_COMPILER_ID MATCHES "^(Clang|AppleClang)$")
 
-  elseif(COMPILER_C_NAME STREQUAL "clang" OR COMPILER_CXX_NAME STREQUAL "clang" OR COMPILER_C_NAME STREQUAL "clang++" OR COMPILER_CXX_NAME STREQUAL "clang++")
+      if(CMAKE_C_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
 
-    add_definitions(-DCOMPILER_CLANG)
-    option(COMPILE_WITH_CLANG                                     "Compile with CLang (front-end of LLVM)"                  ON )
-    message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ${USE_CLANG_CTRL_MSG} ]")
+        add_definitions(-DCOMPILER_CLANG_CL)
+        option(COMPILE_WITH_CLANG_CL                                "Compile with CLang (interface MSVC)"                     ON )
+        message(STATUS "[ GEN Select for compile: CLang CLI (interface MSVC) ${USE_CLANG_CTRL_MSG} ]")
 
-  elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+      else()
 
-    add_definitions(-DCOMPILER_MSVC)
-    option(COMPILE_WITH_MSVC                                      "Compile with Microsoft Compiler (MSVC)"                  ON )
-    message(STATUS "[ GEN Select for compile: Microsoft Compiler (MSVC) ]")
+        add_definitions(-DCOMPILER_CLANG)
+        option(COMPILE_WITH_CLANG                                   "Compile with CLang (front-end of LLVM)"                  ON )
+        message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ${USE_CLANG_CTRL_MSG} ]")
 
-  elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+      endif()
 
-    add_definitions(-DCOMPILER_GCC)
-    option(COMPILE_WITH_GCC                                       "Compile with GNU Compiler Collection (GCC)"              ON )
-    message(STATUS "[ GEN Select for compile: GNU Compiler Collection (GCC) ]")
+    elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC" OR CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 
-  endif()
+      add_definitions(-DCOMPILER_MSVC)
+      option(COMPILE_WITH_MSVC                                      "Compile with Microsoft Compiler (MSVC)"                  ON )
+      message(STATUS "[ GEN Select for compile: Microsoft Compiler (MSVC) ]")
+
+    elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+
+      add_definitions(-DCOMPILER_GCC)
+      option(COMPILE_WITH_GCC                                       "Compile with GNU Compiler Collection (GCC)"              ON )
+      message(STATUS "[ GEN Select for compile: GNU Compiler Collection (GCC) ]")
+
+    endif()
+
+  endif() # NOT COMPILE_WITH_CLANG_CL
 
 endif()

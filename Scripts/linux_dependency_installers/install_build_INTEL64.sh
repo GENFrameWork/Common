@@ -13,6 +13,7 @@ echo "ARM 64-bit cross-compiler"
 apt-get install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu -y
 echo "Clang (for USE_CLANG_COMPILER_FEATURE)"
 apt-get install clang -y
+apt-get install libclang-rt-dev -y
 echo "cmake"
 apt-get install cmake -y
 echo "ccache"
