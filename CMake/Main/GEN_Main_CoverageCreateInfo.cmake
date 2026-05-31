@@ -31,37 +31,38 @@ else()
 endif()
 
 
+if(NOT COMPILE_FOR_LINUX_ARM_64 AND NOT COMPILE_FOR_LINUX_ARM_RPI_64)
 
-if(COVERAGE_CREATEINFO_CTRL_FEATURE)  
+  if(COVERAGE_CREATEINFO_CTRL_FEATURE)  
 
-  add_definitions(-DCOVERAGE_CREATEINFO_ACTIVE)
+    add_definitions(-DCOVERAGE_CREATEINFO_ACTIVE)
 
-  if(COMPILE_WITH_GCC)
-  
-    message(STATUS "[ GEN COVERAGE Create info enabled for GCC compiler ${COVERAGE_CREATEINFO_CTRL_MSG} ]")
-
-    add_compile_options(--coverage -O0 -g)    
-    add_link_options(--coverage)
+    if(COMPILE_WITH_GCC)
     
-    elseif(COMPILE_WITH_CLANG OR COMPILE_WITH_CLANG_CL)
-         
-          message(STATUS "[ GEN COVERAGE Create info enabled for Clang compiler ${COVERAGE_CREATEINFO_CTRL_MSG} }")
+      message(STATUS "[ GEN COVERAGE Create info enabled for GCC compiler ${COVERAGE_CREATEINFO_CTRL_MSG} ]")
 
-          #add_compile_options(-fprofile-instr-generate -fcoverage-mapping -O0 -g)          
-          #add_link_options(-fprofile-instr-generate)
-        
-        else()      
+      add_compile_options(--coverage -O0 -g)    
+      add_link_options(--coverage)
       
-          message(STATUS "[ GEN COVERAGE Create info is enabled ${COVERAGE_CREATEINFO_CTRL_MSG} (compiler is not supported) ]")
-        
-        endif()
-        
-else()        
+      elseif(COMPILE_WITH_CLANG OR COMPILE_WITH_CLANG_CL)
+           
+            message(STATUS "[ GEN COVERAGE Create info enabled for Clang compiler ${COVERAGE_CREATEINFO_CTRL_MSG} }")
 
-  message(STATUS "[ GEN COVERAGE Create info is disabled ${COVERAGE_CREATEINFO_CTRL_MSG} ]")
-   
+            #add_compile_options(-fprofile-instr-generate -fcoverage-mapping -O0 -g)          
+            #add_link_options(-fprofile-instr-generate)
+          
+          else()      
+        
+            message(STATUS "[ GEN COVERAGE Create info is enabled ${COVERAGE_CREATEINFO_CTRL_MSG} (compiler is not supported) ]")
+          
+          endif()
+          
+  else()        
+
+    message(STATUS "[ GEN COVERAGE Create info is disabled ${COVERAGE_CREATEINFO_CTRL_MSG} ]")
+     
+  endif()
+
 endif()
-
-
 
 

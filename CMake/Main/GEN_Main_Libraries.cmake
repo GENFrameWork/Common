@@ -115,6 +115,13 @@ if(COMPILE_FOR_WINDOWS)
   endif()
 
 
+  if(GRP_OPENGL_FEATURE)
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS synchronization dxgi)
+
+  endif()
+
+
 endif()
 
 
@@ -203,6 +210,14 @@ if(COMPILE_FOR_LINUX)
     list(APPEND GEN_SO_THIRDPARTY_LIBRARYS dbus-1)
 
   endif()
+  
+  
+  if(GRP_OPENGL_FEATURE)
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS GLESv2)
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS EGL)
+
+  endif()
 
 
 endif()
@@ -219,6 +234,14 @@ if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
   if(SND_FEATURE)
 
     list(APPEND GEN_SO_THIRDPARTY_LIBRARYS OpenSLES)
+
+  endif()
+
+   
+  if(GRP_OPENGL_FEATURE)
+    
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS GLESv3)
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS EGL)
 
   endif()
     

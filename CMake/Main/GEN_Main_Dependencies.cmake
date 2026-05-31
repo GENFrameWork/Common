@@ -738,8 +738,18 @@ if(GRP_FEATURE)
   if(GRP_OPENGL_FEATURE)
 
     add_definitions(-DGRP_OPENGL_ACTIVE)
-
+    add_definitions(-DGRP_OPENGL_ES_ACTIVE)
+    add_definitions(-DGRP_OPENGL_ES_VERSION=30)
+    
+    # ANGLE is only needed on Windows (translates GLES → D3D11).
+    # On Linux / Raspberry Pi → system Mesa provides EGL + GLESv2 natively.
+    # On Android → the NDK provides EGL + GLESv3 natively.
+    if(COMPILE_FOR_WINDOWS)
+      option(THIRDPARTYLIBRARIES_ANGLE_FEATURE                        "Angle OpenGL ES Library (Windows only)"                  ON )
+    endif()
+    
   endif()
+
 
 endif()
 
@@ -1721,6 +1731,14 @@ if(XLICENSE_FEATURE)
 endif()
 
 
+if(XFILE_ZIP_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
+
+endif()
+
+
+
 # --------------------------------------------------------------------
 # Cipher
 
@@ -1906,4 +1924,55 @@ if(COMPRESS_FEATURE)
 endif()
 
 
+# --------------------------------------------------------------------
+# ThirdPartyLibraries
 
+
+if(GRP_2D_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_AGG_FEATURE                          "AGG Anti-Grain Geometry Graphics 2D library"             ON )
+  option(THIRDPARTYLIBRARIES_FREETYPE_FEATURE                     "Freetype Font Library"                                   ON )
+
+endif()
+
+
+if(GRP_BITMAP_FILE_JPG_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_JPEGLIB_FEATURE                      "JPEGLIB Library"                                         ON )
+
+endif()
+
+
+if(GRP_BITMAP_FILE_PNG_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_LIBPNG_FEATURE                       "LibPNG Library"                                          ON )
+
+endif()
+
+
+if(SND_FEATURE)  
+
+  option(THIRDPARTYLIBRARIES_OPENAL_FEATURE                       "OpenAL Sound Library"                                    ON )    
+
+endif()
+
+
+if(SCRIPT_JAVASCRIPT_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_DUKETAPE_FEATURE                     "DukeTape JavaScript Library"                             ON )
+
+endif()
+
+
+if(SCRIPT_LUA_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_LUA_SCRIPT_FEATURE                   "Lua Script Library"                                      ON )
+
+endif()
+
+
+if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
+
+  option(THIRDPARTYLIBRARIES_RPI_WS281X_FEATURE                   "RPI WS281X Library"                                      ON )
+
+endif()
