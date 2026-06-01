@@ -1474,6 +1474,17 @@ if(DIO_FEATURE)
 
   endif()
 
+
+  if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
+
+    if(COMPILE_FOR_ANDROID64)
+
+      option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
+
+    endif()
+
+  endif()
+
 endif()
 
 
