@@ -4,8 +4,462 @@
 # --------------------------------------------------------------------
 
 
-if(XFILE_ZIP_FEATURE)
+if(THIRDPARTYLIBRARIES_ANGLE_FEATURE)
 
+  list(APPEND GEN_THIRDPARTY_LIBRARYS ANGLE)
+
+  add_definitions(-DANGLE_STATIC)
+  add_definitions(-DANGLE_EXPORT=)
+  add_definitions(-DANGLE_UTIL_EXPORT=)
+  add_definitions(-DANGLE_CAPTURE_ENABLED=0)
+  add_definitions(-DANGLE_ENABLE_GLSL)
+  add_definitions(-DANGLE_ENABLE_OPENGL)
+  add_definitions(-DANGLE_ENABLE_GL_DESKTOP_BACKEND)
+  add_definitions(-DEGLAPI=)
+  add_definitions(-DGL_API=)
+  add_definitions(-DGL_APICALL=)
+  add_definitions(-DLIBANGLE_IMPLEMENTATION)
+  add_definitions(-DLIBGLESV2_IMPLEMENTATION)
+  add_definitions(-DLIBEGL_IMPLEMENTATION)
+  add_definitions(-DANGLE_PLATFORM_WINDOWS)
+  add_definitions(-DANGLE_ENABLE_HLSL)    
+  
+
+  file(MAKE_DIRECTORY "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE_COMMON_GENERATED}")
+  file(WRITE "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE_COMMON_GENERATED}/ANGLEShaderProgramVersion.h"     "#ifndef ANGLE_SHADER_PROGRAM_VERSION_H_\n#define ANGLE_SHADER_PROGRAM_VERSION_H_\n#define ANGLE_PROGRAM_VERSION \"GEN_BUILD\"\n#define ANGLE_PROGRAM_VERSION_HASH_SIZE 9\n#endif\n")
+  file(WRITE "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE_COMMON_GENERATED}/angle_commit.h"                  "#ifndef ANGLE_COMMIT_H_\n#define ANGLE_COMMIT_H_\n#define ANGLE_COMMIT_HASH \"GEN_BUILD\"\n#define ANGLE_COMMIT_HASH_SIZE 9\n#define ANGLE_COMMIT_POSITION 0\n#endif\n")
+  file(WRITE "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE_COMMON_GENERATED}/compression_utils_portable.h"
+  "#ifndef COMPRESSION_UTILS_PORTABLE_H_\n\
+   #define COMPRESSION_UTILS_PORTABLE_H_\n\
+   #include <zlib.h>\n\
+   #include <stdint.h>\n\
+   #include <stddef.h>\n\
+   namespace zlib_internal {\n\
+   inline uLong GzipExpectedCompressedSize(uLong input_size) {\n\
+       return compressBound(input_size) + 18;\n\
+   }\n\
+   inline uint32_t GetGzipUncompressedSize(const uint8_t *compressed_data, size_t compressed_size) {\n\
+       if (compressed_size < 4) return 0;\n\
+       const uint8_t *p = compressed_data + compressed_size - 4;\n\
+       return (uint32_t)p[0] | ((uint32_t)p[1] << 8) | ((uint32_t)p[2] << 16) | ((uint32_t)p[3] << 24);\n\
+   }\n\
+   inline int GzipCompressHelper(uint8_t *dest, uLong *dest_length,\n\
+                                  const uint8_t *source, uLong source_length,\n\
+                                  void*, void*) {\n\
+       return compress2(dest, dest_length, source, source_length, Z_DEFAULT_COMPRESSION);\n\
+   }\n\
+   inline int GzipUncompressHelper(uint8_t *dest, uLong *dest_length,\n\
+                                    const uint8_t *source, uLong source_length) {\n\
+       return uncompress(dest, dest_length, source, source_length);\n\
+   }\n\
+   }  // namespace zlib_internal\n\
+   #endif  // COMPRESSION_UTILS_PORTABLE_H_\n")
+
+  
+  set(GEN_TPL_SOURCES)
+
+  # -------------------------------------------------------
+  # common  – utilidades base, sin dependencias de plataforma
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/CompiledShaderState.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/Float16ToFloat32.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/MemoryBuffer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/PackedEnums.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/PackedEGLEnums_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/PackedGLEnums_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/PackedCLEnums_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/PoolAlloc.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/SimpleMutex.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/WorkerThread.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/aligned_memory.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/angle_version_info.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/angleutils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/debug.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/entry_points_enum_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/event_tracer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/gl_enum_utils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/gl_enum_utils_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/mathutil.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/matrix_utils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/platform_helpers.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/string_utils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/system_utils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/tls.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/uniform_type_info_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/utilities.cpp")    
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/system_utils_win.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/system_utils_win32.cpp")  
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/android_util.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/third_party/xxhash/xxhash.c")
+
+  # -------------------------------------------------------
+  # image_util  – carga/conversión de formatos de textura
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/copyimage.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/imageformats.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/loadimage.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/loadimage_astc.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/loadimage_etc.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/loadimage_paletted.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/storeimage_paletted.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/image_util/AstcDecompressorNoOp.cpp")
+
+  # -------------------------------------------------------
+  # gpu_info_util  – detección de GPU (necesario para Display)
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/gpu_info_util/SystemInfo.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/gpu_info_util/SystemInfo_win.cpp")
+  
+  # -------------------------------------------------------
+  # compiler/preprocessor  – preprocesador GLSL
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/DiagnosticsBase.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/DirectiveHandlerBase.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/DirectiveParser.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/Input.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/Lexer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/Macro.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/MacroExpander.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/Preprocessor.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/Token.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/preprocessor_lex_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/preprocessor/preprocessor_tab_autogen.cpp")
+
+  # -------------------------------------------------------
+  # compiler/translator  – compilador de shaders GLSL ES
+  # Núcleo (independiente de backend)
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/BaseTypes.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/BuiltInFunctionEmulator.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/CallDAG.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/CodeGen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/CollectVariables.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Compiler.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ConstantUnion.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Declarator.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Diagnostics.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/DirectiveHandler.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ExtensionBehavior.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/FlagStd140Structs.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/FunctionLookup.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/HashNames.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ImmutableStringBuilder.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ImmutableString_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/InfoSink.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Initialize.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/IntermNode.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/IntermRebuild.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/IsASTDepthBelowLimit.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Name.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Operator.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/OutputTree.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ParseContext.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/PoolAlloc.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/QualifierTypes.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ShaderLang.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ShaderVars.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/SizeClipCullDistance.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Symbol.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/SymbolTable.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/SymbolTable_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/SymbolUniqueId.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/Types.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ValidateAST.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ValidateGlobalInitializer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/ValidateVaryingLocations.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/VariablePacker.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/blocklayout.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/util.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glslang_lex_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glslang_tab_autogen.cpp")
+
+  # tree_util (utilidades de recorrido del AST – compartidas por todos los backends)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/DriverUniform.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/FindFunction.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/FindMain.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/FindPreciseNodes.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/FindSymbolNode.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/IntermNodePatternMatcher.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/IntermNode_util.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/IntermTraverse.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/ReplaceArrayOfMatrixVarying.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/ReplaceClipCullDistanceVariable.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/ReplaceShadowingVariables.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/ReplaceVariable.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/RewriteSampleMaskVariable.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/RunAtTheBeginningOfShader.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_util/RunAtTheEndOfShader.cpp")
+
+  # tree_ops comunes (transformaciones del AST independientes de backend de salida)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/AddDefaultReturnStatements.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/ClampFragDepth.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/ClampIndirectIndices.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/ClampPointSize.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/DeclareAndInitBuiltinsForInstancedMultiview.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/DeclarePerVertexBlocks.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/DeferGlobalInitializers.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/EmulateGLFragColorBroadcast.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/EmulateMultiDrawShaderBuiltins.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/FoldExpressions.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/GatherDefaultUniforms.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/InitializeVariables.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/MonomorphizeUnsupportedFunctions.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/PreTransformTextureCubeGradDerivatives.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/PruneEmptyCases.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/PruneNoOps.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RecordConstantPrecision.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/ReduceInterfaceBlocks.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveArrayLengthMethod.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveAtomicCounterBuiltins.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveDynamicIndexing.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveInactiveInterfaceVariables.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveInvariantDeclaration.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveUnreferencedVariables.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RemoveUnusedFramebufferFetch.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewriteArrayOfArrayOfOpaqueUniforms.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewriteAtomicCounters.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewriteDfdy.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewritePixelLocalStorage.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewriteStructSamplers.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/RewriteTexelFetchOffset.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/ScalarizeVecAndMatConstructorArgs.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/SeparateDeclarations.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/SeparateStructFromUniformDeclarations.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/SimplifyLoopConditions.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/SplitSequenceOperator.cpp")
+
+  # tree_ops/glsl (transformaciones específicas del backend GLSL – Windows y Linux)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/glsl/ExpandFragmentOutputsToVec4.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/glsl/RegenerateStructNames.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/glsl/RewriteRepeatedAssignToSwizzled.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/glsl/UseInterfaceBlockFields.cpp")
+
+  # tree_ops/hlsl (solo Windows – traducción a HLSL/D3D via WGL no aplica, pero
+  # CodeGen.cpp los referencia en tiempo de compilación; incluir si se activa D3D)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/ArrayReturnValueToOutParameter.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/BreakVariableAliasingInInnerLoops.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/ExpandIntegerPowExpressions.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/RecordUniformBlocksWithLargeArrayMember.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/RemoveSwitchFallThrough.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/RewriteElseBlocks.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/RewriteUnaryMinusOperatorInt.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/SeparateArrayConstructorStatements.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/SeparateArrayInitialization.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/SeparateExpressionsReturningArrays.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/UnfoldShortCircuitToIf.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/tree_ops/hlsl/WrapSwitchStatementsInBlocks.cpp")
+
+  # translator/glsl – backend de salida GLSL (Windows WGL + Linux GLX/EGL)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/BuiltInFunctionEmulatorGLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/ExtensionGLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/OutputESSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/OutputGLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/OutputGLSLBase.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/TranslatorESSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/TranslatorGLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glsl/VersionGLSL.cpp")
+
+  # translator/hlsl – backend HLSL (solo Windows con renderer D3D, si aplica)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/ASTMetadataHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/BuiltInFunctionEmulatorHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/ImageFunctionHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/OutputHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/ResourcesHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/StructureHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/TextureFunctionHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/TranslatorHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/UtilsHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/blocklayoutHLSL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/hlsl/emulated_builtin_functions_hlsl_autogen.cpp")
+  
+  # -------------------------------------------------------
+  # libANGLE  – núcleo de la implementación EGL/GLES
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/AttributeMap.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/BlobCache.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Buffer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Caps.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Compiler.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Config.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Context.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ContextMutex.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Context_gles_1_0.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Debug.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Device.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Display.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/EGLSync.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Error.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Fence.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Framebuffer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/FramebufferAttachment.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/GLES1Renderer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/GLES1State.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/GlobalMutex.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/HandleAllocator.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Image.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ImageIndex.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/IndexRangeCache.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/LoggingAnnotator.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/MemoryObject.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/MemoryProgramCache.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/MemoryShaderCache.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Observer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Overlay.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/OverlayWidgets.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Overlay_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Overlay_font_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/PixelLocalStorage.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Platform.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Program.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ProgramExecutable.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ProgramLinkedResources.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ProgramPipeline.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Query.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Renderbuffer.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ResourceManager.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Sampler.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Semaphore.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Shader.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/ShareGroup.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/State.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Stream.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Surface.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Texture.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Thread.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/TransformFeedback.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/Uniform.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/VaryingPacking.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/VertexArray.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/VertexAttribute.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/angletypes.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/es3_copy_conversion_table_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/format_map_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/formatutils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/gles_extensions_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/queryconversions.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/queryutils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationEGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES1.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES2.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES3.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES31.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationES32.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/validationESEXT.cpp")
+
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/capture/FrameCapture_mock.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/capture/serialize_mock.cpp")
+
+  # libANGLE/renderer – capa de abstracción del renderer (base, independiente)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/BufferImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/ContextImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/DeviceImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/DisplayImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/EGLReusableSync.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/EGLSyncImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/Format_table_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/FramebufferImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/ImageImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/ProgramImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/ProgramPipelineImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/QueryImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/RenderbufferImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/ShaderImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/SurfaceImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/TextureImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/TransformFeedbackImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/VertexArrayImpl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/driver_utils.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/load_functions_table_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/renderer_utils.cpp")
+
+  # Windows: archivos dxgi necesarios aunque se use WGL (Display los referencia)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/d3d_format.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/dxgi_format_map_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/dxgi_support_table_autogen.cpp")
+  
+  # renderer/gl – implementación OpenGL nativa (base, común a WGL/GLX/EGL)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/BlitGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/BufferGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ClearMultiviewGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/CompilerGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ContextGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/DispatchTableGL_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/DisplayGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/FenceNVGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/FramebufferGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/FunctionsGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ImageGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/MemoryObjectGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ProgramExecutableGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ProgramGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ProgramPipelineGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/QueryGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/RenderbufferGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/RendererGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/SamplerGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/SemaphoreGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/ShaderGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/StateManagerGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/SurfaceGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/SyncGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/TextureGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/TransformFeedbackGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/VertexArrayGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/formatutilsgl.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/renderergl_utils.cpp")
+
+  # renderer/gl/wgl – backend Windows (WGL sobre OpenGL nativo)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/ContextWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/D3DTextureSurfaceWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/DXGISwapChainWindowSurfaceWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/DisplayWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/FunctionsWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/PbufferSurfaceWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/RendererWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/WindowSurfaceWGL.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libANGLE/renderer/gl/wgl/wgl_utils.cpp")
+  
+  
+  # -------------------------------------------------------
+  # libGLESv2  – entry points de GLES2/3 y EGL
+  # -------------------------------------------------------
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/egl_stubs.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/egl_ext_stubs.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/egl_stubs_getprocaddress_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_egl_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_egl_ext_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_1_0_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_2_0_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_3_0_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_3_1_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_3_2_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/entry_points_gles_ext_autogen.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/global_state.cpp")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libGLESv2/libGLESv2_autogen.cpp")
+ 
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/libEGL/libEGL_autogen.cpp")
+
+  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
+    
+  set_source_files_properties(${GEN_TPL_SOURCES} PROPERTIES COMPILE_FLAGS "/std:c++20")
+
+  set_source_files_properties("${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glslang_lex_autogen.cpp"
+                              "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/compiler/translator/glslang_tab_autogen.cpp"
+                                PROPERTIES COMPILE_FLAGS "/std:c++20 /URESTRICT"
+                              )
+
+  set_source_files_properties("${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/common/third_party/xxhash/xxhash.c" PROPERTIES COMPILE_FLAGS "" )
+  set_source_files_properties("${GEN_DIRECTORY_THIRDPARTYLIBRARIES_ANGLE_SOURCE}/third_party/libXNVCtrl/NVCtrl.c"    PROPERTIES COMPILE_FLAGS "" )
+    
+  GEN_ThirdPartyLibraries_SuppressWarnings(ANGLE ${GEN_TPL_SOURCES})
+
+endif()
+
+
+   
+if(THIRDPARTYLIBRARIES_ZLIB_FEATURE)
+  
   list(APPEND GEN_THIRDPARTY_LIBRARYS ZLib)
 
   set(GEN_TPL_SOURCES)
@@ -30,27 +484,8 @@ if(XFILE_ZIP_FEATURE)
 endif()
 
 
-if(GEN_SOURCES_MODULES_LIST MATCHES "DIOLINUXLedNeoPixelWS2812BRPi.cpp")
 
-  list(APPEND GEN_THIRDPARTY_LIBRARYS RPI_WS281X)
-
-  set(GEN_TPL_SOURCES)
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/mailbox.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/ws2811.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/pwm.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/pcm.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/dma.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/rpihw.c")
-
-  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
-  GEN_ThirdPartyLibraries_SuppressWarnings(RPI_WS281X ${GEN_TPL_SOURCES})
-
-endif()
-
-
-if(GRP_2D_FEATURE)
-
-  # AGG
+if(THIRDPARTYLIBRARIES_AGG_FEATURE)
 
   list(APPEND GEN_THIRDPARTY_LIBRARYS AGG)
 
@@ -83,11 +518,14 @@ if(GRP_2D_FEATURE)
   list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_AGG_FREETYPE}/agg_font_freetype.cpp")
 
   list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
+
   GEN_ThirdPartyLibraries_SuppressWarnings(AGG ${GEN_TPL_SOURCES})
 
+endif()
 
-  # FreeType
-  # FT_MODULES
+
+
+if(THIRDPARTYLIBRARIES_FREETYPE_FEATURE)
 
   list(APPEND GEN_THIRDPARTY_LIBRARYS FreeType)
 
@@ -144,7 +582,8 @@ if(GRP_2D_FEATURE)
 endif()
 
 
-if(GRP_BITMAP_FILE_JPG_FEATURE)
+
+if(THIRDPARTYLIBRARIES_JPEGLIB_FEATURE)
 
   list(APPEND GEN_THIRDPARTY_LIBRARYS JPEGLib)
 
@@ -202,7 +641,8 @@ if(GRP_BITMAP_FILE_JPG_FEATURE)
 endif()
 
 
-if(GRP_BITMAP_FILE_PNG_FEATURE)
+
+if(THIRDPARTYLIBRARIES_LIBPNG_FEATURE)
 
   list(APPEND GEN_THIRDPARTY_LIBRARYS LibPNG)
 
@@ -237,74 +677,8 @@ if(GRP_BITMAP_FILE_PNG_FEATURE)
 endif()
 
 
-if(SCRIPT_LUA_FEATURE)
 
-  #add_definitions(-DLUA_USE_POSIX)
-
-  if(COMPILE_FOR_LINUX)
-
-    add_definitions(-DLUA_USE_MKSTEMP)
-
-  endif()
-
-  list(APPEND GEN_THIRDPARTY_LIBRARYS LUA)
-
-  set(GEN_TPL_SOURCES)
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lapi.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lauxlib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lbaselib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lbitlib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lcode.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lcorolib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lctype.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldblib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldebug.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldo.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldump.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lfunc.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lgc.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/linit.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/liolib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/llex.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lmathlib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lmem.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/loadlib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lobject.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lopcodes.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/loslib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lparser.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstate.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstring.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstrlib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltable.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltablib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltm.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lundump.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lutf8lib.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lvm.c")
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lzio.c")
-
-  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
-  GEN_ThirdPartyLibraries_SuppressWarnings(LUA ${GEN_TPL_SOURCES})
-
-endif()
-
-
-if(SCRIPT_JAVASCRIPT_FEATURE)
-
-  list(APPEND GEN_THIRDPARTY_LIBRARYS DuckTape)
-
-  set(GEN_TPL_SOURCES)
-  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_DUKTAPE}/duktape.c")
-
-  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
-  GEN_ThirdPartyLibraries_SuppressWarnings(DuckTape ${GEN_TPL_SOURCES})
-
-endif()
-
-
-
-if(SND_FEATURE)  
+if(THIRDPARTYLIBRARIES_OPENAL_FEATURE)  
   
   list(APPEND GEN_THIRDPARTY_LIBRARYS OpenAL)
 
@@ -693,18 +1067,92 @@ if(SND_FEATURE)
 endif()
 
 
-if(COMPILE_FOR_WINDOWS)
 
-  if(WINDOWS_STACKWALKER_FEATURE)
+if(THIRDPARTYLIBRARIES_DUKETAPE_FEATURE)
 
-    list(APPEND GEN_THIRDPARTY_LIBRARYS StackWalker)
+  list(APPEND GEN_THIRDPARTY_LIBRARYS DuckTape)
 
-    remove_definitions(-DUNICODE)   
-    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_STACKWALKER}/StackWalker.cpp")
+  set(GEN_TPL_SOURCES)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_DUKTAPE}/duktape.c")
+
+  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
+  GEN_ThirdPartyLibraries_SuppressWarnings(DuckTape ${GEN_TPL_SOURCES})
+
+endif()
+
+
+
+if(THIRDPARTYLIBRARIES_LUA_SCRIPT_FEATURE)
+
+  #add_definitions(-DLUA_USE_POSIX)
+
+  if(COMPILE_FOR_LINUX)
+
+    add_definitions(-DLUA_USE_MKSTEMP)
 
   endif()
 
+  list(APPEND GEN_THIRDPARTY_LIBRARYS LUA)
+
+  set(GEN_TPL_SOURCES)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lapi.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lauxlib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lbaselib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lbitlib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lcode.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lcorolib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lctype.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldblib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldebug.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldo.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ldump.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lfunc.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lgc.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/linit.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/liolib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/llex.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lmathlib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lmem.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/loadlib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lobject.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lopcodes.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/loslib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lparser.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstate.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstring.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lstrlib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltable.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltablib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/ltm.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lundump.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lutf8lib.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lvm.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_LUA}/lzio.c")
+
+  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
+  GEN_ThirdPartyLibraries_SuppressWarnings(LUA ${GEN_TPL_SOURCES})
+
 endif()
+
+
+  
+if(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE)
+
+  list(APPEND GEN_THIRDPARTY_LIBRARYS RPI_WS281X)
+
+  set(GEN_TPL_SOURCES)
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/mailbox.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/ws2811.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/pwm.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/pcm.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/dma.c")
+  list(APPEND GEN_TPL_SOURCES "${GEN_DIRECTORY_THIRDPARTYLIBRARIES_RPI_WS281X}/rpihw.c")
+
+  list(APPEND GEN_SOURCES_MODULES_LIST ${GEN_TPL_SOURCES})
+  GEN_ThirdPartyLibraries_SuppressWarnings(RPI_WS281X ${GEN_TPL_SOURCES})
+
+endif()
+
 
 
 if(GOOGLETEST_FEATURE)

@@ -19,6 +19,20 @@ if(USE_CLANG_CTRL_FEATURE)
   set(CMAKE_C_COMPILER   clang-cl CACHE FILEPATH "" FORCE)
   set(CMAKE_CXX_COMPILER clang-cl CACHE FILEPATH "" FORCE)
 
+  
+  # NOMINMAX: stop <windows.h> (minwindef.h) from defining min()/max() macros,
+  # which collide with std::numeric_limits<>::max(), std::max() and ANGLE.
+  #
+  # NOTE: do NOT define WIN32_LEAN_AND_MEAN here. It makes <windows.h> skip the
+  # "less common" sub-headers (winperf.h, shellapi.h, ...), and GEN relies on
+  # them: XWINDOWSSystem.h uses PERF_DATA_BLOCK / PPERF_OBJECT_TYPE /
+  # PPERF_COUNTER_DEFINITION / PPERF_INSTANCE_DEFINITION (winperf.h) and
+  # MainProcWINDOWS.cpp uses CommandLineToArgvW (shellapi.h). Defining it broke
+  # those translation units. NOMINMAX alone fixes ANGLE without that fallout.
+  add_compile_definitions(NOMINMAX)
+  string(APPEND CMAKE_C_FLAGS   " /DNOMINMAX")
+  string(APPEND CMAKE_CXX_FLAGS " /DNOMINMAX")
+
 
   if(COMPILE_FOR_WINDOWS_INTEL_32)
 
@@ -38,45 +52,6 @@ if(USE_CLANG_CTRL_FEATURE)
 
 else()
 
-  
- # set(CompilerFlags CMAKE_C_FLAGS 
- #                   CMAKE_C_FLAGS_DEBUG 
- #                   CMAKE_C_FLAGS_RELEASE 
- #                   CMAKE_C_FLAGS_MINSIZEREL 
- #                   CMAKE_C_FLAGS_RELWITHDEBINFO
- #
- #                   CMAKE_CXX_FLAGS 
- #                   CMAKE_CXX_FLAGS_DEBUG 
- #                   CMAKE_CXX_FLAGS_RELEASE 
- #                   CMAKE_CXX_FLAGS_MINSIZEREL 
- #                   CMAKE_CXX_FLAGS_RELWITHDEBINFO)
- #
- #
- #
- #               
- # foreach(CompilerFlag ${CompilerFlags})
- #
- #   if(WINDOWS_APPMODE_DINAMIC)  
- #
- #
- #
- #     string(REPLACE "/MT" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
- #
- #   else()
- #
- #
- # 
- #     string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
- #
- #   endif()  
- #
- #
- # 
- #   set(${CompilerFlag} "${${CompilerFlag}}" CACHE STRING "msvc compiler flags"   FORCE)
- #   message(STATUS "[ GEN MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
- #
- # endforeach()
- 
  
   if(WINDOWS_APPMODE_DINAMIC)
 
