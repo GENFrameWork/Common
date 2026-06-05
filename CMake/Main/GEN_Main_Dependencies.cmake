@@ -61,6 +61,7 @@ endif()
 if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
 
   option(DIO_LEDNEOPIXELWS2812B_FEATURE                         "Led Neopixel WS2812B"                                    ON )
+  option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
 
 endif()
 
@@ -1978,12 +1979,5 @@ endif()
 if(SCRIPT_LUA_FEATURE)
 
   option(THIRDPARTYLIBRARIES_LUA_SCRIPT_FEATURE                   "Lua Script Library"                                      ON )
-
-endif()
-
-
-if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
-
-  option(THIRDPARTYLIBRARIES_RPI_WS281X_FEATURE                   "RPI WS281X Library"                                      ON )
 
 endif()

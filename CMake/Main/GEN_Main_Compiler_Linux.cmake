@@ -65,6 +65,7 @@ if(COMPILE_FOR_LINUX_ARM_RPI)
 
     set(CMAKE_C_COMPILER   clang   CACHE FILEPATH "" FORCE)
     set(CMAKE_CXX_COMPILER clang++ CACHE FILEPATH "" FORCE)
+
     set(CMAKE_C_COMPILER_TARGET   arm-linux-gnueabihf)
     set(CMAKE_CXX_COMPILER_TARGET arm-linux-gnueabihf)
 
