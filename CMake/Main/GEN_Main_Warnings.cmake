@@ -596,6 +596,8 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_OpenAL
      # -Wno-unused-parameter
      # -Wno-implicit-fallthrough
      # -Wno-maybe-uninitialized 
+     -Wno-interference-size                                                            # warning: use of 'std::hardware_destructive_interference_size' [-Winterference-size] (common/ringbuffer.h:23, value varies with -mtune/-mcpu; confirmed in Linux GCC build log)
+     -Wno-ignored-attributes                                                           # warning: ignoring attributes on template argument '{anonymous}::v4sf' {aka '__m128'} [-Wignored-attributes] (common/pffft.cpp:1470, al::span<v4sf>; confirmed in Linux GCC build log)
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_OpenAL
@@ -715,6 +717,7 @@ set( GEN_ThirdPartyLibraries_Warnings_MSVC_SQLite )
 
 set( GEN_ThirdPartyLibraries_Warnings_GCC_SQLite
      -Wno-implicit-const-int-float-conversion                                          # warning: implicit conversion from 'i64' to 'double' changes value (confirmed in Linux GCC build log)
+     -Wno-return-local-addr                                                            # warning: function may return address of local variable [-Wreturn-local-addr] (sqlite3.c:81153/120419, intentional 'standin'/'zBase' pattern in SQLite; confirmed in Linux GCC build log)
    )
 
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_SQLite

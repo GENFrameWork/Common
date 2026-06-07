@@ -339,7 +339,35 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   if(COMPILE_FOR_LINUX)
  
     include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Linux.cmake")   
-  
+
+    # ----------------------------------------------------------------
+    # clang correction for Linux + USE_CLANG_CTRL_FEATURE:
+    #
+    # This is the Linux mirror of the Windows clang-cl workaround above.
+    # GEN_Main_Compiler_Linux.cmake switches CMAKE_C_COMPILER / CMAKE_CXX_COMPILER
+    # to clang / clang++ via FORCE when USE_CLANG_CTRL_FEATURE is ON. But that
+    # FORCE happens AFTER project() in the application's CMakeLists.txt has
+    # already probed the default toolchain (gcc/g++) and fixed
+    # CMAKE_C_COMPILER_ID as "GNU". CMake does NOT re-evaluate
+    # CMAKE_C_COMPILER_ID after a FORCE override, so the "Type of compile"
+    # detection block below keeps seeing "GNU" and would wrongly emit
+    # -DCOMPILER_GCC, never set COMPILE_WITH_CLANG, and skip the clang-only
+    # flags (-fdeclspec) — even though the actual binary used IS clang.
+    #
+    # We set the family explicitly here, exactly as Windows does for clang-cl,
+    # and skip the detection block via the NOT COMPILE_WITH_CLANG guard below.
+    # ----------------------------------------------------------------
+    if(USE_CLANG_CTRL_FEATURE)
+
+      unset(COMPILE_WITH_GCC   CACHE)
+      unset(COMPILE_WITH_CLANG CACHE)
+
+      add_definitions(-DCOMPILER_CLANG)
+      option(COMPILE_WITH_CLANG                                  "Compile with CLang (front-end of LLVM)"                  ON )
+      message(STATUS "[ GEN Select for compile: CLang (front-end of LLVM) ${USE_CLANG_CTRL_MSG} ]")
+
+    endif()
+
   endif()
 
  
@@ -377,14 +405,15 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
   #   - MSVC frontend  -> clang-cl  (Windows, /wd flags)
   #   - GNU frontend   -> clang     (Linux, Mac, Android NDK, -Wno flags)
   #
-  # EXCEPTION: Windows + USE_CLANG_CTRL_FEATURE.
-  # In that case CMAKE_C_COMPILER was switched to clang-cl via FORCE after
-  # CMake already probed and fixed CMAKE_C_COMPILER_ID as "MSVC". The
-  # "Compilers Setup" block above detected this and already set
-  # COMPILE_WITH_CLANG_CL, so we skip this block entirely to avoid the
-  # MSVC elseif overwriting the result with COMPILE_WITH_MSVC.
+  # EXCEPTION: forced compiler via USE_CLANG_CTRL_FEATURE.
+  # On Windows + clang-cl, and on Linux + clang, CMAKE_C_COMPILER was switched
+  # via FORCE after CMake already probed and fixed CMAKE_C_COMPILER_ID (as
+  # "MSVC" on Windows, "GNU" on Linux). The "Compilers Setup" block above
+  # detected this and already set COMPILE_WITH_CLANG_CL (Windows) or
+  # COMPILE_WITH_CLANG (Linux), so we skip this block entirely to avoid the
+  # MSVC/GNU elseif overwriting the result.
 
-  if(NOT COMPILE_WITH_CLANG_CL)
+  if(NOT COMPILE_WITH_CLANG_CL AND NOT COMPILE_WITH_CLANG)
 
     if(CMAKE_C_COMPILER_ID MATCHES "^(Clang|AppleClang)$" OR CMAKE_CXX_COMPILER_ID MATCHES "^(Clang|AppleClang)$")
 
