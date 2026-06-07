@@ -1478,7 +1478,7 @@ if(DIO_FEATURE)
 
   if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
 
-    if(COMPILE_FOR_ANDROID64)
+    if(COMPILE_FOR_LINUX_ARM_RPI_64)
 
       option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
 

@@ -195,8 +195,15 @@ endif()
 
 # ----------------------------------------
 # Clang Linux — extra flags
+#
+# NOTE: COMPILE_WITH_CLANG is only set AFTER this file is included (in the
+# "Type of compile" detection block of GEN_Main_Platform-Compiler.cmake), so
+# it is still empty at this point. Key the flag on USE_CLANG_CTRL_FEATURE —
+# the intent flag that drove the clang/clang++ override above — so -fdeclspec
+# is actually applied on the clang path. (-fdeclspec lets clang accept the
+# __declspec(...) extension that GCC tolerates by default.)
 
-if(COMPILE_WITH_CLANG)
+if(USE_CLANG_CTRL_FEATURE OR COMPILE_WITH_CLANG)
 
   #set(CMAKE_C_FLAGS   "-fdeclspec --std=c++0x")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdeclspec")
