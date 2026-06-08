@@ -4,56 +4,6 @@
 # --------------------------------------------------------------------
 
 
-# --------------------------------------------------------------------
-# Helper: gen_filter_supported_compiler_flags
-#
-# Filters a list of warning flags returning in <output_var> ONLY those
-# that the real compiler accepts.
-#
-# Usage:
-#   gen_filter_supported_compiler_flags(<output_var> <C|CXX> <flag1> [flag2...])
-#
-# Examples:
-#   gen_filter_supported_compiler_flags(SAFE_FLAGS C
-#       -Wno-deprecated-non-prototype
-#       -Wno-implicit-function-declaration)
-#
-#   gen_filter_supported_compiler_flags(SAFE_FLAGS CXX
-#       -Wno-deprecated-coroutine)
-#
-# Implementation notes:
-#
-# - This helper does NOT use CMake's check_c_compiler_flag /
-#   check_cxx_compiler_flag because internally those rely on
-#   try_compile, which invokes the full toolchain (preprocessor +
-#   compiler + assembler) and may need the cross-compile sysroot to
-#   resolve basic headers. In containers where the ARM sysroot is
-#   incomplete, try_compile fails even when the flag IS supported,
-#   producing false negatives on cross-compile builds.
-#
-# - Instead, this helper invokes the real compiler in preprocess-only
-#   mode (-E) reading from /dev/null (or NUL on Windows). -E does not
-#   compile, link or require sysroot, so it works identically in
-#   native and cross-compile setups.
-#
-# - Per-compiler behavior:
-#     * Clang/AppleClang: accepts unknown -Wno-* silently by default,
-#       so we add -Werror=unknown-warning-option to force a non-zero
-#       exit code on unsupported flags.
-#     * GCC: rejects unknown -W* flags directly with non-zero exit;
-#       silently ignores unknown -Wno-* flags (which is harmless for
-#       our use case: the suppressor for a warning that doesn't exist
-#       has no effect).
-#     * MSVC / clang-cl: this helper only filters GNU-style flags
-#       (starting with '-'). For MSVC-style /wd flags use them
-#       unconditionally (they have always been part of the cl.exe
-#       interface and don't need feature detection).
-#
-# - Each flag result is cached in CMakeCache as
-#   GEN_HAS_<LANG>_FLAG_<sanitized_flag_name>, so subsequent
-#   reconfigures are instantaneous.
-# --------------------------------------------------------------------
-
 function(gen_filter_supported_compiler_flags OUTPUT_VAR LANG)
 
   # Pick the right compiler binary, language tag and compiler ID
