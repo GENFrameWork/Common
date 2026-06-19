@@ -710,6 +710,16 @@ if(GRP_FEATURE)
   endif()
 
 
+  if(GRP_VECTOR_FILE_SVG_FEATURE)
+
+    add_definitions(-DGRP_VECTOR_FILE_SVG_ACTIVE)
+
+    option(XFILE_XML_FEATURE                                      "XFile XML format"                                        ON )
+    option(GRP_VECTOR_FILE_FEATURE                                "Graphics Vector File"                                    ON )
+
+  endif()
+
+
   if(GRP_VECTOR_FILE_FEATURE)
 
     add_definitions(-DGRP_VECTOR_FILE_ACTIVE)
