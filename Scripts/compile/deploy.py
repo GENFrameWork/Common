@@ -91,7 +91,9 @@ def main(argv: list[str] | None = None) -> int:
                 if cancellation_requested():
                     return cancellation_exit_code()
                 environment['DEBUG_EXTCFG'] = mode_name
-                environment['COMPILED_MODE'] = 'RELEASE' if mode_name == 'RELEASE' else 'DEBUG'
+                # COMPILED_MODE feeds the artifact directory name consumed by
+                # dockerfile_prod (Build/.../<mode>), which is now lowercase.
+                environment['COMPILED_MODE'] = 'release' if mode_name == 'RELEASE' else 'debug'
                 for entry in selected_entries:
                     if cancellation_requested():
                         return cancellation_exit_code()

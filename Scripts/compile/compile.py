@@ -33,6 +33,7 @@ from internal.shared import (
     select_app_entries,
     start_keyboard_cancel_monitor,
     stop_keyboard_cancel_monitor,
+    target_so_path,
     write_log_line,
 )
 
@@ -304,7 +305,8 @@ def run_compile_stage(
 ) -> tuple[int, int]:
     target_lower = platform_lower(target)
     compiled_mode = compiled_mode_from_debug(debug_value)
-    build_dir = app_entry.absolute_path / 'CMake' / 'Build' / so_path / target_lower / compiled_mode
+    target_so = target_so_path(target, so_path)
+    build_dir = app_entry.absolute_path / 'CMake' / 'Build' / target_so / target_lower / compiled_mode
     if stage == 'CMAKE' and build_dir.exists():
         shutil.rmtree(build_dir)
     build_dir.mkdir(parents=True, exist_ok=True)

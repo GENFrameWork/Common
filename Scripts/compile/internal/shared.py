@@ -290,7 +290,28 @@ def platform_lower(target: str) -> str:
 
 
 def compiled_mode_from_debug(debug_value: str) -> str:
-    return 'RELEASE' if debug_value == 'RELEASE' else 'DEBUG'
+    # The script parameter stays uppercase (RELEASE/DEBUG); the directory name
+    # that ends up on disk is lowercase (release/debug).
+    return 'release' if debug_value == 'RELEASE' else 'debug'
+
+
+# Targets that cross-compile to an operating system different from the build
+# host. The build output folder must be named after the *target* OS (the same
+# name CMake exposes through CMAKE_SYSTEM_NAME), not the host where it is built.
+_TARGET_SO_OVERRIDES = {
+    'ANDROID32': 'Android',
+    'ANDROID64': 'Android',
+}
+
+
+def target_so_path(target: str, host_so_path: str) -> str:
+    """Return the OS folder for a target's build output.
+
+    Android cross-builds run on a Windows or Linux host but the artifacts belong
+    to Android, so they live under an 'Android' folder (matching the CMake
+    CMAKE_SYSTEM_NAME). Every native target keeps the host-derived OS folder.
+    """
+    return _TARGET_SO_OVERRIDES.get(target.upper(), host_so_path)
 
 
 def write_log_line(outfile: Path, line: str = '') -> None:
