@@ -57,11 +57,16 @@ if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
 
 endif()
 
-   
+
 if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
 
-  option(DIO_LEDNEOPIXELWS2812B_FEATURE                         "Led Neopixel WS2812B"                                    ON )
-  option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
+  option(DIO_LEDNEOPIXELWS2812B_FEATURE                        "Led Neopixel WS2812B"                                     ON )
+
+  if(COMPILE_FOR_LINUX_ARM_RPI OR COMPILE_FOR_LINUX_ARM_RPI_64)
+
+    option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE             "RPI5 WS281X Library"                                      ON )
+
+  endif()
 
 endif()
 
@@ -634,6 +639,7 @@ if(INP_FEATURE)
   option(GRP_2D_FEATURE                                           "Activate Graphics 2D"                                    ON )  
 
 endif()
+
 
 
 # --------------------------------------------------------------------
@@ -1482,6 +1488,14 @@ if(DIO_FEATURE)
   if(DIO_APPLICATIONUPDATE_FEATURE)
    
     option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )
+
+  endif()
+
+
+  if(DIO_MODBUSELECTRICMETER_FEATURE)
+
+    option(DIO_MODBUSCLIENT_FEATURE                               "DIO ModBus Client"                                       ON )
+    option(DIO_IEC60870_5_FEATURE                                 "DIO IEC 60870-5"                                         ON )
 
   endif()
 
