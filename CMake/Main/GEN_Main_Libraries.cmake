@@ -75,6 +75,13 @@ if(COMPILE_FOR_WINDOWS)
   endif()
 
 
+  if(DIO_WINDOWSWFP_FEATURE)
+
+    list(APPEND GEN_SO_THIRDPARTY_LIBRARYS fwpuclnt)
+
+  endif()
+
+
   if(DATABASES_SQL_MYSQL_FEATURE)    
 
     list(APPEND GEN_SO_THIRDPARTY_LIBRARYS libmysql.lib)

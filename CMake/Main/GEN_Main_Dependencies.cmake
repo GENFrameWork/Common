@@ -806,6 +806,7 @@ if(DIO_FEATURE)
 
   option(DIO_DNSRESOLVER_FEATURE                                  "DNS Resolver"                                            ON )
   option(DIO_NOTIFICATIONS_MANAGER_FEATURE                        "Notifications Manager"                                   ON )
+  option(DIO_WINDOWSWFP_FEATURE                                   "Windows Filtering Platform"                              OFF)
   
   
   if(DIO_APPLICATIONUPDATE_FEATURE) 
@@ -878,6 +879,13 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_DNSRESOLVER_ACTIVE) 
   
     option(DIO_STREAMUDP_FEATURE                                  "Stream UDP"                                              ON )
+
+  endif()
+
+
+  if(DIO_WINDOWSWFP_FEATURE)
+
+    add_definitions(-DDIO_WINDOWSWFP_ACTIVE)
 
   endif()
 
