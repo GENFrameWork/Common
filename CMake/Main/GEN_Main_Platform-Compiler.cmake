@@ -308,20 +308,6 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
     
     include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Windows.cmake") 
 
-    # ----------------------------------------------------------------
-    # clang-cl correction for Windows + USE_CLANG_CTRL_FEATURE:
-    #
-    # GEN_Main_Compiler_Windows.cmake switches CMAKE_C_COMPILER to
-    # clang-cl via FORCE when USE_CLANG_CTRL_FEATURE is ON.
-    # CMake does NOT re-evaluate CMAKE_C_COMPILER_ID after a FORCE
-    # override — it is fixed at the initial probe (cl.exe → "MSVC").
-    # The "Type of compile" block below therefore cannot detect clang-cl
-    # via CMAKE_C_COMPILER_ID and would fall into the MSVC branch.
-    #
-    # We correct this here, before the detection block runs, so that
-    # COMPILE_WITH_CLANG_CL is active and the detection block is
-    # skipped via the NOT COMPILE_WITH_CLANG_CL guard below.
-    # ----------------------------------------------------------------
     if(USE_CLANG_CTRL_FEATURE)
 
       unset(COMPILE_WITH_MSVC     CACHE)
@@ -340,23 +326,6 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
  
     include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Compiler_Linux.cmake")   
 
-    # ----------------------------------------------------------------
-    # clang correction for Linux + USE_CLANG_CTRL_FEATURE:
-    #
-    # This is the Linux mirror of the Windows clang-cl workaround above.
-    # GEN_Main_Compiler_Linux.cmake switches CMAKE_C_COMPILER / CMAKE_CXX_COMPILER
-    # to clang / clang++ via FORCE when USE_CLANG_CTRL_FEATURE is ON. But that
-    # FORCE happens AFTER project() in the application's CMakeLists.txt has
-    # already probed the default toolchain (gcc/g++) and fixed
-    # CMAKE_C_COMPILER_ID as "GNU". CMake does NOT re-evaluate
-    # CMAKE_C_COMPILER_ID after a FORCE override, so the "Type of compile"
-    # detection block below keeps seeing "GNU" and would wrongly emit
-    # -DCOMPILER_GCC, never set COMPILE_WITH_CLANG, and skip the clang-only
-    # flags (-fdeclspec) — even though the actual binary used IS clang.
-    #
-    # We set the family explicitly here, exactly as Windows does for clang-cl,
-    # and skip the detection block via the NOT COMPILE_WITH_CLANG guard below.
-    # ----------------------------------------------------------------
     if(USE_CLANG_CTRL_FEATURE)
 
       unset(COMPILE_WITH_GCC   CACHE)
@@ -391,27 +360,6 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   endif()
 
-
-
-  # --- Type of compile ------------------------------------------------
-
-  # Detection is based on CMAKE_C_COMPILER_ID (set by CMake after probing
-  # the real compiler) rather than the binary filename. This handles all
-  # compiler aliases reliably, including Android NDK toolchain compilers
-  # whose binaries are named e.g. "armv7a-linux-androideabi24-clang" and
-  # would not match a simple STREQUAL "clang" check.
-  #
-  # For Clang we also check CMAKE_C_COMPILER_FRONTEND_VARIANT to tell apart:
-  #   - MSVC frontend  -> clang-cl  (Windows, /wd flags)
-  #   - GNU frontend   -> clang     (Linux, Mac, Android NDK, -Wno flags)
-  #
-  # EXCEPTION: forced compiler via USE_CLANG_CTRL_FEATURE.
-  # On Windows + clang-cl, and on Linux + clang, CMAKE_C_COMPILER was switched
-  # via FORCE after CMake already probed and fixed CMAKE_C_COMPILER_ID (as
-  # "MSVC" on Windows, "GNU" on Linux). The "Compilers Setup" block above
-  # detected this and already set COMPILE_WITH_CLANG_CL (Windows) or
-  # COMPILE_WITH_CLANG (Linux), so we skip this block entirely to avoid the
-  # MSVC/GNU elseif overwriting the result.
 
   if(NOT COMPILE_WITH_CLANG_CL AND NOT COMPILE_WITH_CLANG)
 

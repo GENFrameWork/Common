@@ -57,11 +57,16 @@ if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
 
 endif()
 
-   
+
 if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
 
-  option(DIO_LEDNEOPIXELWS2812B_FEATURE                         "Led Neopixel WS2812B"                                    ON )
-  option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
+  option(DIO_LEDNEOPIXELWS2812B_FEATURE                        "Led Neopixel WS2812B"                                     ON )
+
+  if(COMPILE_FOR_LINUX_ARM_RPI OR COMPILE_FOR_LINUX_ARM_RPI_64)
+
+    option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE             "RPI5 WS281X Library"                                      ON )
+
+  endif()
 
 endif()
 
@@ -636,6 +641,7 @@ if(INP_FEATURE)
 endif()
 
 
+
 # --------------------------------------------------------------------
 # Graphics 
 
@@ -705,6 +711,16 @@ if(GRP_FEATURE)
     add_definitions(-DGRP_VECTOR_FILE_DXF_ACTIVE)
   
     option(XFILE_TXT_FEATURE                                      "Activate XFile Text format"                              ON )
+    option(GRP_VECTOR_FILE_FEATURE                                "Graphics Vector File"                                    ON )
+
+  endif()
+
+
+  if(GRP_VECTOR_FILE_SVG_FEATURE)
+
+    add_definitions(-DGRP_VECTOR_FILE_SVG_ACTIVE)
+
+    option(XFILE_XML_FEATURE                                      "XFile XML format"                                        ON )
     option(GRP_VECTOR_FILE_FEATURE                                "Graphics Vector File"                                    ON )
 
   endif()
@@ -790,6 +806,7 @@ if(DIO_FEATURE)
 
   option(DIO_DNSRESOLVER_FEATURE                                  "DNS Resolver"                                            ON )
   option(DIO_NOTIFICATIONS_MANAGER_FEATURE                        "Notifications Manager"                                   ON )
+  option(DIO_WINDOWSWFP_FEATURE                                   "Windows Filtering Platform"                              OFF)
   
   
   if(DIO_APPLICATIONUPDATE_FEATURE) 
@@ -862,6 +879,13 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_DNSRESOLVER_ACTIVE) 
   
     option(DIO_STREAMUDP_FEATURE                                  "Stream UDP"                                              ON )
+
+  endif()
+
+
+  if(DIO_WINDOWSWFP_FEATURE)
+
+    add_definitions(-DDIO_WINDOWSWFP_ACTIVE)
 
   endif()
 
@@ -1472,6 +1496,14 @@ if(DIO_FEATURE)
   if(DIO_APPLICATIONUPDATE_FEATURE)
    
     option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )
+
+  endif()
+
+
+  if(DIO_MODBUSELECTRICMETER_FEATURE)
+
+    option(DIO_MODBUSCLIENT_FEATURE                               "DIO ModBus Client"                                       ON )
+    option(DIO_IEC60870_5_FEATURE                                 "DIO IEC 60870-5"                                         ON )
 
   endif()
 

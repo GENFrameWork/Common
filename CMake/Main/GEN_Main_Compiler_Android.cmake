@@ -11,36 +11,26 @@ add_definitions(-DFT2_BUILD_LIBRARY)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# IMPORTANT:
-# This module is included from GEN_Main_Platform-Compiler.cmake before
-# GEN_Main_SetDirectories.cmake. Therefore GEN_DIRECTORY_THIRDPARTYLIBRARIES
-# is not guaranteed to exist yet here.
-#
-# Android toolchain selection must already have happened before project()
-# (from Visual Studio / presets / command line). Here we only need to locate
-# the NDK robustly for headers, native_app_glue and related paths.
-
 set(GEN_ANDROID_NDK_ROOT "")
 
 set(CMAKE_SYSTEM_NAME Android)
 set(ANDROID_PLATFORM android-24)
 set(ANDROID_STL c++_shared)
 
-# 1) Prefer the toolchain file that was actually passed to CMake.
+
 if(DEFINED CMAKE_TOOLCHAIN_FILE AND NOT "${CMAKE_TOOLCHAIN_FILE}" STREQUAL "" AND EXISTS "${CMAKE_TOOLCHAIN_FILE}")
   get_filename_component(_GEN_ANDROID_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_FILE}" DIRECTORY)
   get_filename_component(GEN_ANDROID_NDK_ROOT "${_GEN_ANDROID_TOOLCHAIN_DIR}/../.." ABSOLUTE)
 endif()
 
-# 2) Fallback to the repository-relative location.
+
 if("${GEN_ANDROID_NDK_ROOT}" STREQUAL "")
   if(DEFINED GEN_DIRECTORY AND NOT "${GEN_DIRECTORY}" STREQUAL "")
     get_filename_component(GEN_ANDROID_NDK_ROOT "${GEN_DIRECTORY}/ThirdPartyLibraries/android-ndk" ABSOLUTE)
   endif()
 endif()
 
-# 3) Last fallback: if GEN_DIRECTORY_THIRDPARTYLIBRARIES is already available,
-# use it. This keeps compatibility if include order changes in the future.
+
 if("${GEN_ANDROID_NDK_ROOT}" STREQUAL "")
   if(DEFINED GEN_DIRECTORY_THIRDPARTYLIBRARIES AND NOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}" STREQUAL "")
     get_filename_component(GEN_ANDROID_NDK_ROOT "${GEN_DIRECTORY_THIRDPARTYLIBRARIES}/android-ndk" ABSOLUTE)
@@ -77,9 +67,6 @@ if(NOT DEFINED ANDROID_PLATFORM OR "${ANDROID_PLATFORM}" STREQUAL "")
   set(ANDROID_PLATFORM android-24)
 endif()
 
-# ANDROID_PLATFORM controls the minimum native Android API level only.
-# APK min/target SDK values are resolved separately by the Android package
-# module so targetSdkVersion can move independently from the native floor.
 if(NOT DEFINED GEN_ANDROID_MIN_SDK OR "${GEN_ANDROID_MIN_SDK}" STREQUAL "")
   string(REGEX REPLACE "^android-" "" GEN_ANDROID_MIN_SDK "${ANDROID_PLATFORM}")
 endif()

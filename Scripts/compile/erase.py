@@ -98,6 +98,13 @@ def main(argv: list[str] | None = None) -> int:
                     if build_root.exists():
                         removed_items.append(so_path)
                         shutil.rmtree(build_root)
+                    # Android cross-builds live in a sibling 'Android' folder
+                    # (named after the target OS, not the build host), so a full
+                    # erase must clean it too.
+                    android_build_root = cmake_directory / 'Build' / 'Android'
+                    if android_build_root != build_root and android_build_root.exists():
+                        removed_items.append('Android')
+                        shutil.rmtree(android_build_root)
                 else:
                     for platform_name in platforms:
                         if cancellation_requested():
