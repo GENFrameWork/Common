@@ -670,6 +670,15 @@ if(GRP_FEATURE)
   endif()
 
 
+  if(GRP_STATISTICSCHARS_FEATURE)
+
+    add_definitions(-DGRP_STATISTICSCHARS_ACTIVE)
+
+    option(GRP_VECTOR_FILE_SVG_FEATURE                            "Graphics Vector File SVG"                                ON )
+
+  endif()
+
+
   if(GRP_BITMAP_FILE_BMP_FEATURE)    
     
     add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
@@ -758,11 +767,11 @@ if(GRP_FEATURE)
     add_definitions(-DGRP_OPENGL_ES_ACTIVE)
     add_definitions(-DGRP_OPENGL_ES_VERSION=30)
     
-    # ANGLE is only needed on Windows (translates GLES → D3D11).
-    # On Linux / Raspberry Pi → system Mesa provides EGL + GLESv2 natively.
-    # On Android → the NDK provides EGL + GLESv3 natively.
+   
     if(COMPILE_FOR_WINDOWS)
+
       option(THIRDPARTYLIBRARIES_ANGLE_FEATURE                        "Angle OpenGL ES Library (Windows only)"                  ON )
+    
     endif()
     
   endif()
