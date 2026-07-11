@@ -670,6 +670,16 @@ if(GRP_FEATURE)
   endif()
 
 
+  if(GRP_SCREEN_CUSTOMCHROMES_FEATURE)
+
+    add_definitions(-DGRP_SCREEN_CUSTOMCHROMES_ACTIVE)
+
+    option(USERINTERFACE_FEATURE                                  "User Interace"                                           ON )
+    option(GRP_VECTOR_FILE_SVG_FEATURE                            "Graphics Vector File SVG"                                ON )
+
+  endif()
+
+
   if(GRP_STATISTICSCHARS_FEATURE)
 
     add_definitions(-DGRP_STATISTICSCHARS_ACTIVE)
