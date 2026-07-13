@@ -453,12 +453,15 @@ if(USERINTERFACE_FEATURE)
   option(XFILE_XML_FEATURE                                        "XFile XML format"                                        ON )
   option(XFILE_ZIP_FEATURE                                        "XFile Zip format"                                        ON )  
   
-  option(GRP_FEATURE                                              "Graphics"                                                ON )
+  option(GRP_FEATURE                                              "Graphics"                                                ON )  
   option(GRP_BITMAP_FILE_FEATURE                                  "Graphics Bitmap Files"                                   ON )
   option(GRP_BITMAP_FILE_BMP_FEATURE                              "Graphics Bitmap File BMP"                                ON )
   option(GRP_BITMAP_FILE_JPG_FEATURE                              "Graphics Bitmap File JPG"                                ON )
   option(GRP_BITMAP_FILE_PNG_FEATURE                              "Graphics Bitmap File PNG"                                ON )
   option(GRP_BITMAP_FILE_TGA_FEATURE                              "Graphics Bitmap File TGA"                                ON )
+  option(GRP_VECTOR_FILE_FEATURE                                  "Graphics Vector File"                                    ON )       
+  option(GRP_VECTOR_FILE_DXF_FEATURE                              "Graphics Vector File DXF"                                ON )   
+  option(GRP_VECTOR_FILE_SVG_FEATURE                              "Graphics Vector File SVG"                                ON )   
  
 endif()
 
