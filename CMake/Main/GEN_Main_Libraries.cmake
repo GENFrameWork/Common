@@ -209,6 +209,18 @@ if(COMPILE_FOR_LINUX)
 
     endif()
 
+    if(GEN_LINUX_WAYLAND_ACTIVE)
+
+      list(APPEND GEN_SO_THIRDPARTY_LIBRARYS wayland-client)
+      list(APPEND GEN_SO_THIRDPARTY_LIBRARYS wayland-cursor)
+      list(APPEND GEN_SO_THIRDPARTY_LIBRARYS xkbcommon)
+
+      if(GRP_OPENGL_FEATURE)
+        list(APPEND GEN_SO_THIRDPARTY_LIBRARYS wayland-egl)
+      endif()
+
+    endif()
+
   endif()
 
 

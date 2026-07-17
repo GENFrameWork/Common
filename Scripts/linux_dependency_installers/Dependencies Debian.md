@@ -68,6 +68,10 @@
     libxrandr-dev                             X11 RandR extension
     libegl1-mesa-dev                          OpenGL ES / EGL
     libgles2-mesa-dev                         OpenGL ES 2
+    libwayland-dev                            Wayland client + wayland-scanner (LINUX_WAYLAND_FEATURE)
+    libwayland-egl1-mesa                      Wayland EGL window (wl_egl_window, needs GRP_OPENGL_FEATURE)
+    wayland-protocols                         xdg-shell.xml and other stable/unstable protocol descriptions
+    libxkbcommon-dev                          Keymap/keysym translation for wl_keyboard (replaces Xlib built-in tables)
 
 
 #### Boot ###

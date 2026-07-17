@@ -59,6 +59,11 @@ apt-get install libx11-dev -y
 apt-get install libxext-dev -y
 apt-get install libxxf86vm-dev -y
 apt-get install libxrandr-dev -y
+echo "Wayland"
+apt-get install libwayland-dev -y
+apt-get install libwayland-egl1-mesa -y
+apt-get install wayland-protocols -y
+apt-get install libxkbcommon-dev -y
 echo "OpenGL ES"
 apt-get install libegl1-mesa-dev -y
 apt-get install libgles2-mesa-dev -y

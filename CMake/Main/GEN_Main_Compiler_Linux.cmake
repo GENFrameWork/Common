@@ -4,9 +4,56 @@
 # --------------------------------------------------------------------
 
 
-if(LINUX_X11_FEATURE)    
 
-  add_definitions(-DLINUX_X11_ACTIVE) 	
+if(LINUX_X11_FEATURE)
+
+  add_definitions(-DLINUX_X11_ACTIVE)
+
+endif()
+
+
+if(LINUX_WAYLAND_FEATURE)
+
+  find_package(PkgConfig QUIET)
+
+  set(GEN_LINUX_WAYLAND_DEPS_FOUND FALSE)
+
+  if(PKG_CONFIG_FOUND)
+
+    pkg_check_modules(GEN_WAYLAND_CLIENT     QUIET wayland-client)
+    pkg_check_modules(GEN_WAYLAND_CURSOR     QUIET wayland-cursor)
+    pkg_check_modules(GEN_WAYLAND_PROTOCOLS  QUIET wayland-protocols)
+    pkg_check_modules(GEN_XKBCOMMON          QUIET xkbcommon)
+
+    find_program(GEN_WAYLAND_SCANNER wayland-scanner)
+
+    if(GEN_WAYLAND_CLIENT_FOUND AND GEN_WAYLAND_CURSOR_FOUND AND GEN_WAYLAND_PROTOCOLS_FOUND AND GEN_XKBCOMMON_FOUND AND GEN_WAYLAND_SCANNER)
+
+      if(GRP_OPENGL_FEATURE)
+
+        pkg_check_modules(GEN_WAYLAND_EGL QUIET wayland-egl)
+
+        if(GEN_WAYLAND_EGL_FOUND)
+          set(GEN_LINUX_WAYLAND_DEPS_FOUND TRUE)
+        endif()
+
+      else()
+
+        set(GEN_LINUX_WAYLAND_DEPS_FOUND TRUE)
+
+      endif()
+
+    endif()
+
+  endif()
+
+  if(GEN_LINUX_WAYLAND_DEPS_FOUND)
+    add_definitions(-DLINUX_WAYLAND_ACTIVE)
+    set(GEN_LINUX_WAYLAND_ACTIVE TRUE)
+    message(STATUS "[ GEN Linux Wayland dependencies found -- LINUX_WAYLAND_ACTIVE enabled ]")
+  else()
+    message(STATUS "[ GEN Linux Wayland dependencies NOT found ... -- LINUX_WAYLAND_ACTIVE disabled, X11/FrameBuffer paths unaffected ]")
+  endif()
 
 endif()
 
