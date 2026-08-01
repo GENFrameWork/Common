@@ -13,6 +13,7 @@
 "../../../Examples/Graphics/Canvas2D"             "canvas2d"                "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
 "../../../Examples/Graphics/UI_Options"           "ui_options"              "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
 "../../../Examples/Graphics/UI_Message"           "ui_message"              "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
+"../../../Examples/Graphics/UI_System"            "ui_system"               "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
 "../../../Examples/Graphics/StaticticsCharts"     "staticticscharts"        "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
 "../../../Examples/Graphics/WindowChromes"        "windowchromes"           "INTEL32 INTEL64 ARM64 RPI64 ANDROID32 ANDROID64"
 "../../../Tests/DevTestsConsole"                  "devtestsconsole"         "INTEL32 INTEL64 ARM64 RPI64"
