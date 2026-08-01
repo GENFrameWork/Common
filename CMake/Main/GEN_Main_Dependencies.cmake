@@ -521,6 +521,8 @@ if(SCRIPT_FEATURE)
     option(GRP_FEATURE                                            "Graphics"                                                ON )
     option(GRP_2D_FEATURE                                         "Activate Graphics 2D"                                    ON )
     option(GRP_BITMAP_FILE_FEATURE                                "Graphics Files Bitmap Type"                              ON )
+
+    option(APPFLOW_GRAPHICS_FEATURE                               "Application Flow Graphics"                               ON ) 
     
   endif()
 
