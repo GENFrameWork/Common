@@ -70,9 +70,13 @@ endif()
 
 # --------------------------------------------------------------------
 if(COMPILE_FOR_LINUX)
- 
-  include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Sources_Linux.cmake")   
-  
+
+  # Must run before GEN_Main_Sources_Linux.cmake: generates (or, on missing dependencies,
+  # cleanly disables) the xdg-shell protocol sources that the Wayland screen module needs.
+  include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_WaylandProtocols.cmake")
+
+  include("${GEN_DIRECTORY}/Common/CMake/Main/GEN_Main_Sources_Linux.cmake")
+
 endif()
 
 

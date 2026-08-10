@@ -58,12 +58,11 @@ if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
 endif()
 
 
-if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
-
-  option(DIO_LEDNEOPIXELWS2812B_FEATURE                        "Led Neopixel WS2812B"                                     ON )
+if(DIO_LEDNEOPIXELWS2812B_FEATURE)
 
   if(COMPILE_FOR_LINUX_ARM_RPI OR COMPILE_FOR_LINUX_ARM_RPI_64)
 
+    option(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE                 "Led Neopixel WS2812B Raspberry Pi 5"                      ON )
     option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE             "RPI5 WS281X Library"                                      ON )
 
   endif()
@@ -453,12 +452,15 @@ if(USERINTERFACE_FEATURE)
   option(XFILE_XML_FEATURE                                        "XFile XML format"                                        ON )
   option(XFILE_ZIP_FEATURE                                        "XFile Zip format"                                        ON )  
   
-  option(GRP_FEATURE                                              "Graphics"                                                ON )
+  option(GRP_FEATURE                                              "Graphics"                                                ON )  
   option(GRP_BITMAP_FILE_FEATURE                                  "Graphics Bitmap Files"                                   ON )
   option(GRP_BITMAP_FILE_BMP_FEATURE                              "Graphics Bitmap File BMP"                                ON )
   option(GRP_BITMAP_FILE_JPG_FEATURE                              "Graphics Bitmap File JPG"                                ON )
   option(GRP_BITMAP_FILE_PNG_FEATURE                              "Graphics Bitmap File PNG"                                ON )
   option(GRP_BITMAP_FILE_TGA_FEATURE                              "Graphics Bitmap File TGA"                                ON )
+  option(GRP_VECTOR_FILE_FEATURE                                  "Graphics Vector File"                                    ON )       
+  option(GRP_VECTOR_FILE_DXF_FEATURE                              "Graphics Vector File DXF"                                ON )   
+  option(GRP_VECTOR_FILE_SVG_FEATURE                              "Graphics Vector File SVG"                                ON )   
  
 endif()
 
@@ -518,6 +520,8 @@ if(SCRIPT_FEATURE)
     option(GRP_FEATURE                                            "Graphics"                                                ON )
     option(GRP_2D_FEATURE                                         "Activate Graphics 2D"                                    ON )
     option(GRP_BITMAP_FILE_FEATURE                                "Graphics Files Bitmap Type"                              ON )
+
+    option(APPFLOW_GRAPHICS_FEATURE                               "Application Flow Graphics"                               ON ) 
     
   endif()
 
@@ -670,6 +674,25 @@ if(GRP_FEATURE)
   endif()
 
 
+  if(GRP_SCREEN_CUSTOMCHROMES_FEATURE)
+
+    add_definitions(-DGRP_SCREEN_CUSTOMCHROMES_ACTIVE)
+
+    option(USERINTERFACE_FEATURE                                  "User Interace"                                           ON )
+    option(GRP_VECTOR_FILE_SVG_FEATURE                            "Graphics Vector File SVG"                                ON )
+
+  endif()
+
+
+  if(GRP_STATISTICSCHARS_FEATURE)
+
+    add_definitions(-DGRP_STATISTICSCHARS_ACTIVE)
+
+    option(GRP_VECTOR_FILE_SVG_FEATURE                            "Graphics Vector File SVG"                                ON )
+
+  endif()
+
+
   if(GRP_BITMAP_FILE_BMP_FEATURE)    
     
     add_definitions(-DGRP_BITMAP_FILE_BMP_ACTIVE)    
@@ -758,11 +781,11 @@ if(GRP_FEATURE)
     add_definitions(-DGRP_OPENGL_ES_ACTIVE)
     add_definitions(-DGRP_OPENGL_ES_VERSION=30)
     
-    # ANGLE is only needed on Windows (translates GLES → D3D11).
-    # On Linux / Raspberry Pi → system Mesa provides EGL + GLESv2 natively.
-    # On Android → the NDK provides EGL + GLESv3 natively.
+   
     if(COMPILE_FOR_WINDOWS)
+
       option(THIRDPARTYLIBRARIES_ANGLE_FEATURE                        "Angle OpenGL ES Library (Windows only)"                  ON )
+    
     endif()
     
   endif()
@@ -850,7 +873,7 @@ if(DIO_FEATURE)
   endif() 
   
   
-  if(DIOPING_NATIVE_FEATURE)  
+  if(DIO_PING_NATIVE_FEATURE)  
   
     add_definitions(-DDIOPING_NATIVE_ACTIVE)  
   
@@ -1507,16 +1530,6 @@ if(DIO_FEATURE)
 
   endif()
 
-
-  if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
-
-    if(COMPILE_FOR_LINUX_ARM_RPI_64)
-
-      option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
-
-    endif()
-
-  endif()
 
 endif()
 

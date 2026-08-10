@@ -133,6 +133,27 @@ if(ISFOUND)
 endif()
 
 
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "wayland-client")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libwayland-client0)
+endif()
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "wayland-cursor")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libwayland-cursor0)
+endif()
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "wayland-egl")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libwayland-egl1)
+endif()
+
+ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "xkbcommon")
+if(ISFOUND)
+  list(APPEND DOCKER_PACKAGES libxkbcommon0)
+endif()
+
+
 ListContainsSubValue(ISFOUND GEN_SO_THIRDPARTY_LIBRARYS "dbus-1")
 if(ISFOUND)
   list(APPEND DOCKER_PACKAGES libdbus-1-3)

@@ -312,6 +312,10 @@ set( GEN_ThirdPartyLibraries_Warnings_MSVC_ZLib
      # /wd4245                                                                         # warning C4245: conversion from 'int' to 'unsigned int', signed/unsigned mismatch
    )
 
+# Note: -Wdeprecated-non-prototype is a Clang-only diagnostic, GCC never emits it (its equivalent
+# would be -Wold-style-definition, which is not enabled by default). It is left declared because
+# GCC does not diagnose an unknown -Wno-* unless another diagnostic is produced in the same unit,
+# so it is inert here; if some GCC version ever complains, comment it out.
 set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
      -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23 (GCC 11+, confirmed in Linux build log)
      # -Wno-implicit-function-declaration
@@ -320,8 +324,15 @@ set( GEN_ThirdPartyLibraries_Warnings_GCC_ZLib
 # Note: -Wno-deprecated-non-prototype is used directly (not via gen_filter_supported_compiler_flags)
 # because NDK Clang 18 fails the probe when -Werror=unknown-warning-option is injected, yet the
 # warning [-Wdeprecated-non-prototype] IS emitted at build time — confirming the flag exists.
-# A -Wno-* flag for an unknown warning is silently ignored by Clang, so this is always safe.
+#
+# CAREFUL: a -Wno-* flag for an unknown warning is NOT silently ignored by Clang, it emits
+# "warning: unknown warning option '-Wno-xxx' [-Wunknown-warning-option]" once per compilation unit.
+# -Wdeprecated-non-prototype only exists from Clang 15 onwards, so on older toolchains
+# (Raspberry Pi 64 / Debian Clang 14, for example) every ZLib .c produced a spurious warning.
+# -Wno-unknown-warning-option (declared FIRST, so it is already active when the driver validates
+# the rest of the options) silences exactly that meta-warning, and only for the ZLib sources.
 set( GEN_ThirdPartyLibraries_Warnings_CLANG_ZLib
+     -Wno-unknown-warning-option                                                       # Clang < 15 does not know -Wdeprecated-non-prototype: avoids [-Wunknown-warning-option]
      -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23 (confirmed in build logs)
      # -Wno-implicit-function-declaration
    )
@@ -331,6 +342,7 @@ set( GEN_ThirdPartyLibraries_Warnings_CLANG_CL_ZLib
      # /wd4127                                                                         # warning C4127: conditional expression is constant
      # /wd4245                                                                         # warning C4245: conversion signed/unsigned mismatch
      # -Wno-implicit-function-declaration
+     -Wno-unknown-warning-option                                                       # Clang-CL < 15 does not know -Wdeprecated-non-prototype: avoids [-Wunknown-warning-option]
      -Wno-deprecated-non-prototype                                                     # warning: function definition without a prototype deprecated in C23
    )
 
