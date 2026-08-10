@@ -58,12 +58,11 @@ if(COMPILE_FOR_ANDROID32 OR COMPILE_FOR_ANDROID64)
 endif()
 
 
-if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
-
-  option(DIO_LEDNEOPIXELWS2812B_FEATURE                        "Led Neopixel WS2812B"                                     ON )
+if(DIO_LEDNEOPIXELWS2812B_FEATURE)
 
   if(COMPILE_FOR_LINUX_ARM_RPI OR COMPILE_FOR_LINUX_ARM_RPI_64)
 
+    option(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE                 "Led Neopixel WS2812B Raspberry Pi 5"                      ON )
     option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE             "RPI5 WS281X Library"                                      ON )
 
   endif()
@@ -874,7 +873,7 @@ if(DIO_FEATURE)
   endif() 
   
   
-  if(DIOPING_NATIVE_FEATURE)  
+  if(DIO_PING_NATIVE_FEATURE)  
   
     add_definitions(-DDIOPING_NATIVE_ACTIVE)  
   
@@ -1531,16 +1530,6 @@ if(DIO_FEATURE)
 
   endif()
 
-
-  if(DIO_LEDNEOPIXELWS2812B_RPI5_FEATURE)
-
-    if(COMPILE_FOR_LINUX_ARM_RPI_64)
-
-      option(THIRDPARTYLIBRARIES_RPI5_WS281X_FEATURE                "RPI5 WS281X Library"                                     ON )
-
-    endif()
-
-  endif()
 
 endif()
 
