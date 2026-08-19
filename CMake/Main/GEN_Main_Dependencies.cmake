@@ -357,7 +357,7 @@ if(APPFLOW_CFG_REMOTEFILE_FEATURE               OR
   
     add_definitions(-DAPPFLOW_CFG_INTERNETSERVICES_ACTIVE)  
   
-    option(HASH_FEATURE                                           "HASH"                                                    ON )
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(APPFLOW_INTERNETSERVICES_FEATURE                       "Application Flow Internet Services"                      ON )
     option(XFILE_CFG_FEATURE                                      "XFile Config format"                                     ON )
     option(DIO_CHECKCONNECTIONS_FEATURE                           "Check Connections"                                       ON )
@@ -1169,7 +1169,7 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_WEBSERVER_ACTIVE) 
   
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
-    option(HASH_FEATURE                                           "HASH"                                                    ON )
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )
     option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )
       
@@ -1192,10 +1192,13 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_STREAMTLS_ACTIVE) 
   
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
-    option(HASH_FEATURE                                           "Hash"                                                    ON )
-    option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
-    option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        ON )
-  
+
+    option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               ON )
+    option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
+    option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
+    option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
+    option(CIPHER_SYMMETRIC_HKDF_FEATURE                          "Cipher Symetric HKDF"                                    ON )
+    
   endif() 
   
   
@@ -1473,7 +1476,7 @@ if(DIO_FEATURE)
 
       add_definitions(-DDIO_STREAMUDP_ACTIVE)
 
-      option(HASH_FEATURE                                         "HASH"                                                    ON )
+      option(HASH_FEATURE                                         "Hash"                                                    ON )
       option(HASH_CRC32_FEATURE                                   "Hash CRC32"                                              ON )
 
     endif()
@@ -1869,7 +1872,14 @@ if(HASH_FEATURE)
 
     add_definitions(-DHASH_WHIRLPOOL_ACTIVE)
   
-  endif()   
+  endif() 
+  
+  
+  if(HASH_HMAC_FEATURE)
+
+    add_definitions(-DHASH_HMAC_ACTIVE)
+
+  endif()
 
 endif()
 
@@ -1891,6 +1901,13 @@ if(CIPHER_SYMMETRIC_FEATURE)
   
   endif()
 
+  if(CIPHER_SYMMETRIC_AESGCM_FEATURE)
+
+    add_definitions(-DCIPHER_SYMMETRIC_AESGCM_ACTIVE)
+
+    option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
+
+  endif()
 
   if(CIPHER_SYMMETRIC_BLOWFISH_FEATURE)
 
@@ -1900,7 +1917,17 @@ if(CIPHER_SYMMETRIC_FEATURE)
 
 endif()
 
+  
+if(CIPHER_HKDF_FEATURE)
 
+  add_definitions(-DCIPHER_HKDF_ACTIVE)
+
+  option(HASH_FEATURE                                           "Hash"                                                    ON )
+  option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
+
+endif()
+  
+  
 if(CIPHER_ASYMMETRIC_FEATURE)  
  
   add_definitions(-DCIPHER_ASYMMETRIC_ACTIVE)
