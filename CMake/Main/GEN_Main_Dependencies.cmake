@@ -1197,9 +1197,17 @@ if(DIO_FEATURE)
     option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
     option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
     option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
-    option(CIPHER_SYMMETRIC_HKDF_FEATURE                          "Cipher Symetric HKDF"                                    ON )
-    
-  endif() 
+    option(CIPHER_HKDF_FEATURE                                    "Cipher HKDF"                                             ON )
+    option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
+    option(CIPHER_ASYMMETRIC_X25519_FEATURE                       "Cipher Asimetric ECDSA X25519"                           ON )
+    option(XASN1_FEATURE                                          "ASN.1 functions"                                         ON )
+    option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       ON )
+
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
+    option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
+    option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        ON )
+
+  endif()
   
   
   if(DIO_COREPROTOCOL_FEATURE)  
