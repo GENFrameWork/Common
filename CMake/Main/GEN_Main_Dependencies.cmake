@@ -1154,14 +1154,16 @@ if(DIO_FEATURE)
   endif()
 
 
-  if(DIO_WEBCLIENT_FEATURE) 
+  if(DIO_WEBCLIENT_FEATURE)
 
     add_definitions(-DDIO_WEBCLIENT_ACTIVE)
 
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
     option(HASH_MD5_FEATURE                                       "Hash MD5"                                                ON )
-  
-  endif() 
+    option(COMPRESS_GZ_FEATURE                                    "Compres GZ"                                              ON )
+    option(COMPRESS_DEFLATE_FEATURE                               "Compress Deflate (raw/zlib) for HTTP Content-Encoding"  ON )
+
+  endif()
   
   
   if(DIO_WEBSERVER_FEATURE)   
@@ -2000,10 +2002,19 @@ if(COMPRESS_ZIP_FEATURE)
 endif() 
   
   
-if(COMPRESS_GZ_FEATURE) 
-  
-  add_definitions(-DCOMPRESS_GZ_ACTIVE) 
-  
+if(COMPRESS_GZ_FEATURE)
+
+  add_definitions(-DCOMPRESS_GZ_ACTIVE)
+
+  option(COMPRESS_FEATURE                                         "Compress"                                                ON )
+
+endif()
+
+
+if(COMPRESS_DEFLATE_FEATURE)
+
+  add_definitions(-DCOMPRESS_DEFLATE_ACTIVE)
+
   option(COMPRESS_FEATURE                                         "Compress"                                                ON )
 
 endif()
