@@ -1159,9 +1159,10 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_WEBCLIENT_ACTIVE)
 
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
+    option(DIO_STREAMTLS_FEATURE                                  "Data Input/Output Stream TLS"                            ON )
     option(HASH_MD5_FEATURE                                       "Hash MD5"                                                ON )
     option(COMPRESS_GZ_FEATURE                                    "Compres GZ"                                              ON )
-    option(COMPRESS_DEFLATE_FEATURE                               "Compress Deflate (raw/zlib) for HTTP Content-Encoding"  ON )
+    option(COMPRESS_DEFLATE_FEATURE                               "Compress Deflate (raw/zlib) for HTTP Content-Encoding"   ON )
 
   endif()
   
@@ -2006,6 +2007,7 @@ if(COMPRESS_GZ_FEATURE)
 
   add_definitions(-DCOMPRESS_GZ_ACTIVE)
 
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
   option(COMPRESS_FEATURE                                         "Compress"                                                ON )
 
 endif()
