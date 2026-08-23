@@ -944,6 +944,16 @@ if(DIO_FEATURE)
   endif()
 
 
+  # Shared by both DIOStreamTLS12HandshakeClient and DIOStreamTLS13HandshakeClient (best-effort completion of an
+  # incomplete certificate chain via AuthorityInfoAccess) -- built whenever either handshake client is, since
+  # DIO_STREAMTLS12_FEATURE can be toggled independently of DIO_STREAMTLS_FEATURE (see the note above).
+  if(DIO_STREAMTLS_FEATURE OR DIO_STREAMTLS12_FEATURE)
+
+    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO_STREAMS_TLS}/DIOStreamTLSAIAFetcher.cpp")
+
+  endif()
+
+
   if(DIO_STREAM_FEATURE)
 
     list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_DATAIO}/DIODevice.cpp")   
