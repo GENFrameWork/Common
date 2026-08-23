@@ -1159,7 +1159,6 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_WEBCLIENT_ACTIVE)
 
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
-    option(DIO_STREAMTLS_FEATURE                                  "Data Input/Output Stream TLS"                            ON )
     option(HASH_MD5_FEATURE                                       "Hash MD5"                                                ON )
     option(COMPRESS_GZ_FEATURE                                    "Compres GZ"                                              ON )
     option(COMPRESS_DEFLATE_FEATURE                               "Compress Deflate (raw/zlib) for HTTP Content-Encoding"   ON )
@@ -1209,6 +1208,18 @@ if(DIO_FEATURE)
     option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
     option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        ON )
+
+    # TLS 1.2 (RFC 5246) alongside the TLS 1.3 client, for servers that do not negotiate TLS 1.3.
+    # It needs no dependency of its own: everything it uses (SHA2, HMAC, AES GCM) is already required above.
+    # It can be turned off on a target where only TLS 1.3 is wanted.
+    option(DIO_STREAMTLS12_FEATURE                                "TLS 1.2 (RFC 5246)"                                      ON )
+
+  endif()
+
+
+  if(DIO_STREAMTLS12_FEATURE)
+
+    add_definitions(-DDIO_STREAMTLS12_ACTIVE)
 
   endif()
   
@@ -2007,8 +2018,8 @@ if(COMPRESS_GZ_FEATURE)
 
   add_definitions(-DCOMPRESS_GZ_ACTIVE)
 
-  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
   option(COMPRESS_FEATURE                                         "Compress"                                                ON )
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
 
 endif()
 
@@ -2018,6 +2029,7 @@ if(COMPRESS_DEFLATE_FEATURE)
   add_definitions(-DCOMPRESS_DEFLATE_ACTIVE)
 
   option(COMPRESS_FEATURE                                         "Compress"                                                ON )
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
 
 endif()
 

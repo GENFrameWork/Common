@@ -8,6 +8,8 @@ if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
   message(STATUS "[GEN]-------------------------------------------------------------------------------------------------------------------------------------[GEN]")
   
+  option(GEN_MAIN_INIT "Main Init"  ON)
+  
 endif()
 
 
