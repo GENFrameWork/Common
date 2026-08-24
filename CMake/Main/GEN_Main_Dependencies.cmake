@@ -859,7 +859,8 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_PUBLICINTERNETIP_ACTIVE)  
   
     option(DIO_WEBCLIENT_FEATURE                                  "Web Client"                                              ON )
-    option(DIO_PING_FEATURE                                       "Ping"                                                    ON )    
+    option(DIO_PING_FEATURE                                       "Ping"                                                    ON )   
+    option(DIO_STREAMTLS_FEATURE                                  "Data Input/Output Stream TLS"                            ON )    
     
   endif() 
     
