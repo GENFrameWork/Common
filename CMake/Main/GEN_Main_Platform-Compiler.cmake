@@ -52,8 +52,13 @@
 
 if(NOT GEN_DETECT_PLATFORM_COMPILER)
 
+  if(NOT GEN_MAIN_INIT)
   
-  option(GEN_DETECT_PLATFORM_COMPILER                             "Detect Platform Compiler"                                ON )
+    message(STATUS "[GEN]-------------------------------------------------------------------------------------------------------------------------------------[GEN]")  
+    
+  endif()
+  
+  option(GEN_DETECT_PLATFORM_COMPILER "Detect Platform Compiler" ON )
 
   # --- Cache Compiler ------------------------------------------------
 

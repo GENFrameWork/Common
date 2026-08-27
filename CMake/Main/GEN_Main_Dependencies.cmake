@@ -357,7 +357,7 @@ if(APPFLOW_CFG_REMOTEFILE_FEATURE               OR
   
     add_definitions(-DAPPFLOW_CFG_INTERNETSERVICES_ACTIVE)  
   
-    option(HASH_FEATURE                                           "HASH"                                                    ON )
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(APPFLOW_INTERNETSERVICES_FEATURE                       "Application Flow Internet Services"                      ON )
     option(XFILE_CFG_FEATURE                                      "XFile Config format"                                     ON )
     option(DIO_CHECKCONNECTIONS_FEATURE                           "Check Connections"                                       ON )
@@ -859,7 +859,8 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_PUBLICINTERNETIP_ACTIVE)  
   
     option(DIO_WEBCLIENT_FEATURE                                  "Web Client"                                              ON )
-    option(DIO_PING_FEATURE                                       "Ping"                                                    ON )    
+    option(DIO_PING_FEATURE                                       "Ping"                                                    ON )   
+    option(DIO_STREAMTLS_FEATURE                                  "Data Input/Output Stream TLS"                            ON )    
     
   endif() 
     
@@ -1154,14 +1155,16 @@ if(DIO_FEATURE)
   endif()
 
 
-  if(DIO_WEBCLIENT_FEATURE) 
+  if(DIO_WEBCLIENT_FEATURE)
 
     add_definitions(-DDIO_WEBCLIENT_ACTIVE)
 
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
     option(HASH_MD5_FEATURE                                       "Hash MD5"                                                ON )
-  
-  endif() 
+    option(COMPRESS_GZ_FEATURE                                    "Compres GZ"                                              ON )
+    option(COMPRESS_DEFLATE_FEATURE                               "Compress Deflate (raw/zlib) for HTTP Content-Encoding"   ON )
+
+  endif()
   
   
   if(DIO_WEBSERVER_FEATURE)   
@@ -1169,7 +1172,7 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_WEBSERVER_ACTIVE) 
   
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
-    option(HASH_FEATURE                                           "HASH"                                                    ON )
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )
     option(XPROCESSMANAGER_FEATURE                                "Process Manager"                                         ON )
       
@@ -1192,11 +1195,34 @@ if(DIO_FEATURE)
     add_definitions(-DDIO_STREAMTLS_ACTIVE) 
   
     option(DIO_STREAMTCPIP_FEATURE                                "TCPIP"                                                   ON )
+
+    option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               ON )
+    option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
+    option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
+    option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
+    option(CIPHER_HKDF_FEATURE                                    "Cipher HKDF"                                             ON )
+    option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
+    option(CIPHER_ASYMMETRIC_X25519_FEATURE                       "Cipher Asimetric ECDSA X25519"                           ON )
+    option(XASN1_FEATURE                                          "ASN.1 functions"                                         ON )
+    option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       ON )
+
     option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
     option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        ON )
-  
-  endif() 
+
+    # TLS 1.2 (RFC 5246) alongside the TLS 1.3 client, for servers that do not negotiate TLS 1.3.
+    # It needs no dependency of its own: everything it uses (SHA2, HMAC, AES GCM) is already required above.
+    # It can be turned off on a target where only TLS 1.3 is wanted.
+    option(DIO_STREAMTLS12_FEATURE                                "TLS 1.2 (RFC 5246)"                                      ON )
+
+  endif()
+
+
+  if(DIO_STREAMTLS12_FEATURE)
+
+    add_definitions(-DDIO_STREAMTLS12_ACTIVE)
+
+  endif()
   
   
   if(DIO_COREPROTOCOL_FEATURE)  
@@ -1473,7 +1499,7 @@ if(DIO_FEATURE)
 
       add_definitions(-DDIO_STREAMUDP_ACTIVE)
 
-      option(HASH_FEATURE                                         "HASH"                                                    ON )
+      option(HASH_FEATURE                                         "Hash"                                                    ON )
       option(HASH_CRC32_FEATURE                                   "Hash CRC32"                                              ON )
 
     endif()
@@ -1869,7 +1895,14 @@ if(HASH_FEATURE)
 
     add_definitions(-DHASH_WHIRLPOOL_ACTIVE)
   
-  endif()   
+  endif() 
+  
+  
+  if(HASH_HMAC_FEATURE)
+
+    add_definitions(-DHASH_HMAC_ACTIVE)
+
+  endif()
 
 endif()
 
@@ -1891,6 +1924,13 @@ if(CIPHER_SYMMETRIC_FEATURE)
   
   endif()
 
+  if(CIPHER_SYMMETRIC_AESGCM_FEATURE)
+
+    add_definitions(-DCIPHER_SYMMETRIC_AESGCM_ACTIVE)
+
+    option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
+
+  endif()
 
   if(CIPHER_SYMMETRIC_BLOWFISH_FEATURE)
 
@@ -1900,7 +1940,17 @@ if(CIPHER_SYMMETRIC_FEATURE)
 
 endif()
 
+  
+if(CIPHER_HKDF_FEATURE)
 
+  add_definitions(-DCIPHER_HKDF_ACTIVE)
+
+  option(HASH_FEATURE                                           "Hash"                                                    ON )
+  option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
+
+endif()
+  
+  
 if(CIPHER_ASYMMETRIC_FEATURE)  
  
   add_definitions(-DCIPHER_ASYMMETRIC_ACTIVE)
@@ -1965,11 +2015,22 @@ if(COMPRESS_ZIP_FEATURE)
 endif() 
   
   
-if(COMPRESS_GZ_FEATURE) 
-  
-  add_definitions(-DCOMPRESS_GZ_ACTIVE) 
-  
+if(COMPRESS_GZ_FEATURE)
+
+  add_definitions(-DCOMPRESS_GZ_ACTIVE)
+
   option(COMPRESS_FEATURE                                         "Compress"                                                ON )
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
+
+endif()
+
+
+if(COMPRESS_DEFLATE_FEATURE)
+
+  add_definitions(-DCOMPRESS_DEFLATE_ACTIVE)
+
+  option(COMPRESS_FEATURE                                         "Compress"                                                ON )
+  option(THIRDPARTYLIBRARIES_ZLIB_FEATURE                         "ZLib Compression Library"                                ON )
 
 endif()
 

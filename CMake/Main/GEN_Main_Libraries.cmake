@@ -28,6 +28,7 @@ if(COMPILE_FOR_WINDOWS)
   endif()
 
   list(APPEND GEN_SO_THIRDPARTY_LIBRARYS wlanapi)
+  list(APPEND GEN_SO_THIRDPARTY_LIBRARYS bcrypt)
 
   if(XTRACE_FEATURE OR DIO_FEATURE)    
 
@@ -294,4 +295,3 @@ string(REPLACE ";" ", " _GEN_SO_THIRDPARTY_LIBRARYS "${GEN_SO_THIRDPARTY_LIBRARY
 
 message(STATUS "[ GEN ThirdParty libraries in source : ${_GEN_THIRDPARTY_LIBRARYS} ]")    
 message(STATUS "[ GEN ThirdParty libraries in binary : ${_GEN_SO_THIRDPARTY_LIBRARYS} ]")
-

@@ -24,6 +24,9 @@ message(STATUS "[GEN]-----------------------------------------------------------
 unset(DEBUG_CTRL_FEATURE CACHE)
 unset(MEMORY_CONTROL_FEATURE CACHE)
 
-option(GEN_DETECT_PLATFORM_COMPILER                           "Detect platform compiler"                                  OFF )
+option(GEN_MAIN_INIT "Main Init"  OFF )
+unset(GEN_MAIN_INIT CACHE)
+
+option(GEN_DETECT_PLATFORM_COMPILER  "Detect platform compiler"  OFF )
 unset(GEN_DETECT_PLATFORM_COMPILER CACHE)
  
