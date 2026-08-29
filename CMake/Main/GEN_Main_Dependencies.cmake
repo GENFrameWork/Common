@@ -1200,8 +1200,11 @@ if(DIO_FEATURE)
     option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
     option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
     option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
+    option(CIPHER_SYMMETRIC_CHACHA20POLY1305_FEATURE              "Cipher Symetric ChaCha20-Poly1305"                       ON )
     option(CIPHER_HKDF_FEATURE                                    "Cipher HKDF"                                             ON )
     option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
+    option(CIPHER_ASYMMETRIC_ED25519_FEATURE                      "Cipher Asimetric Ed25519"                                ON )
+    option(CIPHER_ASYMMETRIC_MLKEM768_FEATURE                     "Cipher Asimetric ML-KEM-768"                             ON )
     option(CIPHER_ASYMMETRIC_X25519_FEATURE                       "Cipher Asimetric ECDSA X25519"                           ON )
     option(XASN1_FEATURE                                          "ASN.1 functions"                                         ON )
     option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       ON )
@@ -1932,6 +1935,12 @@ if(CIPHER_SYMMETRIC_FEATURE)
 
   endif()
 
+  if(CIPHER_SYMMETRIC_CHACHA20POLY1305_FEATURE)
+
+    add_definitions(-DCIPHER_SYMMETRIC_CHACHA20POLY1305_ACTIVE)
+
+  endif()
+
   if(CIPHER_SYMMETRIC_BLOWFISH_FEATURE)
 
     add_definitions(-DCIPHER_SYMMETRIC_BLOWFISH_ACTIVE)
@@ -1972,6 +1981,19 @@ if(CIPHER_ASYMMETRIC_FEATURE)
       option(XASN1_FEATURE                                        "ANS.1 functions"                                         ON )
 	
     endif()
+
+  endif()
+
+  if(CIPHER_ASYMMETRIC_ED25519_FEATURE)
+
+    add_definitions(-DCIPHER_ASYMMETRIC_ED25519_ACTIVE)
+    option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               ON )
+
+  endif()
+
+  if(CIPHER_ASYMMETRIC_MLKEM768_FEATURE)
+
+    add_definitions(-DCIPHER_ASYMMETRIC_MLKEM768_ACTIVE)
 
   endif()
 
