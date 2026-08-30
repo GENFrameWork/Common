@@ -1201,6 +1201,7 @@ if(DIO_FEATURE)
     option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
     option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
     option(CIPHER_SYMMETRIC_CHACHA20POLY1305_FEATURE              "Cipher Symetric ChaCha20-Poly1305"                       ON )
+    option(CIPHER_SYMMETRIC_DES_FEATURE                           "Cipher Symetric DES/3DES (PKCS#12 legacy)"                ON )
     option(CIPHER_HKDF_FEATURE                                    "Cipher HKDF"                                             ON )
     option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
     option(CIPHER_ASYMMETRIC_ED25519_FEATURE                      "Cipher Asimetric Ed25519"                                ON )
@@ -1967,6 +1968,13 @@ if(CIPHER_ASYMMETRIC_FEATURE)
   if(CIPHER_ASYMMETRIC_RSA_FEATURE)
 
     add_definitions(-DCIPHER_ASYMMETRIC_RSA_ACTIVE)
+
+    # CipherPEMCodec and CipherCertificateX509 are part of the RSA module and
+    # use SHA-1 for PKCS#12/PFX compatibility and legacy X.509 signatures.
+    # Declare the dependency here so applications do not have to enable it
+    # explicitly and HashSHA1.cpp is always added to the source list.
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
+    option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )
  
     if(CIPHER_ASYMMETRIC_FILEKEY_GFK)
   

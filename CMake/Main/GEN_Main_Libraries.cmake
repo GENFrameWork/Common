@@ -132,6 +132,14 @@ if(COMPILE_FOR_WINDOWS)
 
 endif()
 
+# The Windows X.509 trust provider uses CryptoAPI. WIN32 is the canonical CMake
+# platform predicate and also covers project configurations that do not export
+# the legacy COMPILE_FOR_WINDOWS variable into this include scope.
+if(WIN32)
+  list(APPEND GEN_SO_THIRDPARTY_LIBRARYS crypt32)
+  list(APPEND GEN_SO_THIRDPARTY_LIBRARYS normaliz)
+endif()
+
 
 # --------------------------------------------------------------------
 # Linux
