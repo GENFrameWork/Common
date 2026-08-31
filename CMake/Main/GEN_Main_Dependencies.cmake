@@ -1190,7 +1190,12 @@ if(DIO_FEATURE)
   endif() 
   
   
-  if(DIO_STREAMTLS_FEATURE) 
+  # TLS 1.2 is an independent client compatibility feature.  Declare it
+  # before the TLS dependency block so it can also be enabled when the TLS
+  # 1.3 transport is disabled.
+  option(DIO_STREAMTLS12_FEATURE                                "TLS 1.2 (RFC 5246)"                                      ON )
+
+  if(DIO_STREAMTLS_FEATURE OR DIO_STREAMTLS12_FEATURE) 
   
     add_definitions(-DDIO_STREAMTLS_ACTIVE) 
   
@@ -1200,8 +1205,12 @@ if(DIO_FEATURE)
     option(HASH_HMAC_FEATURE                                      "Hash HMAC"                                               ON )
     option(CIPHER_SYMMETRIC_AES_FEATURE                           "Cipher Symetric AES"                                     ON )
     option(CIPHER_SYMMETRIC_AESGCM_FEATURE                        "Cipher Symetric AES GCM"                                 ON )
+    option(CIPHER_SYMMETRIC_CHACHA20POLY1305_FEATURE              "Cipher Symetric ChaCha20-Poly1305"                       ON )
+    option(CIPHER_SYMMETRIC_DES_FEATURE                           "Cipher Symetric DES/3DES (PKCS#12 legacy)"                ON )
     option(CIPHER_HKDF_FEATURE                                    "Cipher HKDF"                                             ON )
     option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
+    option(CIPHER_ASYMMETRIC_ED25519_FEATURE                      "Cipher Asimetric Ed25519"                                ON )
+    option(CIPHER_ASYMMETRIC_MLKEM768_FEATURE                     "Cipher Asimetric ML-KEM-768"                             ON )
     option(CIPHER_ASYMMETRIC_X25519_FEATURE                       "Cipher Asimetric ECDSA X25519"                           ON )
     option(XASN1_FEATURE                                          "ASN.1 functions"                                         ON )
     option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       ON )
@@ -1209,11 +1218,6 @@ if(DIO_FEATURE)
     option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(CIPHER_SYMMETRIC_FEATURE                               "Cipher Symetric"                                         ON )
     option(CIPHER_ASYMMETRIC_FEATURE                              "Cipher Asymetric"                                        ON )
-
-    # TLS 1.2 (RFC 5246) alongside the TLS 1.3 client, for servers that do not negotiate TLS 1.3.
-    # It needs no dependency of its own: everything it uses (SHA2, HMAC, AES GCM) is already required above.
-    # It can be turned off on a target where only TLS 1.3 is wanted.
-    option(DIO_STREAMTLS12_FEATURE                                "TLS 1.2 (RFC 5246)"                                      ON )
 
   endif()
 
@@ -1932,6 +1936,12 @@ if(CIPHER_SYMMETRIC_FEATURE)
 
   endif()
 
+  if(CIPHER_SYMMETRIC_CHACHA20POLY1305_FEATURE)
+
+    add_definitions(-DCIPHER_SYMMETRIC_CHACHA20POLY1305_ACTIVE)
+
+  endif()
+
   if(CIPHER_SYMMETRIC_BLOWFISH_FEATURE)
 
     add_definitions(-DCIPHER_SYMMETRIC_BLOWFISH_ACTIVE)
@@ -1969,9 +1979,20 @@ if(CIPHER_ASYMMETRIC_FEATURE)
   
       add_definitions(-DCIPHER_ASYMMETRIC_FILEKEY_PEM_ACTIVE)
 
-      option(XASN1_FEATURE                                        "ANS.1 functions"                                         ON )
-	
-    endif()
+  	endif()
+
+  endif()
+
+  if(CIPHER_ASYMMETRIC_ED25519_FEATURE)
+
+    add_definitions(-DCIPHER_ASYMMETRIC_ED25519_ACTIVE)
+    option(HASH_SHA2_FEATURE                                      "Hash SHA2"                                               ON )
+
+  endif()
+
+  if(CIPHER_ASYMMETRIC_MLKEM768_FEATURE)
+
+    add_definitions(-DCIPHER_ASYMMETRIC_MLKEM768_ACTIVE)
 
   endif()
 
@@ -1979,6 +2000,18 @@ if(CIPHER_ASYMMETRIC_FEATURE)
 
     add_definitions(-DCIPHER_ASYMMETRIC_X25519_ACTIVE)
   
+  endif()
+
+  # X.509, PEM/PKCS and credential loading are PKI facilities, not RSA
+  # facilities.  Their common dependencies must therefore remain available
+  # when RSA is disabled but another asymmetric provider is selected.
+  if(CIPHER_ASYMMETRIC_ED25519_FEATURE OR CIPHER_ASYMMETRIC_MLKEM768_FEATURE OR
+     CIPHER_ASYMMETRIC_X25519_FEATURE OR CIPHER_ASYMMETRIC_RSA_FEATURE)
+
+    option(HASH_FEATURE                                           "Hash"                                                    ON )
+    option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )
+    option(XASN1_FEATURE                                          "ANS.1 functions"                                         ON )
+
   endif()
 
 endif()
