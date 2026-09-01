@@ -1211,6 +1211,7 @@ if(DIO_FEATURE)
     option(CIPHER_ASYMMETRIC_RSA_FEATURE                          "Cipher Asimetric RSA"                                    ON )
     option(CIPHER_ASYMMETRIC_ED25519_FEATURE                      "Cipher Asimetric Ed25519"                                ON )
     option(CIPHER_ASYMMETRIC_MLKEM768_FEATURE                     "Cipher Asimetric ML-KEM-768"                             ON )
+    option(CIPHER_ASYMMETRIC_MLKEM1024_FEATURE                    "Cipher Asimetric ML-KEM-1024"                            ON )
     option(CIPHER_ASYMMETRIC_X25519_FEATURE                       "Cipher Asimetric ECDSA X25519"                           ON )
     option(XASN1_FEATURE                                          "ASN.1 functions"                                         ON )
     option(XFILE_TXT_FEATURE                                      "XFile Text format"                                       ON )
@@ -1996,6 +1997,12 @@ if(CIPHER_ASYMMETRIC_FEATURE)
 
   endif()
 
+  if(CIPHER_ASYMMETRIC_MLKEM1024_FEATURE)
+
+    add_definitions(-DCIPHER_ASYMMETRIC_MLKEM1024_ACTIVE)
+
+  endif()
+
   if(CIPHER_ASYMMETRIC_X25519_FEATURE)
 
     add_definitions(-DCIPHER_ASYMMETRIC_X25519_ACTIVE)
@@ -2006,7 +2013,7 @@ if(CIPHER_ASYMMETRIC_FEATURE)
   # facilities.  Their common dependencies must therefore remain available
   # when RSA is disabled but another asymmetric provider is selected.
   if(CIPHER_ASYMMETRIC_ED25519_FEATURE OR CIPHER_ASYMMETRIC_MLKEM768_FEATURE OR
-     CIPHER_ASYMMETRIC_X25519_FEATURE OR CIPHER_ASYMMETRIC_RSA_FEATURE)
+     CIPHER_ASYMMETRIC_MLKEM1024_FEATURE OR CIPHER_ASYMMETRIC_X25519_FEATURE OR CIPHER_ASYMMETRIC_RSA_FEATURE)
 
     option(HASH_FEATURE                                           "Hash"                                                    ON )
     option(HASH_SHA1_FEATURE                                      "Hash SHA1"                                               ON )
