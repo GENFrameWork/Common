@@ -1969,12 +1969,6 @@ if(CIPHER_ASYMMETRIC_FEATURE)
   if(CIPHER_ASYMMETRIC_RSA_FEATURE)
 
     add_definitions(-DCIPHER_ASYMMETRIC_RSA_ACTIVE)
- 
-    if(CIPHER_ASYMMETRIC_FILEKEY_GFK)
-  
-      add_definitions(-DCIPHER_ASYMMETRIC_FILEKEY_GFK_ACTIVE)
-	
-    endif()
 
     if(CIPHER_ASYMMETRIC_FILEKEY_PEM)
   
@@ -2086,9 +2080,6 @@ endif()
 # ThirdPartyLibraries
 
 
-if(GOOGLETEST_FEATURE)
-
-  add_definitions(-DGOOGLETEST_ACTIVE)  
 if(GRP_2D_FEATURE)
 
   option(THIRDPARTYLIBRARIES_AGG_FEATURE                          "AGG Anti-Grain Geometry Graphics 2D library"             ON )
@@ -2120,14 +2111,6 @@ endif()
 
 if(SCRIPT_JAVASCRIPT_FEATURE)
 
-endif()
-
-
-if(GOOGLETEST_EXECFORDISCOVER_FEATURE)
-
-  add_definitions(-DGOOGLETEST_EXECFORDISCOVER_ACTIVE)  
-
-endif()
   option(THIRDPARTYLIBRARIES_DUKETAPE_FEATURE                     "DukeTape JavaScript Library"                             ON )
 
 endif()
