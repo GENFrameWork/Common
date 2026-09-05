@@ -535,13 +535,8 @@ def main(argv: list[str] | None = None) -> int:
                                 return cancellation_exit_code()
                             if not entry.supports_target(platform_name):
                                 skip_line = build_stage_prefix(platform_name, mode_name, f'Skip {stage}', entry.name) + '[Unsupported target]'
+                                print(skip_line)
                                 write_log_line(outfile, skip_line)
-                                if stage != 'TEST':
-                                    # In the TEST stage, only applications that
-                                    # actually run a test should be printed;
-                                    # skipped apps still get logged to outfile
-                                    # but stay out of the console.
-                                    print(skip_line)
                                 continue
                             returncode, warning_count = run_compile_stage(stage, platform_name, mode_name, entry, so_path, settings, outfile, common_root, platform_environment)
                             if stage == 'COMPILE' and warning_count > 0:
