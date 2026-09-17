@@ -179,34 +179,7 @@ if(APPFLOW_FEATURE)
    option(APPFLOW_CFG_LOG_FEATURE                               "Application Flow CFG LOG"                                ON ) 
    
   endif()
-
-
-  if(APPFLOW_GRAPHICS_FEATURE) 
-
-    add_definitions(-DAPPFLOW_GRAPHICS_ACTIVE)
-
-    option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
-    option(GRP_FEATURE                                          "Graphics"                                                ON )
-    option(GRP_2D_FEATURE                                       "Graphics 2D"                                             ON )
-    option(APPFLOW_CONSOLE_FEATURE                              "Application Flow Console"                                ON ) 
-  
-  endif()
-
- 
-  if(APPFLOW_GRAPHICS_NOTCONSOLE_FEATURE)
-
-    add_definitions(-DAPPFLOW_GRAPHICS_NOTCONSOLE_ACTIVE)
-
-  endif()
-
-
-  if(APPFLOW_CONSOLE_FEATURE)
-    
-    add_definitions(-DAPPFLOW_CONSOLE_ACTIVE) 
-    option(XCONSOLE_FEATURE                                     "Console functions"                                       ON )
-  
-  endif()
-               
+              
   
   if(APPFLOW_CHECKRESOURCESHARDWARE_FEATURE)
 
@@ -257,6 +230,33 @@ if(APPFLOW_FEATURE)
 
     add_definitions(-DAPPFLOW_ALERTS_ACTIVE)
 
+  endif()
+  
+  
+  if(APPFLOW_GRAPHICS_FEATURE) 
+
+    add_definitions(-DAPPFLOW_GRAPHICS_ACTIVE)
+
+    option(XFSMACHINE_FEATURE                                   "XFSMachine"                                              ON )
+    option(GRP_FEATURE                                          "Graphics"                                                ON )
+    option(GRP_2D_FEATURE                                       "Graphics 2D"                                             ON )
+    option(APPFLOW_CONSOLE_FEATURE                              "Application Flow Console"                                ON ) 
+  
+  endif()
+
+ 
+  if(APPFLOW_GRAPHICS_NOTCONSOLE_FEATURE)
+
+    add_definitions(-DAPPFLOW_GRAPHICS_NOTCONSOLE_ACTIVE)
+
+  endif()
+
+
+  if(APPFLOW_CONSOLE_FEATURE)
+    
+    add_definitions(-DAPPFLOW_CONSOLE_ACTIVE) 
+    option(XCONSOLE_FEATURE                                     "Console functions"                                       ON )
+  
   endif()
 
 
