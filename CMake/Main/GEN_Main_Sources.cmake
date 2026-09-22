@@ -170,12 +170,6 @@ if(USERINTERFACE_FEATURE)
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_USERINTERFACE_PROPERTYS}/UI_Property_Editable.cpp")  
   list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_USERINTERFACE_PROPERTYS}/UI_Property_Scrolleable.cpp")
 
-  # Phase 0: CSS subsystem unit tests (UI_CSSParser / UI_StyleSheet / UI_Style). Compiled only when GoogleTest
-  # itself is compiled in, so a build without GOOGLETEST_FEATURE is unaffected.
-  if(GOOGLETEST_FEATURE)
-    list(APPEND GEN_SOURCES_MODULES_LIST "${GEN_DIRECTORY_SOURCES_USERINTERFACE_TESTS}/UI_CSS_UnitTests.cpp")
-  endif()
-
 endif()
 
 
